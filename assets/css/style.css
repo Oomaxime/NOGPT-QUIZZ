@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #010101;
+    background-image: url('../img/bg.png');
+    color: white;
+    font-family: 'Bebas Neue', serif;
+    font-size: 24px;
+}
+
+header{
+    height: 62px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid white;
+}
+
+.flexcenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo{
+    height: 128px;
+    margin-left: 5%;
+}
+
+h1{
+    font-size: 48px;
+}
+
+h2{
+    font-size: 32px;
+}
+
+h3{
+    font-size: 24px;
+}
+
+.modal{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 1;
+    background-image: url("../img/texturepopup.png");
+    backdrop-filter: blur(4px);
+}
+
+#login{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 22px;
+    background-color: rgba(255, 255, 255, 0.05);
+    height: fit-content;
+    width: 50vw;
+    max-width: 526px;
+    padding-bottom: 50px;
+    font-family: Bokor, serif;
+
+}
+
+#login form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 90%;
+    margin: 20px auto auto;
+
+}
+
+#login label{
+    display: block;
+    font-size: 24px;
+}
+
+#login input{
+    background: none;
+    width: 100%;
+    height: 46px;
+    font-size: 24px;
+    font-family: Coolvetica, serif;
+    color: white;
+    border: 1px solid white;
+    border-radius: 22px;
+    padding: 0 15px;
+    margin: 6px 0 30px 0;
+}
+
+#login button{
+    font-family: Bokor, serif;
+    color: white;
+    font-size: 40px;
+    margin-top: 30px;
+    background: none;
+    border: none;
+}
+#login button:hover{
+    color: yellow;
+}
