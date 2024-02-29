@@ -26,7 +26,7 @@ for (const question in data){
 }
 
 // Fonction creation d'une question de type coche prenant en parametre son intitule et son contenu (le contenu des reponses et leur nombre)
-// Elle creera une div dediee qui sera ensuite mis dans le coeur de l'html
+// Elle créera une div dediée qui sera ensuite mis dans le coeur de l'html
 function coche_creation(what_about ,content) {
     let questions = 
     `
