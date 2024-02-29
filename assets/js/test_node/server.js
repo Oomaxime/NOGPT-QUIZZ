@@ -59,5 +59,34 @@ app.get('/users', async (req, res) => {
     });
 
 
+    // setDoc permet de creer ou d'eccraser un seul document
+    // import { doc, setDoc } from "firebase/firestore"; 
+
+    // // Add a new document in collection "cities"
+    // await setDoc(doc(db, "cities", "LA"), {
+    // name: "Los Angeles",
+    // state: "CA",
+    // country: "USA"
+    // });
+    // 
+    // 
+
+    // permet de mettre a jour les infos d'un doc
+    // import { doc, updateDoc } from "firebase/firestore";
+
+    // const washingtonRef = doc(db, "cities", "DC");
+
+    // // Set the "capital" field of the city 'DC'
+    // await updateDoc(washingtonRef, {
+    // capital: true
+    // });
 
 
+
+
+    // to do :
+    //     - finir la manipulation de la bdd en verifiant le fonctionnement de l'ajout et de la modification de donnees
+    //     - tester la creation de pages personnaliser
+    //     - appliquer les processus dans la vrai page
+    // temps : 30min / 1h / 3h => (4h environ)
+    // amelioration et temps supplementaire : 6h 
