@@ -40,6 +40,9 @@ h1{
 h2{
     font-size: 32px;
 }
+h3{
+    font-size: 26px;
+}
 
 .modal{
     display: none;
@@ -115,7 +118,7 @@ main{
     align-items: center;
 }
 
-#quizz_title{
+#quiz_title{
     margin: 80px auto;
     letter-spacing: 2px;
 }
@@ -149,17 +152,56 @@ main{
     align-items: flex-end;
 }
 
-#texted_answer_section form button{
+.answer_sending_button{
     border: 1px solid white;
     border-radius: 24px;
     background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
     color: white;
     font-family: 'Bebas Neue', serif;
     font-size: 24px;
     padding: 6px 30px;
     margin-top: 20px;
+
 }
 
-#texted_answer_section form button:hover{
+.answer_sending_button:hover{
     border: 1px solid var(--gold);
+
+}
+.answer_sending_button:active{
+    outline: 1px solid var(--gold);
+
+}
+.qcm_section{
+    flex-direction: column;
+}
+
+.qcm_answer_list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+}
+
+.qcm_answer{
+    border: 1px solid white;
+    border-radius: 22px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    color: white;
+    font-family: Coolvetica, sans-serif;
+    font-size: 18px;
+    padding: 4px 12px 6px 12px;
+    margin: 40px 0;
+
+}
+
+.qcm_answer:hover{
+    border: 1px solid var(--gold);
+}
+
+.qcm_answer:active{
+    outline: 1px solid var(--gold);
 }
