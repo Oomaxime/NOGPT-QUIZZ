@@ -29,6 +29,9 @@ app.use(cors());
 app.use(express.json());
 
 
+// Manipulation de json
+import { createJsonFile, read_File } from './json_manipulation.js';
+
 
 // Vos routes et logique de gestion des requêtes ici...
 
@@ -118,36 +121,32 @@ app.get('/users', async (req, res) => {
     });
 
 
+    const data = {
+        nom : "Joe",
+        prenom : "Fi",
+        stats_triche : {
+            touches_sus : {
+                crtl : 0,
+                alt : 0,
+                tab : 0,
+                cmd : 0,
+                opt : 0,
+                funct : 0
+            },
+            windows : {
+                fullscreen : false,
+                exit : false,
+                cursor : false
+            }
+        },
+        stats : {
+            question_1 : ["coche_1"]
+        }
+    }
 
+    createJsonFile("tet.json", data)
 
-    // setDoc permet de creer ou d'eccraser un seul document
-    // import { doc, setDoc } from "firebase/firestore"; 
+    const json_file = await read_File("tet.json")
+    console.log(json_file)
+    console.log(json_file.stats_triche.touches_sus.crtl)
 
-    // // Add a new document in collection "cities"
-    // await setDoc(doc(db, "cities", "LA"), {
-    // name: "Los Angeles",
-    // state: "CA",
-    // country: "USA"
-    // });
-    // 
-    // 
-
-    // permet de mettre a jour les infos d'un doc
-    // import { doc, updateDoc } from "firebase/firestore";
-
-    // const washingtonRef = doc(db, "cities", "DC");
-
-    // // Set the "capital" field of the city 'DC'
-    // await updateDoc(washingtonRef, {
-    // capital: true
-    // });
-
-
-
-
-    // to do :
-    //     - finir la manipulation de la bdd en verifiant le fonctionnement de l'ajout et de la modification de donnees
-    //     - tester la creation de pages personnaliser
-    //     - appliquer les processus dans la vrai page
-    // temps : 30min / 1h / 3h => (4h environ)
-    // amelioration et temps supplementaire : 6h 
