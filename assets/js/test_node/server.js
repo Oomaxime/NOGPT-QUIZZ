@@ -144,7 +144,28 @@ app.get('/users', async (req, res) => {
         }
     }
 
+    const qizz_test = {
+        question_1 : {
+            type : "coche",
+            title : "Que font 3 + 3 ?",
+            content :{    
+                coche_1 : {
+                    text : "4",
+                    is_true : false
+                },
+                coche_2 : {
+                    text : "5",
+                    is_true : false
+                },
+                coche_3 : {
+                    text : "6",
+                    is_true : true
+                }},
+        }
+    }
+
     createJsonFile("tet.json", data)
+    createJsonFile("data.json", qizz_test)
 
     const json_file = await read_File("tet.json")
     console.log(json_file)
