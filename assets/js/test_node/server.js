@@ -1,23 +1,31 @@
+// server.mjs (ou utilisez "type": "module" dans package.json)
+
 import express from 'express';
 import cors from 'cors';
+import { get_data_database, add_data_database } from './manipulation_database.js';
 import { firebase } from './database.js';
+
+// Importation des modules Firestore spécifiques
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 const app = express();
 const port = 3000;
+const path = 'path'
 
+// Initialisation de Firestore
+const db = getFirestore(firebase);
 
-import { collection, getDoc, getDocs, getFirestore, onSnapshot } from 'firebase/firestore'
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join('', 'public')))
 
-// initialisation firestore
-const db = getFirestore(firebase)
+// Vos routes et logique de gestion des requêtes ici...
 
-app.use(cors())
-app.use(express.json())
 
 
 
 app.get('/', (req, res) => {
-    res.send('QIIIIIIIIIIIIZZZZZZZZZZZ :)');
+    res.sendFile(express.join('', 'public', 'index.html'))
 });
 
 app.get('/id', (req, res) => {
@@ -29,27 +37,35 @@ app.listen(port, () => {
 });
 
 app.get('/users', async (req, res) => {
-    const professeurs = collection(db, 'professeurs');
-    const eleves = collection(db, 'eleves');
+    const intervenants = collection(db, 'intervenants');
+    const etudiants = collection(db, 'etudiants');
+    const qizz = collection(db, 'qizz')
 
-    let professeurs_values = [];
-    let eleves_values = [];
 
     // Attente des deux promesses
-    Promise.all([getDocs(professeurs), getDocs(eleves)])
-        .then(([professeursSnapshot, elevesSnapshot]) => {
-            // Récupération des valeurs des professeurs
-            professeursSnapshot.docs.forEach((doc) => {
-                professeurs_values.push({ ...doc.data(), id: doc.id });
-            });
+    Promise.all([getDocs(intervenants), getDocs(etudiants), getDocs(qizz)])
+        .then(([intervenantsSnapshot, etudiantsSnapshot, qizzSnapshot]) => {
+            const intervenants_data = get_data_database(intervenantsSnapshot)
 
-            // Récupération des valeurs des élèves
-            elevesSnapshot.docs.forEach((doc) => {
-                eleves_values.push({ ...doc.data(), id: doc.id });
-            });
+            const etudiants_data = get_data_database(etudiantsSnapshot)
+
+            const qizzSnapshot_data = get_data_database(qizzSnapshot)
+
+            
+            const values = {
+                where : "intervenants",
+                nom : "koi",
+                prenom : "feur"
+            }
+
+            // test_node-app-1  | Une erreur s'est produite lors de l'ajout de données :  ReferenceError: where is not defined
+            // test_node-app-1  |     at add_data_database (file:///app/manipulation_database.js:89:36)
+            // test_node-app-1  |     at file:///app/server.js:69:13
+
+            add_data_database(db, values)
 
             // Envoi des valeurs une fois que les deux collections ont été récupérées
-            res.send([professeurs_values, eleves_values]);
+            res.send([intervenants_data, etudiants_data, qizzSnapshot_data]);
         })
         .catch((error) => {
             // Gestion des erreurs ici
@@ -57,6 +73,8 @@ app.get('/users', async (req, res) => {
             res.status(500).send('Erreur lors de la récupération des données');
         });
     });
+
+
 
 
     // setDoc permet de creer ou d'eccraser un seul document
