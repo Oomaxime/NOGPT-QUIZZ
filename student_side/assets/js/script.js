@@ -3,13 +3,22 @@ const modal = document.querySelector('.modal');
 const login = document.querySelector('#login');
 const log_button = document.querySelector('#log_button');
 const rules = document.querySelector('#rules');
-log_button.addEventListener('click', () => {
-    login.style.display = 'none';
-    rules.style.display = 'flex';
 
-})
+/** LOGIN VALIDATION **/
+log_button.addEventListener('click', function(e) {
+    const name = document.getElementById('name_input').value;
+   const firstname = document.getElementById('firstname_input').value;
 
-let test_statuts = 'OFF'
+    if (name.trim() === '' || firstname.trim() === '') {
+        alert('Veuillez remplir tous les champs.');
+        e.preventDefault();
+    } else {
+        /*methode poste pour récupérer les donné nom/prénom*/
+        login.style.display = 'none';
+        rules.style.display = 'flex';
+    }
+});
+
 /**** Toogle full screen when agree rules ****/
 const contract_button = document.querySelector('#rules_button');
 contract_button.addEventListener('click', () => {
@@ -18,8 +27,6 @@ contract_button.addEventListener('click', () => {
     });
     rules.style.display = 'none';
     modal.style.display = 'none';
-    test_statuts = 'ON'
-    console.log(test_statuts)
 });
 
 /****** RULES CHECKER ******/

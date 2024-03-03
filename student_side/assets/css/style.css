@@ -87,7 +87,6 @@ h3{
     align-items: start;
     width: 90%;
     margin: 20px auto auto;
-
 }
 
 #login label{
@@ -109,10 +108,11 @@ h3{
 }
 
 #login button{
+    position: relative;
     font-family: Bokor, serif;
     color: white;
     font-size: 40px;
-    margin-top: 30px;
+    margin: 30px auto 0 auto;
     background: none;
     border: none;
 }
@@ -229,7 +229,7 @@ main{
 }
 .qcm_section{
     flex-direction: column;
-    display: none;
+
 }
 
 .qcm_answer_list{
