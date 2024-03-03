@@ -9,14 +9,17 @@
 }
 
 body{
-    background-color: #010101;
-    background-image: url('../img/bg_texture.jpg');
+    background-color: #1e1e1e;
+    background-image: url('../img/bg_.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
     color: white;
     font-family: 'Bebas Neue', serif;
     font-size: 24px;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
 }
 
 header{

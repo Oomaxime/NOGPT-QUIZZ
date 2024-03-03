@@ -3,7 +3,7 @@ const modal = document.querySelector('.modal');
 const login = document.querySelector('#login');
 const log_button = document.querySelector('#log_button');
 const rules = document.querySelector('#rules');
-log_button.addEventListener('click', (e) => {
+log_button.addEventListener('click', () => {
     login.style.display = 'none';
     rules.style.display = 'flex';
 
@@ -12,7 +12,7 @@ log_button.addEventListener('click', (e) => {
 let test_statuts = 'OFF'
 /**** Toogle full screen when agree rules ****/
 const contract_button = document.querySelector('#rules_button');
-contract_button.addEventListener('click', (e) => {
+contract_button.addEventListener('click', () => {
     document.documentElement.requestFullscreen().catch((e) => {
         console.log(e);
     });
@@ -23,21 +23,55 @@ contract_button.addEventListener('click', (e) => {
 });
 
 /****** RULES CHECKER ******/
+
+/*document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+}, false);*/
+
+document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState==='hidden'){
+        document.title = 'QIZZ'
+        /* Récuperer l'info pour le prof et mettre 0 a la fin*/
+    }
+})
 function getFullscreenElement() {
     return !!document.fullscreenElement
+        || !!document.webkitFullscreenElement
+        || !!document.mozFullscreenElement
+        || !!document.msFullscreenElement
 }
 
 setInterval(()=>{if(test_statuts === 'ON'){
     if(getFullscreenElement()=== false){
     /*Récuperer l'info pour mettre 0 a la fin*/
+        console.log("mode plein écran désactivez")
     }
 }}, 1000)
 
 
 
 document.addEventListener("keydown", (e) => {
-    console.log(e.key)
-})
+    if (e.key === 'Enter'
+        || e.key === 'Shift'
+        || e.key === 'Control'
+        || e.key === 'Alt'
+        || e.key === 'Meta'
+        || e.key === 'F1'
+        || e.key === 'F2'
+        || e.key === 'F3'
+        || e.key === 'F4'
+        || e.key === 'F5'
+        || e.key === 'F6'
+        || e.key === 'F7'
+        || e.key === 'F8'
+        || e.key === 'F9'
+        || e.key === 'F10'
+        || e.key === 'F11'
+        || e.key === 'F12'){
+        /* log la touche et mettre 0 a la fin*/
+        console.log('mauvaise touche'+ e.key);
+    }
+});
 
 /******* OUTILS DE SÉLECTION DE RÉPONSE QCM ********/
 
