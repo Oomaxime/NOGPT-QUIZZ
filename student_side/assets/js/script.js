@@ -24,16 +24,20 @@ contract_button.addEventListener('click', (e) => {
 
 /****** RULES CHECKER ******/
 function getFullscreenElement() {
-    return document.fullscreenElement
+    return !!document.fullscreenElement
 }
 
-if(test_statuts === 'ON'){
-    console.log(getFullscreenElement())
-}
+setInterval(()=>{if(test_statuts === 'ON'){
+    if(getFullscreenElement()=== false){
+    /*Récuperer l'info pour mettre 0 a la fin*/
+    }
+}}, 1000)
 
-/*document.addEventListener("keydown", (e) => {
+
+
+document.addEventListener("keydown", (e) => {
     console.log(e.key)
-})*/
+})
 
 /******* OUTILS DE SÉLECTION DE RÉPONSE QCM ********/
 
