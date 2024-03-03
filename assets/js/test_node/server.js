@@ -5,35 +5,64 @@ import cors from 'cors';
 import { get_data_database, add_data_database } from './manipulation_database.js';
 import { firebase } from './database.js';
 
-// Importation des modules Firestore spécifiques
+// Importation pour HTLM
+import http from 'http';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+
+// Importation des modules Firestore
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 const app = express();
-const port = 3000;
-const path = 'path'
+const port = 8080;
+const port_express = 3000;
+
 
 // Initialisation de Firestore
 const db = getFirestore(firebase);
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join('', 'public')))
+
+
 
 // Vos routes et logique de gestion des requêtes ici...
 
+const server = http.createServer((req, res) => {
+    const filePath = path.join(__dirname, 'index.html');
+
+    fs.readFile(filePath, (err, content) => {
+        if (err) {
+            res.writeHead(500);
+            res.end('erreur : ${err}')
+            return;
+        }
+
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(content, 'utf-8');
+    });
+});
 
 
 
-app.get('/', (req, res) => {
-    res.sendFile(express.join('', 'public', 'index.html'))
+server.listen(port, () => {
+    console.log(`Serveur en écoute sur le port ${port}`);
+});
+
+app.listen(port_express, () => {
+    console.log(`Serveur Express en cours d'exécution sur le port : ${port_express}`);
 });
 
 app.get('/id', (req, res) => {
     res.send('ca va etre les id des eleves lors du test ;)');
 });
 
-app.listen(port, () => {
-    console.log(`Serveur Express en cours d'exécution sur le port : ${port}`);
+app.get('/id', (req, res) => {
+    res.send('ca va etre les id des eleves lors du test ;)');
 });
 
 app.get('/users', async (req, res) => {
@@ -58,11 +87,25 @@ app.get('/users', async (req, res) => {
                 prenom : "feur"
             }
 
+            const values_qizz = {
+                where : "qizz",
+                nom : "test",
+                data : {},
+                creator_id : "ta_race"
+            }
+
+            // format pour values :
+            // {where:"intervenants",nom:"nom",prenom:"prenom"}
+            // {where:"qizz", nom:"nom", data:{data}, creator_id:"id"}
+            
+
+
             // test_node-app-1  | Une erreur s'est produite lors de l'ajout de données :  ReferenceError: where is not defined
             // test_node-app-1  |     at add_data_database (file:///app/manipulation_database.js:89:36)
             // test_node-app-1  |     at file:///app/server.js:69:13
 
             add_data_database(db, values)
+            add_data_database(db, values_qizz)
 
             // Envoi des valeurs une fois que les deux collections ont été récupérées
             res.send([intervenants_data, etudiants_data, qizzSnapshot_data]);
