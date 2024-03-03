@@ -236,8 +236,11 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+.qcm_answer_list div{
+    display: flex;
     gap: 50px;
-
 }
 
 .qcm_answer{
@@ -259,4 +262,32 @@ main{
 
 .qcm_answer:active{
     outline: 1px solid var(--gold);
+}
+
+#ending_words{
+    font-family: bokor, serif;
+    font-size: 112px;
+    letter-spacing: 8px;
+    text-shadow: #010101 10px 10px 10px;
+}
+
+#close_button{
+    border: 1px solid white;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    color: white;
+    font-family: 'Bebas Neue', serif;
+    font-size: 24px;
+    padding: 6px 30px;
+    margin-top: 20px;
+}
+
+#close_button:hover{
+    border: 1px solid var(--gold);
+
+}
+#close_button:active{
+    outline: 1px solid var(--gold);
+
 }
