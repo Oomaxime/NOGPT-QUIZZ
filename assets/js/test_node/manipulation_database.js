@@ -2,6 +2,8 @@
 
 import { getFirestore, collection, doc, setDoc, addDoc} from "firebase/firestore";
 
+
+
 // simple fonction get, qui retourne les valeurs contenu dans un emplacement de la bdd
 const get_data_database = (snapshot) => {
     let values = []
@@ -58,61 +60,104 @@ class qizz {
 
 // converters pour firestore
 const converted_result_user = {
-    toFirestore: (data) => {
+    toFirestore: (infos) => {
         return {
-            nom: data.nom,
-            prenom: data.prenom
+            nom: infos.nom,
+            prenom: infos.prenom,
+
         };
     },
     fromFirestore: (snapshot, options) => {
-        const data = snapshot.data(options);
-        return new User(data.nom, data.prenom);
+        const infos = snapshot.data(options);
+        return new user(infos.nom, infos.prenom);
     }   
 };
 
 const converted_result_qizz = {
-    toFirestore: (data) => {
+    toFirestore: (infos) => {
         return {
-            nom: data.nom,
-            prenom: data.prenom
+            nom: infos.nom,
+            data: infos.data,
+            creator_id : infos.creator_id
         };
     },
     fromFirestore: (snapshot, options) => {
-        const data = snapshot.data(options);
-        return new User(data.nom, data.prenom);
+        const infos = snapshot.data(options);
+        return new qizz(infos.nom, infos.data, infos.creator_id);
     }   
 };
 
 
 const add_data_database = (db, values) => {
     try {
-        // Obtention de la référence à la collection "intervenants"
-        const collectionRef = collection(db, values['where']).withConverter(converted_result_user);
+        switch (values['where']) {
+            case 'intervenants':
+                const collection_users_Ref = collection(db, values['where']).withConverter(converted_result_user);
+                const docRef_users = doc(collection_users_Ref, values['nom']); // Utiliser le nom de la collection pour la référence
+                setDoc(docRef_users, { nom: values['nom'], prenom: values['prenom'] });
+                break;
 
-        // Ajout des données du nouvel utilisateur à la collection
-        addDoc(collectionRef, { nom: values['nom'], prenom: values['prenom'] });
+            case 'qizz':
+                const collection_qizz_Ref = collection(db, values['where']).withConverter(converted_result_qizz);
+                const docRef_qizz = doc(collection_qizz_Ref, values['nom']); // Utiliser le nom de la collection pour la référence
+                setDoc(docRef_qizz, { nom: values['nom'], data: values['data'], creator_id: values['creator_id'] });
+                break;
+
+            default:
+                console.error('Collection non reconnue.');
+        }
+        
     } 
     catch (error) {
         console.log("Une erreur s'est produite lors de l'ajout de données : ", error);
     }
 }
 
-
-
-const add_data_to_document = (data) => {
-    try {
-
-        const { collection, name_file, all } = data
-
-        setDoc(doc(db, collection, name_file), all);
-
-        console.log("ajout des données")
-
-    } catch (error) {
-        
-        console.log("Erreur lors de l'ajout des données : ", error)
-    
-    };
-    };
-
 export {get_data_database, add_data_database};
+
+
+
+
+// data = 
+// {
+//     question_1 : {
+//         title : "Que font 3 + 3 ?",
+//         coche_1 : {
+//             text : "4",
+//             is_true : false
+//         },
+//         coche_2 : {
+//             text : "5",
+//             is_true : false
+//         },
+//         coche_3 : {
+//             text : "6",
+//             is_true : true
+//         }
+//     }
+// }
+
+// data_eleves =
+// {
+//     nom : "Joe",
+//     prenom : "Fi",
+//     stats_triche : {
+//         touches_sus : {
+//             crtl : 0,
+//             alt : 0,
+//             tab : 0,
+//             cmd : 0,
+//             opt : 0,
+//             funct : 0
+//         },
+//         windows : {
+//             fullscreen : false,
+//             exit : false,
+//             cursor : false
+//         }
+//     },
+//     stats : {
+//         // pour chaque question :
+//         question_1 : [coche_1]
+//     }
+// }
