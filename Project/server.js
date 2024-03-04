@@ -2,8 +2,8 @@
 
 import express from 'express';
 import cors from 'cors';
-import { get_data_database, add_data_database } from './manipulation_database.js';
-import { firebase } from './database.js';
+import { get_data_database, add_data_database } from './private/js/manipulation_database.js';
+import { firebase } from './private/js/database.js';
 
 // Importation pour HTLM
 import http from 'http';
@@ -30,7 +30,7 @@ app.use(express.json());
 
 
 // Manipulation de json
-import { createJsonFile, read_File } from './json_manipulation.js';
+import { createJsonFile, read_File } from './private/js/json_manipulation.js';
 
 
 // Vos routes et logique de gestion des requêtes ici...
