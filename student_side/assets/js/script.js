@@ -33,9 +33,9 @@ contract_button.addEventListener('click', () => {
 
 /****** RULES CHECKER ******/
 
-/*document.addEventListener("contextmenu", function(e){
+document.addEventListener("contextmenu", function(e){
     e.preventDefault();
-}, false);*/
+}, false);
 
 document.addEventListener('visibilitychange', () => {
     if(document.visibilityState==='hidden'){
