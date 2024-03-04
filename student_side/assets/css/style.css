@@ -59,7 +59,7 @@ h3{
     height: 100vh;
     position: absolute;
     z-index: 1;
-    background-image: url("../img/texturepopup.png");
+    background-image: url("../../../Project/public/img/texturepopup.png");
     backdrop-filter: blur(4px);
 }
 

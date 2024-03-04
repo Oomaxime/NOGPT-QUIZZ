@@ -111,6 +111,14 @@ answer_sending_button.addEventListener('click', () => {
             '</div>';
         question_index++;
     } else if (question_index === 3) {
+        question_title.textContent = 'moi je suis la question 3 ?'
+        qcm_answer_list.innerHTML = ' <form action="" method="post">\n' +'<textarea name="answer_area"\n' +
+            '                  id="answer_area"\n' +
+            '                  cols="80" rows="15"\n' +
+            '                  autocapitalize="sentences"\n' +
+            '                  autofocus placeholder="Écris ta réponse ici"></textarea>\n'
+        question_index++;
+    } else if (question_index === 4) {
         qcm_section.style.display = 'none';
         main.innerHTML += '<strong id="ending_words">FIN.</strong>\n'+
             '<button id="close_button">FERMER LA SESSION</button>';
