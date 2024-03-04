@@ -32,11 +32,22 @@ app.use(express.json());
 // Manipulation de json
 import { createJsonFile, read_File } from './private/js/json_manipulation.js';
 
+// fs.readdir(__dirname, (err, files) => {
+//     if (err) {
+//         console.error('Erreur lors de la lecture du répertoire :', err);
+//         return;
+//     }
 
-// Vos routes et logique de gestion des requêtes ici...
+//     console.log('Contenu du répertoire /app :');
+//     files.forEach(file => {
+//         console.log(file);
+//     });
+// });
+
+
 
 const server = http.createServer((req, res) => {
-    const filePath = path.join(__dirname, 'index.html');
+    const filePath = path.join(__dirname, './view/index.html');
 
     fs.readFile(filePath, (err, content) => {
         if (err) {
@@ -46,6 +57,15 @@ const server = http.createServer((req, res) => {
         }
 
         res.writeHead(200, { 'Content-Type': 'text/html' });
+
+        const cssPath = path.join(__dirname, './public/css/style.css');
+        const cssContent = fs.readFileSync(cssPath, 'utf-8');
+        console.log(cssContent)
+
+        const jsPath = path.join(__dirname, './public/js/script.js');
+        const jsContent = fs.readFileSync(jsPath, 'utf-8');
+        console.log(jsContent)
+
         res.end(content, 'utf-8');
     });
 });
