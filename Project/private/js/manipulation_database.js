@@ -32,17 +32,13 @@ class user {
     }
 }
 
-// class etudiants extends user {
-//     constructor (nom, prenom) {
-//         super(nom, prenom);
-//     }
-// }
-
-// class intervenants extends user {
-//     constructor (nom, prenom) {
-//         super(nom, prenom);
-//     }
-// }
+class etudiants extends user {
+    constructor (nom, prenom, stats_triche, stats) {
+        super(nom, prenom);
+        this.stats_triche
+        this.stats
+    }
+}
 
 class qizz {
     constructor (nom, data, creator_id) {
@@ -73,6 +69,21 @@ const converted_result_user = {
     }   
 };
 
+const converted_result_etudiants  = {
+    toFirestore: (infos) => {
+        return {
+            nom: infos.nom,
+            prenom: infos.prenom,
+            stats_triche : infos.stats_triche,
+            stats : infos.stats
+        };
+    },
+    fromFirestore: (snapshot, options) => {
+        const infos = snapshot.data(options);
+        return new user(infos.nom, infos.prenom,infos.stats_triche,infos.stats);
+    }   
+};
+
 const converted_result_qizz = {
     toFirestore: (infos) => {
         return {
@@ -91,6 +102,12 @@ const converted_result_qizz = {
 const add_data_database = (db, values) => {
     try {
         switch (values['where']) {
+            case 'etudiants' :
+                const collection_etudiants_Ref = collection(db, values['where']).withConverter(converted_result_etudiants);
+                const docRef_etudiants = doc(collection_etudiants_Ref, values['nom']); // Utiliser le nom de la collection pour la référence
+                setDoc(docRef_etudiants, { nom: values['nom'], prenom: values['prenom'], stats_triche: values['stats_triche'], stats: values['stats'] });
+                break;
+
             case 'intervenants':
                 const collection_users_Ref = collection(db, values['where']).withConverter(converted_result_user);
                 const docRef_users = doc(collection_users_Ref, values['nom']); // Utiliser le nom de la collection pour la référence

@@ -19,6 +19,11 @@ log_button.addEventListener('click', function(e) {
     }
 });
 
+// prevent the form to exit the page
+document.getElementById("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+});
+
 /**** Toogle full screen when agree rules ****/
 let screen_status= 'OFF'
 const contract_button = document.querySelector('#rules_button');
@@ -39,7 +44,7 @@ document.addEventListener("contextmenu", function(e){
 
 document.addEventListener('visibilitychange', () => {
     if(document.visibilityState==='hidden'){
-        document.title = 'QIZZ'
+        document.title = 'LOOSER'
         /* Récuperer l'info pour le prof et mettre 0 a la fin*/
     }
 })
