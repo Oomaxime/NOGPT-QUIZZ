@@ -1,92 +1,56 @@
-// server.mjs (ou utilisez "type": "module" dans package.json)
-
 import express from 'express';
 import cors from 'cors';
-import { get_data_database, add_data_database } from './private/js/manipulation_database.js';
 import { firebase } from './private/js/database.js';
+import { getFirestore } from 'firebase/firestore';
 
-// Importation pour HTLM
+import { get_data_database, add_data_database } from './private/js/manipulation_database.js';
+
 import http from 'http';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
+// Détermination du répertoire de travail
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-
-// Importation des modules Firestore
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-
+// Initialisation de l'application Express
 const app = express();
 const port = 8080;
 const port_express = 3000;
 
+// Middleware
+app.use(cors());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Démarrage du serveur Express
+const expressServer = app.listen(port_express, () => {
+    console.log(`Serveur Express en cours d'exécution sur le port : ${port_express}`);
+});
 
 // Initialisation de Firestore
 const db = getFirestore(firebase);
 
-app.use(cors());
-app.use(express.json());
-
-
-// Manipulation de json
-import { createJsonFile, read_File } from './private/js/json_manipulation.js';
-
-// fs.readdir(__dirname, (err, files) => {
-//     if (err) {
-//         console.error('Erreur lors de la lecture du répertoire :', err);
-//         return;
-//     }
-
-//     console.log('Contenu du répertoire /app :');
-//     files.forEach(file => {
-//         console.log(file);
-//     });
-// });
-
-
-
+// Création du serveur HTTP
 const server = http.createServer((req, res) => {
     const filePath = path.join(__dirname, './view/index.html');
 
     fs.readFile(filePath, (err, content) => {
         if (err) {
             res.writeHead(500);
-            res.end('erreur : ${err}')
+            res.end(`erreur : ${err}`);
             return;
         }
 
         res.writeHead(200, { 'Content-Type': 'text/html' });
-
-        const cssPath = path.join(__dirname, './public/css/style.css');
-        const cssContent = fs.readFileSync(cssPath, 'utf-8');
-        console.log(cssContent)
-
-        const jsPath = path.join(__dirname, './public/js/script.js');
-        const jsContent = fs.readFileSync(jsPath, 'utf-8');
-        console.log(jsContent)
-
         res.end(content, 'utf-8');
     });
 });
 
-
-
+// Démarrage du serveur HTTP
 server.listen(port, () => {
     console.log(`Serveur en écoute sur le port ${port}`);
 });
 
-app.listen(port_express, () => {
-    console.log(`Serveur Express en cours d'exécution sur le port : ${port_express}`);
-});
-
-app.get('/id', (req, res) => {
-    res.send('ca va etre les id des eleves lors du test ;)');
-});
-
-app.get('/id', (req, res) => {
-    res.send('ca va etre les id des eleves lors du test ;)');
-});
 
 app.get('/users', async (req, res) => {
     const intervenants = collection(db, 'intervenants');
@@ -106,15 +70,15 @@ app.get('/users', async (req, res) => {
             
             const values = {
                 where : "intervenants",
-                nom : "koi",
-                prenom : "feur"
+                nom : "Pierre",
+                prenom : "Jean"
             }
 
             const values_qizz = {
                 where : "qizz",
                 nom : "test",
                 data : {},
-                creator_id : "ta_race"
+                creator_id : "00000000"
             }
 
             // format pour values :
