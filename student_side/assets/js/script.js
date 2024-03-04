@@ -39,7 +39,7 @@ document.addEventListener("contextmenu", function(e){
 
 document.addEventListener('visibilitychange', () => {
     if(document.visibilityState==='hidden'){
-        document.title = 'QIZZ'
+        document.title = 'TRICHEUR'
         /* Récuperer l'info pour le prof et mettre 0 a la fin*/
     }
 })
