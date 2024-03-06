@@ -19,14 +19,22 @@ body{
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
+    min-height: 100vh;
 }
 
 header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 62px;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid white;
+}
+
+main {
+    padding-top: 62px;
 }
 
 .flexcenter{
@@ -290,4 +298,59 @@ main{
 #close_button:active{
     outline: 1px solid var(--gold);
 
+}
+
+/* ========================================== *\
+    index.hmtl admin branch
+\* ========================================== */
+
+.none {
+    display: none;
+}
+
+.page_admin input {
+    outline: none;
+    border:none;
+    background-color: #535353;
+    color: #fff;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; 
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.page_admin {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page_admin form {
+    background-color: #1d1d1d;
+    padding: 50px;
+    min-width: 500px;
+    border: 2px solid #8d8d8d;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1rem;
+}
+
+.page_admin form .admin_form-titre {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.page_admin form .admin_form-titre #admin_form-titre-nom {
+    width: 90%;
+}
+
+.page_admin form .container {
+    display: flex;
+    flex-direction: column;
 }
