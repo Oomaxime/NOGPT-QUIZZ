@@ -19,14 +19,22 @@ body{
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
+    min-height: 100vh;
 }
 
 header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 62px;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid white;
+}
+
+main {
+    padding-top: 62px;
 }
 
 .flexcenter{
@@ -290,4 +298,20 @@ main{
 #close_button:active{
     outline: 1px solid var(--gold);
 
+}
+
+/* ========================================== *\
+    index.hmtl admin branch
+\* ========================================== */
+
+.none {
+    display: none;
+}
+
+.qcm {
+    display: block;
+}
+
+.text {
+    display: none;
 }
