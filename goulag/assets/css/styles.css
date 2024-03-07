@@ -1,0 +1,87 @@
+:root{
+    --gold: #CEBA71;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #1e1e1e;
+    background-image: url('../img/bg_.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    font-family: 'Bebas Neue', serif;
+    font-size: 24px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+header{
+    height: 62px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid white;
+}
+
+.flexcenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo{
+    height: 128px;
+    margin-left: 5%;
+}
+
+.main-info {
+    position: absolute;
+    width: 857px;
+    height: 406px;
+    left: 220px;
+    top: 167px;
+    text-align: center;
+    font-size: 22px
+} 
+
+.main-info h1{
+    position: absolute;
+    width: 457.25px;
+    height: 232.45px;
+    left: 230px;
+    top: calc(50% - 232.45px/2 - 228.77px);
+
+    font-family: 'Bokor';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 90px;
+    line-height: 173px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FF0000;
+    text-shadow: 2px 0 rgb(255, 255, 255), -2px 0 black, 0 2px black, 0 -2px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
+}
+
+.description {
+    padding-top: 30px;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.troll {
+    position: absolute;
+    width: 340px;
+    top: 345px;
+}
