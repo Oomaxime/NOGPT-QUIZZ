@@ -34,15 +34,15 @@
         <form action="POST">
 
             <div class="admin_form-titre">
-                <input type="text" id="admin_form-titre-nom" placeholder="Titre quizz" required>
+                <input type="text" id="admin_form-titre-nom" placeholder="Titre quizz">
                 <label for="admin_form-titre-nom"><i class="fa-solid fa-pen"></i></label>
             </div>
 
             
             <div class="container">
                 <label for="type">Type :</label>
-                <select name="" id="type-select">
-                    <option value="">--choisissez le type de question--</option>
+                <select name="" id="type-select" required>
+                    <option value="">-- choisissez le type de question --</option>
                     <option value="qcm">qcm</option>
                     <option value="text">Text</option>
                 </select>
@@ -50,15 +50,15 @@
             
             <div class="container">
                 <label for="" id="intitule_question">Intitulé de la question :</label>
-                <input type="text">
+                <input type="text" required>
             </div>
             
             <div class="qcm">
     
                 <div class="container">
                     <label for="number-select">Nbr de réponce à la question :</label>
-                    <select name="number" id="number-select">
-                        <option value="">--choisissez le type de question--</option>
+                    <select name="number" id="number-select" required>
+                        <option value="">-- choisissez le nombre de réponse --</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
@@ -68,9 +68,8 @@
                 </div>
     
                 <div class="container" id="questions">
-
+                    <!-- scripted -->
                 </div>
-                
 
             </div>
 

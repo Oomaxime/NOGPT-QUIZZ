@@ -229,7 +229,7 @@ number_select.addEventListener('change', () => {
 
     while (n < b) {
         questions.innerHTML += `
-        <div classe"space-between">
+        <div class="space-between">
             <label for="reponse${n + 1}">Réponse ${n + 1} :</label>
             <input type="checkbox" id="scales" name="scales" />
         </div>
