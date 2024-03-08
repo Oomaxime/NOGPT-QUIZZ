@@ -219,19 +219,35 @@ number_select.addEventListener('change', () => {
 
     let b = number_select.value;
     let n = 0;
-    console.log(b);
+    // console.log(b);
 
     questions.innerHTML = '';
 
     while (n < b) {
         questions.innerHTML += `
-        <label for="reponse${n + 1}">Réponse ${n + 1} :</label>
+        <div classe"space-between">
+            <label for="reponse${n + 1}">Réponse ${n + 1} :</label>
+            <input type="checkbox" id="scales" name="scales" />
+        </div>
         <input type="text" id="reponse${n + 1}">
         `;
         n++;
     };
-    
-
 });
 
+let reponse_select = document.querySelector('#reponse-select');
 
+reponse_select.addEventListener('change', () => {
+
+    let c = reponse_select.value;
+    console.log(c);
+    let n = 0;
+
+
+    while (n < b) {
+        reponse_select.innerHTML += `
+        <option value="${b}">${b}</option>
+        `;
+        n++;
+    };
+});
