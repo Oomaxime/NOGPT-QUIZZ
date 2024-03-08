@@ -201,6 +201,7 @@ let text = document.querySelector('.text');
 
 type_select.addEventListener('change', () => {
     let a = type_select.value;
+    const typeValue = type_select.value;
     
     console.log('option :', a);
     if (a == 'qcm') {
@@ -212,10 +213,13 @@ type_select.addEventListener('change', () => {
     }
 });
 
+
 let number_select = document.querySelector('#number-select');
 let questions = document.querySelector('#questions')
 
 number_select.addEventListener('change', () => {
+
+    const typeValue = number_select.value;
 
     let b = number_select.value;
     let n = 0;
@@ -239,6 +243,7 @@ let reponse_select = document.querySelector('#reponse-select');
 
 reponse_select.addEventListener('change', () => {
 
+    const typeValue = reponse_select.value;
     let c = reponse_select.value;
     console.log(c);
     let n = 0;

@@ -315,3 +315,56 @@ main{
 .text {
     display: none;
 }
+
+.page_admin {
+    /* background-color: red; */
+    height: 100vh;
+    display: flex;
+    flex-direction: unset;
+    justify-content: center;
+    align-items: center;
+}
+
+.page_admin form {
+    background-color: #2b2b2b;
+    border-radius: 16px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.page_admin form .admin_form-titre {
+    display: flex;
+    justify-content: center;
+}
+
+.page_admin form .admin_form-titre input {
+    background-color: transparent;
+    color: #fff;
+    outline: none;
+    border: none;
+    border-top: 3px solid #c0c0c0;
+    border-left: 3px solid #c0c0c0;
+    border-bottom: 3px solid #c0c0c0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 15px 30px;
+    font-size: 24px;
+}
+
+.page_admin form .admin_form-titre label {
+    border-top: 3px solid #c0c0c0;
+    border-right: 3px solid #c0c0c0;
+    border-bottom: 3px solid #c0c0c0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 15px 30px 15px 0;
+    cursor: text;
+}
+
+.page_admin form .container {
+    display: flex;
+    flex-direction: column;
+    
+}
