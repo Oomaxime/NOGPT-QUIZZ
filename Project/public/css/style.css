@@ -308,6 +308,10 @@ main{
     display: none;
 }
 
+.mes_quizz {
+    display: none;
+}
+
 .qcm {
     display: flex;
     flex-direction: column;
