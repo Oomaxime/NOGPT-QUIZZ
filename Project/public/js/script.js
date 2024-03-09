@@ -239,20 +239,3 @@ number_select.addEventListener('change', () => {
     };
 });
 
-let reponse_select = document.querySelector('#reponse-select');
-
-reponse_select.addEventListener('change', () => {
-
-    const typeValue = reponse_select.value;
-    let c = reponse_select.value;
-    console.log(c);
-    let n = 0;
-
-
-    while (n < b) {
-        reponse_select.innerHTML += `
-        <option value="${b}">${b}</option>
-        `;
-        n++;
-    };
-});
