@@ -193,7 +193,7 @@
  *      ADMIN PAGE
  *  =====================
  */ 
-/*
+
 let type_select = document.querySelector('#type-select');
 let qcm = document.querySelector('.qcm');
 let text = document.querySelector('.text');
@@ -237,12 +237,11 @@ number_select.addEventListener('change', () => {
         n++;
     };
 });
-*/
+
 
 
 
 // R2CUP FORM
-/*
 let titre_quizz_recup = document.querySelector('#admin_form-titre-nom');
 let titre_quizz = titre_quizz_recup.value;
 console.log(titre_quizz);
@@ -254,4 +253,3 @@ console.log(type_question);
 let intitule_question_recup = document.querySelector('#intitule_question');
 let intitule_question = intitule_question_recup.value;
 console.log(intitule_question);
-*/
