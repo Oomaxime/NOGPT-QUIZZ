@@ -54,26 +54,31 @@ function add_to_qizz(value_to_add) {
 
 
 // Fonction pour créer des questions en fonction choix du prof
-function create_question(data) {
+function create_qcm(data) {
     add_to_qizz(
         {
-        type: `${data['typeSelect']}`,
         title_quizz: `${data['qcm_title']}`,
-        option: add_value_to_question(data),
+        question: add_value_to_question(data),
     }
-    );
+    )
 }
 
 
+function add_question(data) {
+    question = {
+        title: data['question_title'],
+        options:{}
+    }
+    for (ele in data['numberSelect'],i=0,i++) {
+        question['option'][`question_${i}`] = add_options(data)
+    }
+}
+
 // Fonction qui creer des questions pour ensuite pouvoir les ajouter dans le qcm
-function add_value_to_question(data) {
-    let question = {
-        title: "",
-        is_true: false
-    };
-    for (ele in data['numberSelect']) {
-        question['title'] = data['question_title'];
-        question['is_true'] = data['checkInputs'];
+function add_options(data) {
+    return {
+        title: data['option_title'],
+        is_true: data['checkInputs']
     };
 };
 
