@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TruthGame</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bokor&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
     </div>
 
     <header>
-        <img id=logo src="img/logo.png" alt="">
+        <img id=logo src="../public/img/logo.png" alt="">
     </header>
 
     <main class="page_admin">
@@ -34,17 +34,21 @@
         <div class="mes_quizz">
             <h3>MES QUIZZ</h3>
             <div class="quizzs">
-
+                <p>quizz 1</p>
+                <p>quizz 2</p>
+                <p>quizz 3</p>
             </div>
         </div>
 
-        <form action="POST">
-
+        <form action="POST" class="form_nom_question">
             <div class="admin_form-titre">
                 <input type="text" id="admin_form-titre-nom" placeholder="Titre quizz">
                 <label for="admin_form-titre-nom"><i class="fa-solid fa-pen"></i></label>
             </div>
+            <input type="submit" value="accéder aux questions" id="btn_acces_question">
+        </form>
 
+        <form action="POST">
             
             <div class="container">
                 <label for="type">Type :</label>
@@ -96,6 +100,6 @@
     </main>
 
 </body>
-<script src="js/script.js"></script>
-<script src="js/ajout.js"></script>
+<script src="../public/js/script.js"></script>
+<script src="../public/js/ajout.js"></script>
 </html>

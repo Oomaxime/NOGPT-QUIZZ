@@ -3,7 +3,7 @@ const numberSelect = document.getElementById('number-select');
 const responseInputs = document.querySelectorAll('.response-input');
 const checkInputs = document.querySelectorAll('.check-input');
 const question_title = document.querySelector('#intitule_question');
-const qcm_title = document.querySelectorAll(''); // ajouter le liens pour aller prendre le titre du qcm
+const qcm_title = document.querySelectorAll('#admin_form-titre-nom'); // ajouter le liens pour aller prendre le titre du qcm
 
 
 

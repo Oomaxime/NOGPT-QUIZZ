@@ -260,3 +260,15 @@ titre_quizz_recup.addEventListener('input', () => {
     const titre_quizzValue = titre_quizz_recup.value.trim();
     console.log(titre_quizzValue);
 });
+
+
+// Changer de form
+
+let btn_nom_quizz = document.querySelector('#btn_acces_question')
+let form_question = document.querySelector('.form_nom_question')
+
+btn_nom_quizz.addEventListener('input', () => {
+    
+    form_question.style.display = "none";
+    console.log("aa");
+});

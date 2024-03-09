@@ -344,6 +344,7 @@ main{
 .page_admin form .admin_form-titre {
     display: flex;
     justify-content: center;
+    
 }
 
 .page_admin form .admin_form-titre input {
