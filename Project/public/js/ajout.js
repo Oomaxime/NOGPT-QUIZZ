@@ -6,6 +6,7 @@ const question_title = document.querySelector('#intitule_question');
 const qcm_title = document.querySelectorAll(''); // ajouter le liens pour aller prendre le titre du qcm
 
 
+
 // Objectif
 // - Le prof choisi un nom pour son qcm et poursuit dans sa création (l'info sera recup par un post)
 // - Quand le prof aura selectionner et rentre toute les infos, il clique sur le bouton "creer question",
