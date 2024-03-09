@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import socketIo from 'socket.io';
 import { firebase } from './private/js/database.js';
 import { getFirestore } from 'firebase/firestore';
 
@@ -17,6 +18,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Initialisation de l'application Express
 const app = express();
 const port = 3000;
+
+//  Initialisation des sockets
+const io = socketIo(server);
 
 // Middleware
 app.use(cors());
@@ -43,6 +47,17 @@ const db = getFirestore(firebase);
 // Démarrage du serveur HTTP
 app.listen(port, (err) => {
     console.info(`listening to : ${port}`);
+});
+
+io.on('connection', (socket) => {
+    console.log(socket.id);
+    socket.on('updateScore', (newScore) => {
+        // mise à jour du score et émettre à tous les clients
+        io.emit('scoreUpdated', { userId: socket.id, score: newScore });
+    });
+
+    socket.on('disconnect', () => {
+    });
 });
 
 app.post('/connexion', (req, res) => {
@@ -118,7 +133,7 @@ app.get('/users', async (req, res) => {
             res.status(500).send('Erreur lors de la récupération des données');
         });
     });
-
+        
     // const qizz_test = {
     //     question_1 : {
     //         type : "coche",
