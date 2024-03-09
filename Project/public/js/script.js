@@ -243,15 +243,26 @@ number_select.addEventListener('change', () => {
 
 // R2CUP FORM
 
+
 let titre_quizz_recup = document.querySelector('#admin_form-titre-nom');
 let titre_quizz = titre_quizz_recup.value;
 console.log(titre_quizz);
 
-let type_question_recup = document.querySelector('#type-select');
-let type_question = type_question_recup.value;
-console.log(type_question);
+// let titre_quizz_recup = document.querySelector('#admin_form-titre-nom');
+// let titre_quizz = titre_quizz_recup.value;
+// console.log(titre_quizz);
+
+
+// let type_question_recup = document.querySelector('#type-select');
+// let type_question = type_question_recup.value;
+// console.log(type_question);
 
 let intitule_question_recup = document.querySelector('#intitule_question');
 let intitule_question = intitule_question_recup.value;
 console.log(intitule_question);
+
+
+// let intitule_question_recup = document.querySelector('#intitule_question');
+// let intitule_question = intitule_question_recup.value;
+// console.log(intitule_question);
 
