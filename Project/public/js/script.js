@@ -7,7 +7,7 @@ const rules = document.querySelector('#rules');
 /** LOGIN VALIDATION **/
 log_button.addEventListener('click', function(e) {
     const name = document.getElementById('name_input').value;
-   const firstname = document.getElementById('firstname_input').value;
+    const firstname = document.getElementById('firstname_input').value;
 
     if (name.trim() === '' || firstname.trim() === '') {
         alert('Veuillez remplir tous les champs.');
@@ -19,10 +19,19 @@ log_button.addEventListener('click', function(e) {
     }
 });
 
-// prevent the form to exit the page
-document.getElementById("form").addEventListener("submit", function(event) {
-    event.preventDefault();
-});
+document.querySelector("form").addEventListener("submit", (event)=>{
+    event.preventDefault()
+    let formData = new FormData(this);
+    fetch("/submit", {
+        method:"POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .catch(error => {
+        alert(`Une erreur a eu lieu lors de l'envoie du formulaire : ${error}`)
+        // Faire en sorte d'éviter que l'user puisse aller plus loin (et donc suremenent de le renvoyer sur le form)
+    })
+})
 
 /**** Toogle full screen when agree rules ****/
 let screen_status= 'OFF'

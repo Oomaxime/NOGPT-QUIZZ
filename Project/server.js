@@ -19,6 +19,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 
+// Initialisation de Firestore
+const db = getFirestore(firebase);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
@@ -33,8 +36,8 @@ app.post('/submit', (req, res) => {
 
     const data = {
         where: 'etudiants',
-        nom : '',
-        prenom : '',
+        nom : name,
+        prenom : firstname,
         stats_triche : {
             touches_sus : {
                 crtl : 0,
@@ -51,15 +54,19 @@ app.post('/submit', (req, res) => {
             }
         },
         stats : {
+            koi:"feur"
         }
-    }
-
-    data['nom'] = name
-    data['prenom'] = firstname
+    };
 
     add_data_database(db, data)
-
-
+        .then(() => {
+            console.log('Données ajoutées avec succès à Firestore.');
+            res.status(200).send('Données ajoutées avec succès.'); // Envoyer une réponse au client
+        })
+        .catch(error => {
+            console.error("Une erreur s'est produite lors de l'ajout de données à Firestore:", error);
+            res.status(500).send("Une erreur s'est produite lors de l'ajout de données à Firestore.");
+        });
 });
 
 app.listen(port, () => {
