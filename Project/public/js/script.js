@@ -254,6 +254,7 @@ let intitule_question_recup = document.querySelector('#intitule_question');
 let intitule_question = intitule_question_recup.value;
 console.log(intitule_question);
 
+
 titre_quizz_recup.addEventListener('input', () => {
     
     const titre_quizzValue = titre_quizz_recup.value.trim();

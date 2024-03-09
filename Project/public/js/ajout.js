@@ -1,7 +1,7 @@
 const typeSelect = document.getElementById('type-select');
 const numberSelect = document.getElementById('number-select');
-const responseInputs = document.querySelectorAll('.response-input');
-const checkInputs = document.querySelectorAll('.check-input');
+const responseInputs = document.querySelectorAll('.rep-text');
+const checkInputs = document.querySelectorAll('.check_response');
 
 const valuee = {
     type: `${typeSelect}`,
