@@ -201,7 +201,7 @@ let text = document.querySelector('.text');
 
 type_select.addEventListener('change', () => {
     let a = type_select.value;
-    const typeValue = type_select.value;
+    console.log(a);
     
     console.log('option :', a);
     if (a == 'qcm') {
@@ -219,11 +219,10 @@ let questions = document.querySelector('#questions')
 
 number_select.addEventListener('change', () => {
 
-    const typeValue = number_select.value;
 
     let b = number_select.value;
     let n = 0;
-    // console.log(b);
+    console.log(b);
 
     questions.innerHTML = '';
 
@@ -239,20 +238,6 @@ number_select.addEventListener('change', () => {
     };
 });
 
-let reponse_select = document.querySelector('#reponse-select');
 
-reponse_select.addEventListener('change', () => {
-
-    const typeValue = reponse_select.value;
-    let c = reponse_select.value;
-    console.log(c);
-    let n = 0;
-
-
-    while (n < b) {
-        reponse_select.innerHTML += `
-        <option value="${b}">${b}</option>
-        `;
-        n++;
-    };
-});
+// R2CUP FORM
+let titre_quizz = document.querySelector('#admin_form-titre-nom')
