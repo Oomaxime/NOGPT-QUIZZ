@@ -193,7 +193,7 @@
  *      ADMIN PAGE
  *  =====================
  */ 
-
+/*
 let type_select = document.querySelector('#type-select');
 let qcm = document.querySelector('.qcm');
 let text = document.querySelector('.text');
@@ -201,7 +201,7 @@ let text = document.querySelector('.text');
 
 type_select.addEventListener('change', () => {
     let a = type_select.value;
-    const typeValue = type_select.value;
+    console.log(a);
     
     console.log('option :', a);
     if (a == 'qcm') {
@@ -219,17 +219,16 @@ let questions = document.querySelector('#questions')
 
 number_select.addEventListener('change', () => {
 
-    const typeValue = number_select.value;
 
     let b = number_select.value;
     let n = 0;
-    // console.log(b);
+    console.log(b);
 
     questions.innerHTML = '';
 
     while (n < b) {
         questions.innerHTML += `
-        <div classe"space-between">
+        <div class="space-between">
             <label for="reponse${n + 1}">Réponse ${n + 1} :</label>
             <input type="checkbox" id="scales" name="scales" />
         </div>
@@ -238,4 +237,21 @@ number_select.addEventListener('change', () => {
         n++;
     };
 });
+*/
 
+
+
+// R2CUP FORM
+/*
+let titre_quizz_recup = document.querySelector('#admin_form-titre-nom');
+let titre_quizz = titre_quizz_recup.value;
+console.log(titre_quizz);
+
+let type_question_recup = document.querySelector('#type-select');
+let type_question = type_question_recup.value;
+console.log(type_question);
+
+let intitule_question_recup = document.querySelector('#intitule_question');
+let intitule_question = intitule_question_recup.value;
+console.log(intitule_question);
+*/
