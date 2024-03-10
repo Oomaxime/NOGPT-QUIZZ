@@ -23,3 +23,27 @@ window.onload = function () {
 
 
 // Partie quiz
+
+// fetch('../front/goulag-test.json')
+//   .then(response => response.json())
+//   .then(data => {
+//     const questionData = data.questions[0];
+
+//     const qcmButtons = document.getElementsByClassName('qcm_answer');
+//     for (let i = 0; i < qcmButtons.length; i++) {
+//       qcmButtons[i].textContent = questionData.options[i];
+//     }
+
+//     document.getElementById('question_title').textContent = questionData.question;
+//   })
+
+fetch('../front/goulag-test.json')
+  .then(response => response.json())
+  .then(data => {
+    const { question, options } = data.questions[0];
+
+    document.getElementById('question_title').textContent = question;
+    document.querySelectorAll('.qcm_answer').forEach((button, index) => {
+      button.textContent = options[index];
+    });
+  });
