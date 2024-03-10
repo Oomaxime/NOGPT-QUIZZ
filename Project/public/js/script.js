@@ -264,17 +264,9 @@ form.addEventListener('submit', (event) => {
     const checkbox1 = document.getElementById('check_reponse1')
     const checkbox1_value = checkbox1.value;
     const r2 = document.getElementById('reponse2')
+    const r2_value = r2.value;
     const checkbox2 = document.getElementById('check_reponse2')
-    const r3 = document.getElementById('reponse3')
-    const checkbox3 = document.getElementById('check_reponse3')
-    const r4 = document.getElementById('reponse4')
-    const checkbox4 = document.getElementById('check_reponse4')
-    const r5 = document.getElementById('reponse5')
-    const checkbox5 = document.getElementById('check_reponse5')
-    const r6 = document.getElementById('reponse6')
-    const checkbox6 = document.getElementById('check_reponse6')
-    const rText = document.getElementById('rep_text')
-    const rText_value = rText.value;
+    const checkbox2_value = checkbox2.value;
 
     const reponse_form = {
         type_question: type_question_value,
@@ -282,16 +274,8 @@ form.addEventListener('submit', (event) => {
         nbr_question: nbr_question_value,
         r1: r1_value,
         checkbox1: checkbox1_value,
-        // r2: r2_value,
-        // checkbox2: checkbox1_value,
-        // r3: r3_value,
-        // checkbox3: checkbox1_value,
-        // r4: r4_value,
-        // checkbox4: checkbox1_value,
-        // r5: r5_value,
-        // checkbox5: checkbox1_value,
-        // r6: r6_value,
-        // checkbox6: checkbox1_value
+        r2: r2_value,
+        checkbox2: checkbox2_value,
         rText: rText_value
     }
 
