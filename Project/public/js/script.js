@@ -201,9 +201,7 @@ let text = document.querySelector('.text');
 
 type_select.addEventListener('change', () => {
     let a = type_select.value;
-    console.log(a);
     
-    console.log('option :', a);
     if (a == 'qcm') {
         qcm.style.display = 'block';
         text.style.display = 'none';
@@ -222,7 +220,6 @@ number_select.addEventListener('change', () => {
 
     let b = number_select.value;
     let n = 0;
-    console.log(b);
 
     questions.innerHTML = '';
 
@@ -239,29 +236,6 @@ number_select.addEventListener('change', () => {
 });
 
 
-
-
-// R2CUP FORM
-let titre_quizz_recup = document.querySelector('#admin_form-titre-nom');
-let titre_quizz = titre_quizz_recup.value;
-console.log(titre_quizz);
-
-let type_question_recup = document.querySelector('#type-select');
-let type_question = type_question_recup.value;
-console.log(type_question);
-
-let intitule_question_recup = document.querySelector('#intitule_question');
-let intitule_question = intitule_question_recup.value;
-console.log(intitule_question);
-
-
-titre_quizz_recup.addEventListener('input', () => {
-    
-    const titre_quizzValue = titre_quizz_recup.value.trim();
-    console.log(titre_quizzValue);
-});
-
-
 // Changer de form
 
 let btn_nom_quizz = document.querySelector('#btn_acces_question')
@@ -271,4 +245,62 @@ btn_nom_quizz.addEventListener('input', () => {
     
     form_question.style.display = "none";
     console.log("aa");
+});
+
+const form = document.getElementById('form_quetions');
+
+form.addEventListener('submit', (event) => {
+
+    event.preventDefault();
+
+    const type_question = document.getElementById('type-select')
+    const type_question_value = type_question.value;
+    const intitule_question = document.getElementById('intitule_question')
+    const intitule_question_value = intitule_question.value;
+    const nbr_question = document.getElementById('number-select')
+    const nbr_question_value = nbr_question.value;
+    const r1 = document.getElementById('reponse1')
+    const r1_value = r1.value;
+    const checkbox1 = document.getElementById('check_reponse1')
+    const checkbox1_value = checkbox1.value;
+    const r2 = document.getElementById('reponse2')
+    const checkbox2 = document.getElementById('check_reponse2')
+    const r3 = document.getElementById('reponse3')
+    const checkbox3 = document.getElementById('check_reponse3')
+    const r4 = document.getElementById('reponse4')
+    const checkbox4 = document.getElementById('check_reponse4')
+    const r5 = document.getElementById('reponse5')
+    const checkbox5 = document.getElementById('check_reponse5')
+    const r6 = document.getElementById('reponse6')
+    const checkbox6 = document.getElementById('check_reponse6')
+    const rText = document.getElementById('rep_text')
+    const rText_value = rText.value;
+
+    const reponse_form = {
+        type_question: type_question_value,
+        intitule_question: intitule_question_value,
+        nbr_question: nbr_question_value,
+        r1: r1_value,
+        checkbox1: checkbox1_value,
+        // r2: r2_value,
+        // checkbox2: checkbox1_value,
+        // r3: r3_value,
+        // checkbox3: checkbox1_value,
+        // r4: r4_value,
+        // checkbox4: checkbox1_value,
+        // r5: r5_value,
+        // checkbox5: checkbox1_value,
+        // r6: r6_value,
+        // checkbox6: checkbox1_value
+        rText: rText_value
+    }
+
+    // console.log(`Type: ${type_question_value}`);
+    // console.log(`Intitulé: ${intitule_question_value}`);
+    // console.log(`Nombre de question: ${nbr_question_value}`);
+    // console.log(`Reponse 1: ${r1_value}`);
+    // console.log(`Vrai / Faux : ${checkbox1_value}`);
+    // console.log(`rText : ${rText_value}`);
+    console.log(reponse_form);
+    
 });

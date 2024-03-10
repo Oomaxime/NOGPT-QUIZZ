@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <form action="POST" class="form_nom_question">
+        <form action="POST" class="form_nom_question none">
             <div class="admin_form-titre">
                 <input type="text" id="admin_form-titre-nom" placeholder="Titre quizz">
                 <label for="admin_form-titre-nom"><i class="fa-solid fa-pen"></i></label>
@@ -48,11 +48,11 @@
             <input type="submit" value="accéder aux questions" id="btn_acces_question">
         </form>
 
-        <form action="POST">
+        <form action="POST" id="form_quetions">
             
             <div class="container">
                 <label for="type">Type :</label>
-                <select name="" id="type-select" required>
+                <select name="type-select" id="type-select" required>
                     <option value="">-- choisissez le type de question --</option>
                     <option value="qcm">qcm</option>
                     <option value="text">Text</option>
@@ -87,7 +87,7 @@
             <div class="text">
 
                 <label for="rep_text">Réponse :</label>
-                <textarea name="" id="rep_text" placeholder="réponse"></textarea>
+                <textarea name="rep_text" id="rep_text" placeholder="réponse"></textarea>
 
             </div>
 
