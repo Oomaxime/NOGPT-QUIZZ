@@ -291,3 +291,17 @@ main{
     outline: 1px solid var(--gold);
 
 }
+
+#editor{
+    width: 100%;
+    margin: 30px auto;
+
+}
+
+.texted_answer_section{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
