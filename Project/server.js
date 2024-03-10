@@ -19,10 +19,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 
-<<<<<<< HEAD
-=======
-// Initialisation de Firestore
->>>>>>> a2458ca42cbc29b876dad4eff316f516dfb3d28e
 const db = getFirestore(firebase);
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,17 +53,10 @@ app.post('/submit', (req, res) => {
             }
         },
         stats : {
-<<<<<<< HEAD
-            
         } 
     }
 
     console.log(data)
-=======
-            koi:"feur"
-        }
-    };
->>>>>>> a2458ca42cbc29b876dad4eff316f516dfb3d28e
 
     add_data_database(db, data)
         .then(() => {
