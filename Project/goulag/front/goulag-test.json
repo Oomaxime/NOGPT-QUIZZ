@@ -91,6 +91,16 @@
         "correct_answer": "B"
       },
       {
+        "question": "Quel type de données COBOL est utilisé pour stocker les nombres décimaux compressés ?",
+        "options": [
+          "A. PIC 9(n)",
+          "B. PIC S9(n) COMPRESSED-DECIMAL",
+          "C. PIC S9(n) PACKED-DECIMAL",
+          "D. PIC 9(n)V9(m)"
+        ],
+        "correct_answer": "C"
+      },
+      {
         "question": "Quel mot-clé est utilisé pour déclarer une fonction en langage de programmation Go ?",
         "options": [
           "A. func",
@@ -209,6 +219,16 @@
           "D. Programmation structurée"
         ],
         "correct_answer": "C"
+      },
+      {
+        "question": "Que signifie FAMAS ?",
+        "options": [
+          "A. Fusil Automatique du Ministère de l'Armement et de la Sécurité",
+          "B. Fusil d'Anti Matière d'Assault Solideg",
+          "C. Fusil d'Assaut Mecanisé de l'Armurerie de Saint-Denis",
+          "D. Fusil d'Assaut de la Manufacture d'Arme de Saint-Etienne"
+        ],
+        "correct_answer": "D"
       }
     ]
   }
