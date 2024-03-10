@@ -43,7 +43,7 @@ const data_question = {
 
 
 // Les data pour le qcm du prof (il faut changer le nom)
-const data_qizz_prof = {
+const data_qcm_prof = {
 }
 
 
