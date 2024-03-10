@@ -99,25 +99,25 @@ const converted_result_qizz = {
 };
 
 
-const add_data_database = (db, values) => {
+const add_data_database = async (db, values) => {
     try {
         switch (values['where']) {
             case 'etudiants' :
                 const collection_etudiants_Ref = collection(db, values['where']).withConverter(converted_result_etudiants);
                 const docRef_etudiants = doc(collection_etudiants_Ref, values['nom']); // Utiliser le nom de la collection pour la référence
-                setDoc(docRef_etudiants, { nom: values['nom'], prenom: values['prenom'], stats_triche: values['stats_triche'], stats: values['stats'] });
+                await setDoc(docRef_etudiants, { nom: values['nom'], prenom: values['prenom'], stats_triche: values['stats_triche'], stats: values['stats'] });
                 break;
 
             case 'intervenants':
                 const collection_users_Ref = collection(db, values['where']).withConverter(converted_result_user);
                 const docRef_users = doc(collection_users_Ref, values['nom']); // Utiliser le nom de la collection pour la référence
-                setDoc(docRef_users, { nom: values['nom'], prenom: values['prenom'] });
+                await setDoc(docRef_users, { nom: values['nom'], prenom: values['prenom'] });
                 break;
 
             case 'qizz':
                 const collection_qizz_Ref = collection(db, values['where']).withConverter(converted_result_qizz);
                 const docRef_qizz = doc(collection_qizz_Ref, values['nom']); // Utiliser le nom de la collection pour la référence
-                setDoc(docRef_qizz, { nom: values['nom'], data: values['data'], creator_id: values['creator_id'] });
+                await setDoc(docRef_qizz, { nom: values['nom'], data: values['data'], creator_id: values['creator_id'] });
                 break;
 
             default:

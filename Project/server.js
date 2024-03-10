@@ -19,6 +19,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 
+const db = getFirestore(firebase);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
@@ -33,8 +35,8 @@ app.post('/submit', (req, res) => {
 
     const data = {
         where: 'etudiants',
-        nom : '',
-        prenom : '',
+        nom : name,
+        prenom : firstname,
         stats_triche : {
             touches_sus : {
                 crtl : 0,
@@ -51,11 +53,11 @@ app.post('/submit', (req, res) => {
             }
         },
         stats : {
-        }
+            
+        } 
     }
 
-    data['nom'] = name
-    data['prenom'] = firstname
+    console.log(data)
 
     add_data_database(db, data)
 

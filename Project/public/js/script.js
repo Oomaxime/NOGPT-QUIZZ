@@ -19,11 +19,6 @@ log_button.addEventListener('click', function(e) {
     }
 });
 
-// prevent the form to exit the page
-document.getElementById("form").addEventListener("submit", function(event) {
-    event.preventDefault();
-});
-
 /**** Toogle full screen when agree rules ****/
 let screen_status= 'OFF'
 const contract_button = document.querySelector('#rules_button');
