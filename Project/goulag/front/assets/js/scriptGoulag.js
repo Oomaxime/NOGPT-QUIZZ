@@ -11,15 +11,16 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             timer = duration;
+            location.replace(redirectUrl);
         }
     }, 1000);
 }
 
 window.onload = function () {
-    var sevenMinutes = 60 * 4,
-        display = document.querySelector('#timer');
-    startTimer(sevenMinutes, display);
-    location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+  var sevenMinutes = 60 * 4,
+      display = document.querySelector('#timer'),
+      redirectUrl = 'quizzgoulag.html';
+  startTimer(sevenMinutes, display, redirectUrl);
 };
 
 

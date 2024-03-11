@@ -1,7 +1,5 @@
 const socket = io();
-const leaderboardList = document.getElementById('leaderboard');
 
-document.addEventListener('DOMContentLoaded', () => {
-  const startAudio = document.getElementById('startAudio');
-  startAudio.play();
-});
+setTimeout(function() {
+  window.location.href = 'qizzgoulag.html'
+}, 60000);
