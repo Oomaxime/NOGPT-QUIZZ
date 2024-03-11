@@ -17,6 +17,7 @@ log_button.addEventListener('click', function(e) {
         login.style.display = 'none';
         rules.style.display = 'flex';
     }
+
 });
 
 /**** Toogle full screen when agree rules ****/

@@ -61,11 +61,11 @@ app.post('/submit', (req, res) => {
     add_data_database(db, data)
         .then(() => {
             console.log('Données ajoutées avec succès à Firestore.');
-            res.status(200).send('Données ajoutées avec succès.'); // Envoyer une réponse au client
+            //res.status(200).send('Données ajoutées avec succès.'); // Envoyer une réponse au client
         })
         .catch(error => {
             console.error("Une erreur s'est produite lors de l'ajout de données à Firestore:", error);
-            res.status(500).send("Une erreur s'est produite lors de l'ajout de données à Firestore.");
+            //res.status(500).send("Une erreur s'est produite lors de l'ajout de données à Firestore.");
         });
 });
 
