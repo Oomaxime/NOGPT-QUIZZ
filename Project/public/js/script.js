@@ -194,15 +194,15 @@
 // =============================================================
 
 let config = document.querySelector('.config')
-let type_question = document.querySelector('#type_question')
+let typeQuestion = document.querySelector('#type_question')
 let btn_question_suivante = document.querySelector('#btn_question_suivante')
 let none_intitule_reponse = document.querySelector('.intitule_reponse')
 let none_nbr_question = document.querySelector('.nbr_question')
 let none_reponses = document.querySelector('.nbr_question')
-let reponse_text = document.querySelector('#reponse_text')
+
 
 type_question.addEventListener('change', () => {
-
+    
     let type = type_question.value;
     console.log(type);
 
@@ -211,19 +211,20 @@ type_question.addEventListener('change', () => {
         none_intitule_reponse.style.display = 'none'
         none_reponses.style.display = 'none'
         reponses.innerHTML = ''
-        reponse_text.style.display = 'none'
     } else if (type == 'qcm') {
         btn_question_suivante.style.display = 'block'
         none_intitule_reponse.style.display = 'flex'
         none_reponses.style.display = 'flex'
         reponses.innerHTML = ''
-        reponse_text.style.display = 'none'
 
     } else if (type == 'text') {
         none_nbr_question.style.display = 'none'
         btn_question_suivante.style.display = 'block'
         none_intitule_reponse.style.display = 'flex'
-        reponse_text.style.display = 'block'
+        reponses.innerHTML = 
+        `
+            <textarea name="" id="reponse_text" placeholder="code..."></textarea>
+        `
     }
 })
 
@@ -257,6 +258,17 @@ nbr_question.addEventListener('change', () => {
     }
 })
 
+btn_question_suivante.addEventListener('click', () => {
+
+    const data_question = {
+        question_title: intitule_reponse.value,
+        typeSelect: type_question.value,
+        qcm_nbr_question: nbr_question.value,
+        reponse_text: reponse_text.value
+    }
+
+    console.log(data_question);
+})
 
 
 

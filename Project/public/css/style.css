@@ -390,7 +390,7 @@ main{
     grid-column-gap: 5rem;
     grid-row-gap: 0px;
     /* ! ! ! */
-    display: none;
+    /* display: none; */
     /* ! ! ! */
 }
 
@@ -536,5 +536,5 @@ main{
     color: #fff;
     font-size: 1rem;
     cursor: text;
-    display: none;
+    /* display: none; */
 }
