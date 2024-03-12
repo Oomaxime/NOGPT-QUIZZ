@@ -220,6 +220,7 @@ type_question.addEventListener('change', () => {
         reponse_text.style.display = 'none'
 
     } else if (type == 'text') {
+        none_nbr_question.style.display = 'none'
         btn_question_suivante.style.display = 'block'
         none_intitule_reponse.style.display = 'flex'
         reponse_text.style.display = 'block'

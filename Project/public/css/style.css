@@ -389,6 +389,9 @@ main{
     grid-template-rows: 1fr;
     grid-column-gap: 5rem;
     grid-row-gap: 0px;
+    /* ! ! ! */
+    display: none;
+    /* ! ! ! */
 }
 
 .page_admin #config_questions .config {
@@ -519,6 +522,7 @@ main{
 
 #btn_valider_quizz:hover {
     background-color: #49494988;
+    color: #e0e0e0;
 }
 
 #reponse_text {
