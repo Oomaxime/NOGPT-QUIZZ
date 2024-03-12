@@ -189,102 +189,165 @@
 //     }
 // })
 
-/** =====================
- *      ADMIN PAGE
- *  =====================
- */ 
+// =============================================================
+//          ADMIN PAGE
+// =============================================================
 
-let type_select = document.querySelector('#type-select');
-let qcm = document.querySelector('.qcm');
-let text = document.querySelector('.text');
+let config = document.querySelector('.config')
+let type_question = document.querySelector('#type_question')
+let btn_question_suivante = document.querySelector('#btn_question_suivante')
+let none_intitule_reponse = document.querySelector('.intitule_reponse')
+let none_nbr_question = document.querySelector('.nbr_question')
+let none_reponses = document.querySelector('.nbr_question')
+let reponse_text = document.querySelector('#reponse_text')
 
+type_question.addEventListener('change', () => {
 
-type_select.addEventListener('change', () => {
-    let a = type_select.value;
-    
-    if (a == 'qcm') {
-        qcm.style.display = 'block';
-        text.style.display = 'none';
-    } else if (a == 'text'){
-        qcm.style.display = 'none';
-        text.style.display = 'block';
+    let type = type_question.value;
+    console.log(type);
+
+    if (type == '') {
+        btn_question_suivante.style.display = 'none'
+        none_intitule_reponse.style.display = 'none'
+        none_reponses.style.display = 'none'
+        reponses.innerHTML = ''
+        reponse_text.style.display = 'none'
+    } else if (type == 'qcm') {
+        btn_question_suivante.style.display = 'block'
+        none_intitule_reponse.style.display = 'flex'
+        none_reponses.style.display = 'flex'
+        reponses.innerHTML = ''
+        reponse_text.style.display = 'none'
+
+    } else if (type == 'text') {
+        btn_question_suivante.style.display = 'block'
+        none_intitule_reponse.style.display = 'flex'
+        reponse_text.style.display = 'block'
     }
-});
+})
 
+let nbr_question = document.querySelector('#nbr_question')
+let reponses = document.querySelector('.reponses')
+let none_attention = document.querySelector('.attention p')
 
-let number_select = document.querySelector('#number-select');
-let questions = document.querySelector('#questions')
+nbr_question.addEventListener('change', () => {
 
-number_select.addEventListener('change', () => {
+    let nbr = nbr_question.value;
+    console.log(nbr);
 
+    reponses.innerHTML = 
+    `
+    <div class="attention">
+        <p><i class="fa-solid fa-circle-exclamation"></i> ATTENTION <i class="fa-solid fa-circle-exclamation"></i><br />cocher la/les bonne(s) reponse(s)</p>
+    </div>
+    ` 
 
-    let b = number_select.value;
-    let n = 0;
-
-    questions.innerHTML = '';
-
-    while (n < b) {
-        questions.innerHTML += `
-        <div class="space-between">
-            <label for="reponse${n + 1}">Réponse ${n + 1} :</label>
-            <input type="checkbox" id="check_reponse${n + 1}" name="" />
+    for (let i = 0; i < nbr; i++) {
+        reponses.innerHTML += 
+        `
+        <div class="reponse">
+            <div class="space_between">
+                <label for="check_reponse${nbr}">Réponse ${i + 1}</label>
+                <input type="checkbox" name="check_reponse${nbr}" id="check_reponse${nbr}">
+            </div>
+            <input type="text" id="reponse${nbr}" placeholder="" required>
         </div>
-        <input type="text" id="reponse${n + 1}">
-        `;
-        n++;
-    };
-});
-
-
-// Changer de form
-
-let btn_nom_quizz = document.querySelector('#btn_acces_question')
-let form_question = document.querySelector('.form_nom_question')
-
-btn_nom_quizz.addEventListener('input', () => {
-    
-    form_question.style.display = "none";
-    console.log("aa");
-});
-
-const form = document.getElementById('form_quetions');
-
-form.addEventListener('submit', (event) => {
-
-    event.preventDefault();
-
-    const type_question = document.getElementById('type-select')
-    const type_question_value = type_question.value;
-    const intitule_question = document.getElementById('intitule_question')
-    const intitule_question_value = intitule_question.value;
-    const nbr_question = document.getElementById('number-select')
-    const nbr_question_value = nbr_question.value;
-    const r1 = document.getElementById('reponse1')
-    const r1_value = r1.value;
-    const checkbox1 = document.getElementById('check_reponse1')
-    const checkbox1_value = checkbox1.value;
-    const r2 = document.getElementById('reponse2')
-    const r2_value = r2.value;
-    const checkbox2 = document.getElementById('check_reponse2')
-    const checkbox2_value = checkbox2.value;
-
-    const reponse_form = {
-        type_question: type_question_value,
-        intitule_question: intitule_question_value,
-        nbr_question: nbr_question_value,
-        r1: r1_value,
-        checkbox1: checkbox1_value,
-        r2: r2_value,
-        checkbox2: checkbox2_value,
-        rText: rText_value
+        `
     }
+})
 
-    // console.log(`Type: ${type_question_value}`);
-    // console.log(`Intitulé: ${intitule_question_value}`);
-    // console.log(`Nombre de question: ${nbr_question_value}`);
-    // console.log(`Reponse 1: ${r1_value}`);
-    // console.log(`Vrai / Faux : ${checkbox1_value}`);
-    // console.log(`rText : ${rText_value}`);
-    console.log(reponse_form);
+
+
+
+// =============================================================
+//          DU CODE DE MERDE
+// =============================================================
+
+
+// let type_select = document.querySelector('#type-select');
+// let qcm = document.querySelector('.qcm');
+// let text = document.querySelector('.text');
+
+// type_select.addEventListener('change', () => {
+//     let a = type_select.value;
     
-});
+//     if (a == 'qcm') {
+//         qcm.style.display = 'block';
+//         text.style.display = 'none';
+//     } else if (a == 'text'){
+//         qcm.style.display = 'none';
+//         text.style.display = 'block';
+//     }
+// });
+
+// let number_select = document.querySelector('#number-select');
+// let questions = document.querySelector('#questions')
+
+// number_select.addEventListener('change', () => {
+
+//     let b = number_select.value;
+//     let n = 0;
+
+//     questions.innerHTML = '';
+
+//     while (n < b) {
+//         questions.innerHTML += `
+//         <div class="space-between">
+//             <label for="reponse${n + 1}">Réponse ${n + 1} :</label>
+//             <input type="checkbox" id="check_reponse${n + 1}" name="" />
+//         </div>
+//         <input type="text" id="reponse${n + 1}">
+//         `;
+//         n++;
+//     };
+// });
+
+// // Changer de form
+// let btn_nom_quizz = document.querySelector('#btn_acces_question')
+// let form_question = document.querySelector('.form_nom_question')
+
+// btn_nom_quizz.addEventListener('input', () => {
+    
+//     form_question.style.display = "none";
+//     console.log("aa");
+// });
+
+// const form = document.getElementById('form_quetions');
+
+// form.addEventListener('submit', (event) => {
+
+//     event.preventDefault();
+
+//     const type_question = document.getElementById('type-select')
+//     const type_question_value = type_question.value;
+//     const intitule_question = document.getElementById('intitule_question')
+//     const intitule_question_value = intitule_question.value;
+//     const nbr_question = document.getElementById('number-select')
+//     const nbr_question_value = nbr_question.value;
+//     const r1 = document.getElementById('reponse1')
+//     const r1_value = r1.value;
+//     const checkbox1 = document.getElementById('check_reponse1')
+//     const checkbox1_value = checkbox1.value;
+//     const r2 = document.getElementById('reponse2')
+//     const r2_value = r2.value;
+//     const checkbox2 = document.getElementById('check_reponse2')
+//     const checkbox2_value = checkbox2.value;
+
+//     const reponse_form = {
+//         type_question: type_question_value,
+//         intitule_question: intitule_question_value,
+//         nbr_question: nbr_question_value,
+//         r1: r1_value,
+//         checkbox1: checkbox1_value,
+//         r2: r2_value,
+//         checkbox2: checkbox2_value,
+//         rText: rText_value
+//     }
+//     // console.log(`Type: ${type_question_value}`);
+//     // console.log(`Intitulé: ${intitule_question_value}`);
+//     // console.log(`Nombre de question: ${nbr_question_value}`);
+//     // console.log(`Reponse 1: ${r1_value}`);
+//     // console.log(`Vrai / Faux : ${checkbox1_value}`);
+//     // console.log(`rText : ${rText_value}`);
+//     console.log(reponse_form);
+// });
