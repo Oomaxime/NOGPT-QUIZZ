@@ -1,3 +1,5 @@
+// Timer on the way
+
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
     setInterval(function () {
@@ -24,21 +26,57 @@ window.onload = function () {
   startTimer(fourMinutes, display, redirectUrl);
 };
 
+// Anti-Cheat
+
+document.addEventListener("contextmenu", function(e){
+  e.preventDefault();
+}, false);
+
+document.addEventListener('visibilitychange', () => {
+  if(document.visibilityState==='hidden'){
+      document.title = 'LOOSER'
+      /* Récuperer l'info pour le prof et mettre 0 a la fin*/
+  }
+})
+function getFullscreenElement() {
+  return !!document.fullscreenElement
+      || !!document.webkitFullscreenElement
+      || !!document.mozFullscreenElement
+      || !!document.msFullscreenElement
+}
+
+setInterval(()=>{if(screen_status === 'ON'){
+  if(getFullscreenElement()=== false){
+  /*Récuperer l'info pour mettre 0 a la fin*/
+      console.log("mode plein écran désactivez")
+  }
+}}, 1000)
+
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === 'Enter'
+      || e.key === 'Shift'
+      || e.key === 'Control'
+      || e.key === 'Alt'
+      || e.key === 'Meta'
+      || e.key === 'F1'
+      || e.key === 'F2'
+      || e.key === 'F3'
+      || e.key === 'F4'
+      || e.key === 'F5'
+      || e.key === 'F6'
+      || e.key === 'F7'
+      || e.key === 'F8'
+      || e.key === 'F9'
+      || e.key === 'F10'
+      || e.key === 'F11'
+      || e.key === 'F12'){
+      /* log la touche et mettre 0 a la fin*/
+      console.log('mauvaise touche'+ e.key);
+  }
+});
 
 // Partie quiz
-
-// fetch('../front/goulag-test.json')
-//   .then(response => response.json())
-//   .then(data => {
-//     const questionData = data.questions[0];
-
-//     const qcmButtons = document.getElementsByClassName('qcm_answer');
-//     for (let i = 0; i < qcmButtons.length; i++) {
-//       qcmButtons[i].textContent = questionData.options[i];
-//     }
-
-//     document.getElementById('question_title').textContent = questionData.question;
-//   })
 
 const questions = [
   {
