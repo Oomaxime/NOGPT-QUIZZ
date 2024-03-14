@@ -9,18 +9,19 @@ function startTimer(duration, display) {
 
         display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-            location.replace(redirectUrl);
-        }
     }, 1000);
+    if(minutes === 0 && seconds === 0)
+    {
+      // PUSH SCORE AND COMPARE
+      location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    }
 }
 
 window.onload = function () {
-  var sevenMinutes = 60 * 4,
+  var fourMinutes = 60 * 4,
       display = document.querySelector('#timer'),
       redirectUrl = 'quizzgoulag.html';
-  startTimer(sevenMinutes, display, redirectUrl);
+  startTimer(fourMinutes, display, redirectUrl);
 };
 
 

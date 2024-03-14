@@ -1,5 +1,10 @@
-const socket = io();
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
-setTimeout(function() {
-  window.location.href = 'qizzgoulag.html'
-}, 60000);
+const Start = async () => {
+  await delay(300000);
+  alert("Goulag beginning in 10 seconds!!!");
+  await delay(10000);
+  location.href = "quizzgoulag.html";
+};
+
+Start();
