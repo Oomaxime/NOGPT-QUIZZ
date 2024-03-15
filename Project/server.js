@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import socketIo from 'socket.io';
+import { Server } from 'socket.io';
 import { firebase } from './private/js/database.js';
 import { getFirestore } from 'firebase/firestore';
 
@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/css', express.static(__dirname + 'public/css'));
 app.use('/js', express.static(__dirname + 'public/js'));
-app.use('/img', express.static(__dirname + 'public/img'))
+app.use('/img', express.static(__dirname + 'public/i-mg'))
 
 
 app.set('views', './view');
@@ -49,12 +49,17 @@ app.listen(port, (err) => {
     console.info(`listening to : ${port}`);
 });
 
+// Initialisation l'une liste temporaire
+let leaderboard = [];
+// Connexion à un serveur WebSocket
 io.on('connection', (socket) => {
     console.log(socket.id);
-    socket.on('updateScore', (newScore) => {
-        // mise à jour du score et émettre à tous les clients
-        io.emit('scoreUpdated', { userId: socket.id, score: newScore });
-    });
+
+    socket.on('answerMcq', (data) => {
+        leaderboard.push({ username: data.username, score: data.score });
+        leaderboard.sort((a, b) => b.score - a.score);
+        io.emit('updateLeaderboard', leaderboard);
+      });
 
     socket.on('disconnect', () => {
     });
