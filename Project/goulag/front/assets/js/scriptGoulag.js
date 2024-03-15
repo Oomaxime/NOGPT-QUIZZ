@@ -1,80 +1,55 @@
 // Timer on the way
 
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+function startTimer(duration, display, redirectUrl) {
+  var timer = duration, minutes, seconds;
+  setInterval(function () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
+    display.textContent = minutes + ":" + seconds;
 
-    }, 1000);
-    if(minutes === 0 && seconds === 0)
-    {
-      // PUSH SCORE AND COMPARE
-      location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    if (timer-- <= 0) {
+      clearInterval(this);
+      window.location.href = redirectUrl;
     }
+  }, 1000);
 }
 
 window.onload = function () {
   var fourMinutes = 60 * 4,
       display = document.querySelector('#timer'),
-      redirectUrl = 'quizzgoulag.html';
+      redirectUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
   startTimer(fourMinutes, display, redirectUrl);
 };
 
-// Anti-Cheat
+// Disable Copy and Paste
 
-document.addEventListener("contextmenu", function(e){
-  e.preventDefault();
-}, false);
+function disabled() {
+  const body = document.querySelector('body');
 
-document.addEventListener('visibilitychange', () => {
-  if(document.visibilityState==='hidden'){
-      document.title = 'LOOSER'
-      /* Récuperer l'info pour le prof et mettre 0 a la fin*/
-  }
-})
-function getFullscreenElement() {
-  return !!document.fullscreenElement
-      || !!document.webkitFullscreenElement
-      || !!document.mozFullscreenElement
-      || !!document.msFullscreenElement
+  // MENU : Disable
+  body.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+  });
+
+  // Right Click : Disable
+  body.addEventListener('mousedown', (event) => {
+    if (event.button === 2) {
+      event.preventDefault();
+    }
+  });
+
+  // Unselectable text
+  body.addEventListener('selectstart', (event) => {
+    event.preventDefault();
+  });
 }
 
-setInterval(()=>{if(screen_status === 'ON'){
-  if(getFullscreenElement()=== false){
-  /*Récuperer l'info pour mettre 0 a la fin*/
-      console.log("mode plein écran désactivez")
-  }
-}}, 1000)
+disabled();
 
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === 'Enter'
-      || e.key === 'Shift'
-      || e.key === 'Control'
-      || e.key === 'Alt'
-      || e.key === 'Meta'
-      || e.key === 'F1'
-      || e.key === 'F2'
-      || e.key === 'F3'
-      || e.key === 'F4'
-      || e.key === 'F5'
-      || e.key === 'F6'
-      || e.key === 'F7'
-      || e.key === 'F8'
-      || e.key === 'F9'
-      || e.key === 'F10'
-      || e.key === 'F11'
-      || e.key === 'F12'){
-      /* log la touche et mettre 0 a la fin*/
-      console.log('mauvaise touche'+ e.key);
-  }
-});
 
 // Partie quiz
 
