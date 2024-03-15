@@ -19,7 +19,6 @@ body{
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
 
 header{
@@ -82,7 +81,7 @@ main{
     color: var(--gold);
 }
 
-#leaderboard {
+/* #leaderboard {
     position: absolute;
     top: 250px;
     right: 5%;
@@ -91,7 +90,7 @@ main{
 
 #leaderboard p{
     margin-bottom: 5px;
-}
+} */
 
 h1{
     margin-top: 100px;
@@ -155,3 +154,49 @@ button{
 #answer_area button:active{
     outline: 2px solid var(--gold);
 }
+
+/* Leaderboard */
+
+#leaderboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+    background-image: url(../img/tetedemort.png);
+    background-position: center center;
+    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#leaderboard h2{
+    color: #FF0000;
+    font-size: 5rem;
+    font-family: 'Bokor', sans-serif;
+    letter-spacing: 2px;
+}
+
+#leaderboard p{
+    font-size: 2.5rem;
+}
+
+#undertale{
+    width: 350px;
+    position: absolute;
+    left: 5%;
+    /* transform: rotate(-20deg); */
+}
+
+#undertale2{
+    width: 350px;
+    position: absolute;
+    right: 5%;
+    /* transform: rotate(20deg); */
+}
+
+/* #mamierpg{
+    width: 200px;
+    position: absolute;
+    bottom: 5%;
+} */
