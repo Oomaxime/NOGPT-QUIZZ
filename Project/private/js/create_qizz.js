@@ -1,17 +1,44 @@
-function create_page(data) {
+import { writeFile } from 'fs/promises';
+
+const data_qizz = {
+    name : "mon_quizz",
+    content : {
+        question_1 : {
+            title : "koi",
+            type : "qcm",
+            choices : [{content : "feur",
+            is_true : true}]
+                
+            },
+        },
+        question_2 : {
+            title : "bonjour",
+            type : "text",
+        },
+};
+
+
+function create_page(data, path) {
+    const content_qizz = data['content']
     let body_html = 
     `
     `;
 
-    for (const question in data){
-        let title = question.title
-        let content = question.content
-    
+    for (const question in content_qizz){
+        const title = content_qizz[question]['title'];
+        const content_question = content_qizz[question]['choices'];
     
         // Switch pour verifier le type de la question
-        switch (question.type) {
-            case "coche" :
-                body_html = coche_creation(title, content);
+        switch (content_qizz[question]['type']) {
+            case "qcm" :
+                body_html += coche_creation(title, content_question);
+                break;
+            case "text" :
+                body_html += text_creation(title);  
+                break;
+            default :
+                console.log("le type n'existe pas")
+                // faire un exeption si il y a eu un pb sur le type ou qu'il a ete volontairement modifie.
         }
         body_html += 
         `
@@ -40,11 +67,14 @@ function create_page(data) {
     <div class="modal flexcenter" id="login_modal">
         <div id="login">
             <h2>CONNEXION</h2>
-            <form id="form" method="post" action="#">
+
+            <form id="form" method="post" action="/submit">
                 <label for="name_input">NOM:</label><input type="text" name="name" id="name_input">
                 <label for="firstname_input">PRENOM:</label><input type="text" name="firstname" id="firstname_input">
                 <button id= "log_button" type="submit">VALIDEZ</button>
             </form>
+
+            
         </div>
 
         <div id="rules">
@@ -60,13 +90,36 @@ function create_page(data) {
         <img id=logo src="../public/img/logo.png" alt="">
     </header>
     <main>
-        
-
+        ${body_html}
     </main>
 <script src="js/script.js"></script>
 </body>
 </html>
     `;
+
+    writeFile(path, htmlContent)
+}
+
+
+{/* <form id="form" method="post" action="/working_data">
+                <input type="hidden" name="fileName" value="test.html">
+                <label for="name_input">NOM:</label><input type="text" name="name" id="name_input">
+                <label for="firstname_input">PRENOM:</label><input type="text" name="firstname" id="firstname_input">
+                <button id= "log_button" type="submit">VALIDEZ</button>
+            </form> */}
+
+function text_creation(title) {
+    let text = `
+    <section class="texted_answer_section" id="">
+
+        <h3 id="question_title">${title}</h3>
+        <div id="editor"></div>
+        <button type="submit" class="answer_sending_button" id="getCodeButton">VALIDER</button>
+
+    </section>
+    `
+
+    return text
 }
 
 
@@ -75,31 +128,41 @@ function create_page(data) {
 // Fonction creation d'une question de type coche prenant en parametre son intitule et son contenu (le contenu des reponses et leur nombre)
 // Elle créera une div dediée qui sera ensuite mis dans le coeur de l'html
 function coche_creation(title ,content) {
+    // i permettra d'avancer dans le nb des questions et questions stockera les questions
+    let i = 0
     let questions = 
     `
     `;
 
+    // Boucle pour la creation des choix du qcm
     for (const ele of content) {
         let proposition = 
         `
-        <div>
-        ${ele.text}
-        </div>
+        <p class="qcm_answer" id="qcm_choice${i}">${ele['content']}</p>
         `;
+
         questions += proposition;
+
+        i++;
     };
     
-    
-    let coche = 
+    // Creation du qcm par ajouts des valeurs
+    let qcm = 
     `
-    <div class="" id="">
-        <h2>${title}</h2>
-        ${questions}
-    </div>
+    <section class="qcm_section flexcenter" id="q1">
+
+        <h3 id="question_title">${title}</h3>
+        <div class="qcm_answer_list">
+            <div>
+                ${questions}
+            </div>
+        </div>
+
+    </section>
     `;
 
-    return coche
+    return qcm
 }
 
 
-// mettre les modules d'exports
+export{create_page}

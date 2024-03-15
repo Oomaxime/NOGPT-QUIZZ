@@ -10,6 +10,8 @@ import { createJsonFile, read_File } from './private/js/json_manipulation.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
+import { create_page } from './private/js/create_qizz.js'
+
 
 // Repertoire de travail
 const __filename = fileURLToPath(import.meta.url);
@@ -21,12 +23,58 @@ const port = 3000;
 
 const db = getFirestore(firebase);
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/qizztest', (req, res) => {
     res.sendFile(path.join(__dirname, 'view', 'index.html'));
+});
+
+app.get('/test_creation', (req, res) => {
+    res.sendFile(path.join(__dirname, 'view', 'creation.html'));
+})
+
+app.get('/working', (req, res) => {
+    const fileName = req.query.fileName;
+
+    console.log('Received input data:', fileName);
+
+    res.sendFile(path.join(__dirname, 'view', fileName));
+});
+
+app.post('/generate_quiz', async(req, res) => {
+
+    const data_qizz = {
+        name : "mon_quizz",
+        content : {
+            question_1 : {
+                title : "koi",
+                type : "qcm",
+                choices :[
+                    {content : "feur",is_true : true}
+                ]
+            },
+            question_2 : {
+                title : "bonjour",
+                type : "text"
+            }
+        }
+    }
+
+    // const name_qizz = req.body.nom_du_qizz;
+    const fileName = "test.html"
+
+    await create_page(data_qizz,  path.join(__dirname, 'view', fileName))
+    // try {
+    //     const cache_qizz_data = await read_File(`./private/js/cache/${name_qizz}.json`);  
+    //     console.log(cache_qizz_data); 
+    // } catch (err) {
+    //     console.log("erreur lors de la recherche du fichier",err);
+    //     res.redirect('/test_creation');
+    // }
+
+    res.redirect(`/working?fileName=${fileName}`);
 });
 
 app.post('/submit', (req, res) => {
@@ -61,11 +109,9 @@ app.post('/submit', (req, res) => {
     add_data_database(db, data)
         .then(() => {
             console.log('Données ajoutées avec succès à Firestore.');
-            //res.status(200).send('Données ajoutées avec succès.'); // Envoyer une réponse au client
         })
         .catch(error => {
             console.error("Une erreur s'est produite lors de l'ajout de données à Firestore:", error);
-            //res.status(500).send("Une erreur s'est produite lors de l'ajout de données à Firestore.");
         });
 });
 
