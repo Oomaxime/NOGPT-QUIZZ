@@ -1,3 +1,8 @@
+const USER = {
+  id:"",
+  score:0
+};
+
 function generateUniqueId() {
   const randomNumber = Math.floor(Math.random() * 100);
   const uniqueId = '4' + randomNumber.toString().padStart(3, '0');
@@ -5,13 +10,15 @@ function generateUniqueId() {
 }
 
 const user_id = document.getElementById("user_number");
-user_id = generateUniqueId();
+USER.id = generateUniqueId();
+user_id.innerHTML = USER.id;
 
 function BeginTest() {
   // 4 minutes
+
   const redirectTimeout = setTimeout(function() {
     window.location.href = 'http://127.0.0.1:5501/front/main_test.html';
-  }, 240000);
+  }, 24000);
 
 
   const alertTimeout = setTimeout(function() {
@@ -19,14 +26,11 @@ function BeginTest() {
     clearTimeout(redirectTimeout);
     setTimeout(function() {
       window.location.href = 'http://127.0.0.1:5501/front/main_test.html';
-    }, 10000);
-  }, 230000);
+    }, 1000);
+  }, 23000);
 
-  window.onload = function(){
-    BeginTest();
-  }
 }
 
-BeginTest();
 
-export{user_id}
+BeginTest();
+//module.exports = {USER}; (Node Js)

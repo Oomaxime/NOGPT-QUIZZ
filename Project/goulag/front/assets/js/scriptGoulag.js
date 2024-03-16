@@ -1,4 +1,6 @@
-import { user_id } from "./script";
+// const { USER } = require('./script.js'); (Node JS)
+const usertest_id = document.getElementById("nbr_title");
+usertest_id.innerHTML = USER.id;
 
 // Timer on the way
 function startTimer(duration, display, redirectUrl) {
@@ -50,11 +52,6 @@ function disabled() {
 }
 
 disabled();
-
-// Id : Onload
-
-const usertest_id = document.getElementById("nbr_title");
-usertest_id = user_id;
 
 
 // Partie quiz
@@ -338,7 +335,6 @@ function startQuizz() {
 }
 
 startQuizz();
+USER.score = user_score;
 
-const result = [user_id, user_score];
-
-export {result}
+console.log(USER.id + " / " + USER.score);
