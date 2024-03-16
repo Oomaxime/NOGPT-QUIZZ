@@ -14,8 +14,6 @@ import {sql} from "@codemirror/lang-sql"
 import {json} from "@codemirror/lang-json"
 
 
-
-
 /** CRÉATION ET SETUP DE L'ÉDITEUR DE CODE **/
 let language = new Compartment
 
@@ -24,16 +22,98 @@ const fixedHeightEditor = EditorView.theme({
     ".cm-scroller": {overflow: "auto"}
 })
 
-
-let state = EditorState.create({
+let state= EditorState.create({
     extensions: [
         fixedHeightEditor,
         truthGame,
         basicSetup,
-        keymap.of([indentWithTab]),
-        language.of(javascript()),
+        keymap.of([indentWithTab])
     ]
 })
+
+let langTag='javascript'
+
+switch (langTag){
+    case 'javascript':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
+                language.of(javascript()),
+            ]
+        });
+        break;
+    case 'html':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
+                language.of(html()),
+            ]
+        });
+        break;
+    case 'css':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
+                language.of(css()),
+            ]
+        });
+        break;
+    case 'python':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
+                language.of(python()),
+            ]
+        });
+        break;
+    case 'sql':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
+                language.of(sql()),
+            ]
+        });
+        break
+    case 'php':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
+                language.of(php()),
+            ]
+        });
+        break
+    case 'json':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
+                language.of(json()),
+            ]
+        });
+        break
+}
+
+
 
 let view = new EditorView({
     state,
@@ -46,19 +126,21 @@ const getFocus = setInterval(() => {
     if(view.hasFocus) clearInterval(getFocus);
 }, 500);
 
-/**CHANGE LANGUAGE**/
-function setLanguage(view, value) {
-    view.dispatch({
-        effects: language.reconfigure(value)
-    })
-}
+/** CHANGE LANGUAGE
 
+ function setLanguage(value) {
+ view.dispatch({
+ effects: language.reconfigure(value)
+ })
+ }
+
+ setLanguage(python()) **/
 
 /***GET DATA***/
 
 const getCodeButton = document.getElementById("getCodeButton")
 
-getCodeButton.addEventListener("click", e => {
+getCodeButton.addEventListener(`click`, e => {
     let code = view.state.doc.toString()
     console.log(code)
 })
