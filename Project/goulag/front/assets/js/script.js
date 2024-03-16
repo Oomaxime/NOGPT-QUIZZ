@@ -1,3 +1,12 @@
+function generateUniqueId() {
+  const randomNumber = Math.floor(Math.random() * 100);
+  const uniqueId = '4' + randomNumber.toString().padStart(3, '0');
+  return uniqueId;
+}
+
+const user_id = document.getElementById("user_number");
+user_id = generateUniqueId();
+
 function BeginTest() {
   // 4 minutes
   const redirectTimeout = setTimeout(function() {
@@ -19,3 +28,5 @@ function BeginTest() {
 }
 
 BeginTest();
+
+export{user_id}

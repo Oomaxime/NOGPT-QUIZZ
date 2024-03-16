@@ -1,5 +1,6 @@
-// Timer on the way
+import { user_id } from "./script";
 
+// Timer on the way
 function startTimer(duration, display, redirectUrl) {
   var timer = duration, minutes, seconds;
   setInterval(function () {
@@ -49,6 +50,11 @@ function disabled() {
 }
 
 disabled();
+
+// Id : Onload
+
+const usertest_id = document.getElementById("nbr_title");
+usertest_id = user_id;
 
 
 // Partie quiz
@@ -332,3 +338,7 @@ function startQuizz() {
 }
 
 startQuizz();
+
+const result = [user_id, user_score];
+
+export {result}
