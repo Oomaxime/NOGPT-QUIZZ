@@ -31092,7 +31092,7 @@
                    truthGame,
                    basicSetup,
                    keymap.of([indentWithTab]),
-                   language.of(javascript()),
+                   language.of(javascript())
                ]
            });
            break;
@@ -31103,7 +31103,7 @@
                    truthGame,
                    basicSetup,
                    keymap.of([indentWithTab]),
-                   language.of(html()),
+                   language.of(html())
                ]
            });
            break;
@@ -31114,7 +31114,7 @@
                    truthGame,
                    basicSetup,
                    keymap.of([indentWithTab]),
-                   language.of(css()),
+                   language.of(css())
                ]
            });
            break;
@@ -31125,7 +31125,7 @@
                    truthGame,
                    basicSetup,
                    keymap.of([indentWithTab]),
-                   language.of(python()),
+                   language.of(python())
                ]
            });
            break;
@@ -31136,7 +31136,7 @@
                    truthGame,
                    basicSetup,
                    keymap.of([indentWithTab]),
-                   language.of(sql()),
+                   language.of(sql())
                ]
            });
            break
@@ -31147,7 +31147,7 @@
                    truthGame,
                    basicSetup,
                    keymap.of([indentWithTab]),
-                   language.of(php()),
+                   language.of(php())
                ]
            });
            break
@@ -31158,7 +31158,17 @@
                    truthGame,
                    basicSetup,
                    keymap.of([indentWithTab]),
-                   language.of(json()),
+                   language.of(json())
+               ]
+           });
+           break
+       case 'text':
+           state = EditorState.create({
+               extensions: [
+                   fixedHeightEditor,
+                   truthGame,
+                   basicSetup,
+                   keymap.of([indentWithTab]),
                ]
            });
            break
@@ -31191,7 +31201,7 @@
 
    const getCodeButton = document.getElementById("getCodeButton");
 
-   getCodeButton.addEventListener("click", e => {
+   getCodeButton.addEventListener(`click`, e => {
        let code = view.state.doc.toString();
        console.log(code);
    });

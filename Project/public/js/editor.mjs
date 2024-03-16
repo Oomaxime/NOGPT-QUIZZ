@@ -41,7 +41,7 @@ switch (langTag){
                 truthGame,
                 basicSetup,
                 keymap.of([indentWithTab]),
-                language.of(javascript()),
+                language.of(javascript())
             ]
         });
         break;
@@ -52,7 +52,7 @@ switch (langTag){
                 truthGame,
                 basicSetup,
                 keymap.of([indentWithTab]),
-                language.of(html()),
+                language.of(html())
             ]
         });
         break;
@@ -63,7 +63,7 @@ switch (langTag){
                 truthGame,
                 basicSetup,
                 keymap.of([indentWithTab]),
-                language.of(css()),
+                language.of(css())
             ]
         });
         break;
@@ -74,7 +74,7 @@ switch (langTag){
                 truthGame,
                 basicSetup,
                 keymap.of([indentWithTab]),
-                language.of(python()),
+                language.of(python())
             ]
         });
         break;
@@ -85,7 +85,7 @@ switch (langTag){
                 truthGame,
                 basicSetup,
                 keymap.of([indentWithTab]),
-                language.of(sql()),
+                language.of(sql())
             ]
         });
         break
@@ -96,7 +96,7 @@ switch (langTag){
                 truthGame,
                 basicSetup,
                 keymap.of([indentWithTab]),
-                language.of(php()),
+                language.of(php())
             ]
         });
         break
@@ -107,7 +107,17 @@ switch (langTag){
                 truthGame,
                 basicSetup,
                 keymap.of([indentWithTab]),
-                language.of(json()),
+                language.of(json())
+            ]
+        });
+        break
+    case 'text':
+        state = EditorState.create({
+            extensions: [
+                fixedHeightEditor,
+                truthGame,
+                basicSetup,
+                keymap.of([indentWithTab]),
             ]
         });
         break
