@@ -21,7 +21,7 @@ function startTimer(duration, display, redirectUrl) {
 window.onload = function () {
   var fourMinutes = 60 * 4,
       display = document.querySelector('#timer'),
-      redirectUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+      redirectUrl = 'https://www.youtube.com/watch?v=wpV-gGA4PSk';
   startTimer(fourMinutes, display, redirectUrl);
 };
 
@@ -306,7 +306,7 @@ function displayQuestionAndAnswers() {
     currentQuestionIndex++;
   }
   else{
-    location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    location.replace("https://www.youtube.com/watch?v=wpV-gGA4PSk");
   }
 }
 
