@@ -124,6 +124,32 @@ answer_sending_button.addEventListener('click', () => {
     }
 })
 
+
+let i = 0
+while (true) {
+    i++ 
+    try {
+        if (i != 0) {
+            const question_engaged = document.querySelector(`#q${i-1}`)
+            question_engaged.style.display = "none"
+        }
+        const question_engaged = document.querySelector(`#q${i}`)
+        question_engaged.style.display = "flex"
+    } catch {
+        // faire en sorte de terminer les qizz
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 /******* OUTILS DE SÉLECTION DE RÉPONSE QCM ********/
 
 const qcm_answer_list = document.querySelector('.qcm_answer_list');
