@@ -81,17 +81,6 @@ main{
     color: var(--gold);
 }
 
-/* #leaderboard {
-    position: absolute;
-    top: 250px;
-    right: 5%;
-    text-align: center;
-}
-
-#leaderboard p{
-    margin-bottom: 5px;
-} */
-
 h1{
     margin-top: 100px;
     margin-bottom: 30px;
@@ -194,9 +183,3 @@ button{
     right: 5%;
     /* transform: rotate(20deg); */
 }
-
-/* #mamierpg{
-    width: 200px;
-    position: absolute;
-    bottom: 5%;
-} */
