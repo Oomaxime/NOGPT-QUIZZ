@@ -1,5 +1,5 @@
 import {basicSetup} from "codemirror"
-import {EditorState, Compartment} from "@codemirror/state"
+import {Compartment, EditorState} from "@codemirror/state"
 import {EditorView, keymap} from "@codemirror/view"
 import {indentWithTab} from "@codemirror/commands"
 import truthGame from './editor_theme.js';
@@ -150,7 +150,38 @@ const getFocus = setInterval(() => {
 
 const getCodeButton = document.getElementById("getCodeButton")
 
+
 getCodeButton.addEventListener(`click`, e => {
-    let code = view.state.doc.toString()
-    console.log(code)
+
+
+    fetch('/submit_code', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({code: view.state.doc.toString() })
+    })
+  /**fetch('/submit_code', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: jsonCode
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Une erreur s\'est produite lors de l\'envoi des données.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            alert("Données envoyé avec succès !");
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Une erreur s'est produite lors de l'envoi des données.");
+        }); */
+
 })
+
