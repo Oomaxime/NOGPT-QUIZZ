@@ -1,6 +1,12 @@
 // const { USER } = require('./script.js'); (Node JS)
+function generateUniqueId() {
+  const randomNumber = Math.floor(Math.random() * 100);
+  const uniqueId = '4' + randomNumber.toString().padStart(3, '0');
+  return uniqueId;
+}
+
 const usertest_id = document.getElementById("nbr_title");
-usertest_id.innerHTML = USER.id;
+usertest_id.innerHTML = generateUniqueId();
 
 // Timer on the way
 function startTimer(duration, display, redirectUrl) {

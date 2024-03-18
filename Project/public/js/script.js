@@ -65,26 +65,29 @@ setInterval(()=>{if(screen_status === 'ON'){
 
 
 document.addEventListener("keydown", (e) => {
-    if (e.key === 'Enter'
-        || e.key === 'Shift'
-        || e.key === 'Control'
-        || e.key === 'Alt'
-        || e.key === 'Meta'
-        || e.key === 'F1'
-        || e.key === 'F2'
-        || e.key === 'F3'
-        || e.key === 'F4'
-        || e.key === 'F5'
-        || e.key === 'F6'
-        || e.key === 'F7'
-        || e.key === 'F8'
-        || e.key === 'F9'
-        || e.key === 'F10'
-        || e.key === 'F11'
-        || e.key === 'F12'){
-        /* log la touche et mettre 0 a la fin*/
-        console.log('mauvaise touche'+ e.key);
-        location.href = '../../goulag/front/index.html';
+    const restrictedKeys = [
+        'Enter',
+        'Shift',
+        'Control',
+        'Alt',
+        'Meta',
+        'F1',
+        'F2',
+        'F3',
+        'F4',
+        'F5',
+        'F6',
+        'F7',
+        'F8',
+        'F9',
+        'F10',
+        'F11',
+        'F12'
+    ];
+
+    if (restrictedKeys.includes(e.key)) {
+        console.log('Pressing wrong key: ' + e.key);
+        window.location.href = '../../view/gindex.html'; 
     }
 });
 

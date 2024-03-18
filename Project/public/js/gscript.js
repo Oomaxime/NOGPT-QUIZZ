@@ -1,4 +1,4 @@
-const USER = {
+/*const USER = {
   id:"",
   score:0
 };
@@ -11,13 +11,13 @@ function generateUniqueId() {
 
 const user_id = document.getElementById("user_number");
 USER.id = generateUniqueId();
-user_id.innerHTML = USER.id;
+user_id.innerHTML = USER.id;*/
 
 function BeginTest() {
   // 4 minutes
 
   const redirectTimeout = setTimeout(function() {
-    window.location.href = 'http://127.0.0.1:5501/front/main_test.html';
+    window.location.href = 'http://127.0.0.1:5500/view/main_test.html';
   }, 24000);
 
 
@@ -25,7 +25,7 @@ function BeginTest() {
     alert('10 secondes avant lancement !!!');
     clearTimeout(redirectTimeout);
     setTimeout(function() {
-      window.location.href = 'http://127.0.0.1:5501/front/main_test.html';
+      window.location.href = 'http://127.0.0.1:5500/view/main_test.html';
     }, 1000);
   }, 23000);
 
