@@ -13,6 +13,9 @@ import path from 'path';
 import { create_page } from './private/js/create_qizz.js'
 
 
+import fs from 'fs';
+
+
 // Repertoire de travail
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,11 +23,6 @@ const __dirname = path.dirname(__filename);
 // Initialisation de l'application Express
 const app = express();
 const port = 3000;
-
-// Démarrage du serveur HTTP
-app.listen(port, (err) => {
-    console.info(`listening to : ${port}`);
-});
 
 // Initialisation de Firestore
 const db = getFirestore(firebase);
@@ -34,6 +32,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+
 let NameQizzGlobal = ""
 
 
@@ -42,209 +41,215 @@ app.set('view engine', 'ejs');
 
 
 
-app.get('/qizztest', (req, res) => {
-    res.sendFile(path.join(__dirname, 'view', 'index.html'));
-});
 
-app.get('/test_creation', (req, res) => {
+
+
+// ==========================================
+// 
+//                  GET
+// 
+// ==========================================
+
+
+
+
+// Permet de creer des qizz
+// A faire : un systeme de pret connexion permettant aux intervenants de consulter d'anciens qizz et de creer des nouveaux
+app.get('/creation', (req, res) => {
     // page de test pour la creation du qizz
     res.sendFile(path.join(__dirname, 'view', 'creation.html'));
 })
 
-app.post('/connexion', (req, res) => {
-    if (!req.body) {
-        return res.status(400).send('Aucune donnée reçue');
-    }
 
-    const name = req.body.name;
-    const firstname = req.body.firstname;
+// Permet a l'user de se conencter a un qizz
+// Il devra rentrer :
+// - Nom
+// - Prenom
+// - Nom du qizz
+// Quand cela est fait il validera le forme, actionnant /redirect
+app.get('/connexion', (req, res) => {
+    res.sendFile(path.join(__dirname, 'view', 'login.html'));
+})
 
-    if (!name || !firstname) {
-        console.log('Nom:', name);
-        console.log('Prénom:', firstname);
-        return res.status(400).send('Champs manquants dans le formulaire');
-    }    
 
-    console.log('Nom:', name);
-    console.log('Prénom:', firstname);
 
-    const data = {
-        where: 'etudiants',
-        nom : '',
-        prenom : '',
-        stats_triche : {
-            touches_sus : {
-                crtl : 0,
-                alt : 0,
-                tab : 0,
-                cmd : 0,
-                opt : 0,
-                funct : 0
-            },
-            windows : {
-                fullscreen : false,
-                exit : false,
-                cursor : false
-            }
-        },
-        stats : {
+// recupere dans un post :
+// - data_received : le nom du qizz
+// - name : le nom de l'user
+// - firstname : le prenom de l'user
+// et envoie l'user sur la page correspondant a data_received
+app.get('/working', (req, res) => {
+    const data_received = req.query.data_received;
+    const name = req.query.name;
+    const firstname = req.query.firstname;
+
+    // console.log('Received input data:', data_received, name, firstname);
+
+    for (let ele in ["creation","login","index"]){
+        if (ele === data_received) {
+            console.log("un malin a tenter de se connecter a une page interdite d'acces");
+            res.redirect("/connexion");
         }
     }
 
-    data['nom'] = name
-    data['prenom'] = firstname
+    try {
+        let htmlContent = fs.readFileSync(`./view/${data_received}.html`, 'utf-8');
 
-    add_data_database(db, data)
+        htmlContent = htmlContent.replace('<input type="hidden" id="name" name="name" value="name_student">', `<input type="hidden" id="name" name="name" value="${name}">`);
+        htmlContent = htmlContent.replace('<input type="hidden" id="firstname" name="firstname" value="firstname_student">', `<input type="hidden" id="firstname" name="firstname" value="${firstname}">`);
+        htmlContent = htmlContent.replace('<input type="hidden" id="qizz" name="qizz" value="qizz_student">', `<input type="hidden" id="qizz" name="qizz" value="${data_received}">`);
 
-    res.send(`Connexion réussie pour ${firstname} ${name}`);
-
-});
-
-app.get('/users', async (req, res) => {
-    const intervenants = collection(db, 'intervenants');
-    const etudiants = collection(db, 'etudiants');
-    const qizz = collection(db, 'qizz')
-
-
-    // Attente des deux promesses
-    Promise.all([getDocs(intervenants), getDocs(etudiants), getDocs(qizz)])
-        .then(([intervenantsSnapshot, etudiantsSnapshot, qizzSnapshot]) => {
-            const intervenants_data = get_data_database(intervenantsSnapshot)
-
-            const etudiants_data = get_data_database(etudiantsSnapshot)
-
-            const qizzSnapshot_data = get_data_database(qizzSnapshot)
-
-            // Envoi des valeurs une fois que les deux collections ont été récupérées
-            res.send([intervenants_data, etudiants_data, qizzSnapshot_data]);
-        })
-        .catch((error) => {
-            // Gestion des erreurs ici
-            console.error('Erreur lors de la récupération des données:', error);
-            res.status(500).send('Erreur lors de la récupération des données');
-        });
-    });
-
-app.get('/working', (req, res) => {
-    const fileName = req.query.fileName;
-
-    console.log('Received input data:', fileName);
-
-    res.sendFile(path.join(__dirname, 'view', fileName));
+        res.send(htmlContent);
+    } catch(err) {
+        console.log("user tried to connect but an error occured :",err);
+        res.redirect("/connexion");
+    }
 });
 
 
 
 
+// ==========================================
+// 
+//              POST
+// 
+// ==========================================
 
-app.post('/add_quiz', async(req, res) => {
-    // post gerant pour l'instant le test de la creation du qizz dans la bdd
+// Redirige l'user vers le qizz qu'il a rentre (/working)
+// Il y a une verification basique pour eviter qu'il puisse acceder a des parties non autorisee
+app.post('/redirect', async(req, res) => {
+    const name_student = req.body.name;
+    const firstname_student = req.body.firstname;
+    const qizz = req.body.qizz;
 
+    console.log(name_student, firstname_student, qizz);
 
+    try {
+        await update_data_database(db, 'qizz', qizz, 'students', (name_student+"_"+firstname_student).toLowerCase(), {triche:false, data:{}});
+        console.log('Données mises à jour avec succès à Firestore.');
+        
+    } catch (error) {
+        console.error("Une erreur s'est produite lors de l'ajout ou de la mise à jour des données à Firestore:", error);
+        res.redirect('/connexion');
+    }
 
-    // const name_qizz = req.body.nom_du_qizz;
-
-    // try {
-    //     const cache_qizz_data = await read_File(`./private/js/cache/${name_qizz}.json`);
-    //     console.log(cache_qizz_data);
-    // } catch (err) {
-    //     console.log("erreur lors de la recherche du fichier",err);
-    //     res.redirect('/test_creation');
-    // }
-
+    res.redirect(`/working?data_received=${qizz}&name=${name_student}&firstname=${firstname_student}`);
 });
 
 
-app.post('/generate_quiz', async(req, res) => {
-    // fonction test gerant la generation de qizz lors de la connexion d'un eleve
+// s'occupe d'envoyer les questions pour la creation du qizz
+// lis les donnees sur le json present dans le cache
+// Recupere a chaque ajout de question (form de creation de question dont l'action est /submit_question)
+// ajoute ces donnees dans le json present dans le cache
+app.post('/submit_question', async(req, res) => {
+    let data_json = await read_File(`./private/js/cache/${NameQizzGlobal}.json`)
+
+    let nb = 1
+    for (let ele in data_json['content']){
+        nb++
+    }
 
 
-    // data simulant les donnees qui proviendront de la lecture du fichier json
-    const data_qizz = {
-        name : "mon_quizz",
-        content : {
-            question_1 : {
-                title : "koi",
-                type : "qcm",
-                choices :[
-                    {content : "feur",is_true : true}
-                ]
-            },
-            question_2 : {
-                title : "bonjour",
-                type : "text"
+    data_json['content'][`question_${nb}`] = {
+        name : req.body.intitule,
+        type : req.body.type_question,
+    }
+    
+    if (data_json['content'][`question_${nb}`]['type'] == "qcm"){
+        const nbr_reponses = req.body.nbr_reponses;
+        data_json['content'][`question_${nb}`]['choices'] = []
+
+        for (let i = 0; i < nbr_reponses; i++){
+
+            let is_true_val = req.body[`check_reponse${i}`]
+
+            if (is_true_val === 'on') {
+                is_true_val = true;
+            } else {
+                is_true_val = false;
             }
+
+            
+            data_json['content'][`question_${nb}`]['choices'].push({content:req.body[`check_content${i}`],is_true:is_true_val});
+        }
+    } else {
+        data_json['content'][`question_${nb}`]['language'] = req.body.type_text
+    }
+
+    
+
+    await createJsonFile(`./private/js/cache/${NameQizzGlobal}.json`, data_json);
+});
+
+
+// S'occupe de l'envoye du nom du qizz et de sa creation
+// Recupere dans le form le nom du qizz
+// Avec ce nom, il creer un fichier json dont le format est predefinis afin de premettre la creation de qcm
+app.post("/submit_name_qizz", async(req, res) => {
+
+    const formData = req.body;
+
+    NameQizzGlobal = formData.nom_qizz;
+    // setup le nom du fichier et le chemin d'accès
+    const fileName = NameQizzGlobal + '.json';
+    const filePath = path.join(__dirname, '/private/js/cache/', fileName);
+
+    // construction du json
+    const jsonData = {
+        nom: NameQizzGlobal,
+        creator_id : "",
+        content : {
+            },
+        students : { 
         }
     };
 
-    // fileName devrait etre generer par rapport aux nom et prenom de l'eleve
-    const fileName = "test.html"
-
-
-    // ** **
-    //  mettre un systeme de verifications des donnees
-    // ** **
-
-    //Creation de la page en fonction du chemin et de la data
-    // ** **
-    //  faire en sorte d'importer la data depuis la bdd
-    // ** **
-    await create_page(data_qizz,  path.join(__dirname, 'view', fileName))
-
-
-    // redirige l'user vers la page qui vient d'etre cree
-    // il faut faire un js qui va permettre de faire des exports de donnees dans chaque fichier
-    res.redirect(`/working?fileName=${fileName}`);
+    await createJsonFile(filePath, jsonData);
 });
 
-app.post('/submit', async(req, res) => {
-    const name = req.body.name;
-    const firstname = req.body.firstname;
 
-    const data = {
-        nom : "j'calle_le_petard_entre_mes_dents",
-        creator_id : "1111",
-        data : {
-            reponse : "bah oe bah oe"
-        },
-        students : {
-            triche : false,
-            data : {
-                question_1 : {
-                    test : "test"
-                },
-            }
-        },
+// ajout du qizz a la bdd
+// lis le fichier json dans le cache correspondant au qizz en cours de creation
+// envoi ces donnees a la firebase
+// 
+// En attendant la creation d'une interface pour l'intervenant permettant d'activer ou de desactiver les qizz
+// La page html du qizz est automatiquement creer apres l'envoie des donnees par relecture des donnees
+app.post("/submit_quizz", async(req, res) => {
+    console.log('requête reçut coté serveur')
+    const mydoc = await read_File(`./private/js/cache/${NameQizzGlobal}.json`)
+    console.log(mydoc)
+    await add_data_database(db, "qizz", mydoc);
+
+    console.log(NameQizzGlobal)
+
+    const data_qizz = await get_data_database(db, 'qizz', NameQizzGlobal);
+
+    console.log(data_qizz)
+    
+    await create_page(data_qizz, `./view/${NameQizzGlobal}.html`) ;
+
+    if (fs.existsSync(`./private/cache/${NameQizzGlobal}.json`)) {
+        await fs.promises.unlink(`./private/cache/${NameQizzGlobal}.json`);
+        console.log("Le fichier a été supprimé avec succès !");
     }
 
-    console.log(data)
+    NameQizzGlobal = ""
 
-    try {
-        await add_data_database(db, 'qizz', data);
-        console.log('Données ajoutées avec succès à Firestore.');
+    console.log("cool")
 
-        // Mettre à jour le champ "questions" en utilisant arrayUnion()
-        await update_data_database(db, 'qizz', "j'calle_le_petard_entre_mes_dents", 'questions', { triche : true });
-
-        await update_data_database(db, 'qizz', "j'calle_le_petard_entre_mes_dents", 'students', 'question_2', {key:"asd"});
-
-        await update_data_database(db, 'qizz', "j'calle_le_petard_entre_mes_dents", 'students', 'question_3', true);
-
-        res.status(200).send('Données soumises avec succès.');
-    } catch (error) {
-        console.error("Une erreur s'est produite lors de l'ajout ou de la mise à jour des données à Firestore:", error);
-        res.status(500).send('Une erreur s\'est produite lors du traitement de votre demande.');
-    }
-});
-
-app.post('/send_answer', async(req, res) => {
-    const formData = req.body;
-})
-
-app.post('/submit_code', async(req, res) => {
-    console.log(req.body)
+    res.redirect('/creation')
 
 })
+
+// Permet d'envoye les tricheurs au goulag
+app.post('/cheater', async(req, res) => {
+    await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name+"_"+req.body.firstname).toLowerCase(), {triche:true});
+})
+
+
+
+
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

@@ -79,6 +79,10 @@ function create_page(data, path) {
         <img id=logo src="img/logo.png" alt="">
     </header>
     <main>
+    <input type="hidden" id="name" name="name" value="name_student">
+    <input type="hidden" id="firstname" name="firstname" value="firstname_student">
+    <input type="hidden" id="qizz" name="qizz" value="qizz_student">
+
         ${body_html}
     </main>
 <script src="js/script_qizz.js"></script>

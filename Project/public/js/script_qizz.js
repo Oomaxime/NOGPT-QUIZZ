@@ -143,9 +143,6 @@ qcm_answer_list.addEventListener('click', (e) => {
 
 
 function cheater_cheater_dont_get_the_winner () {
-    const name = document.getElementById("name").value;
-    const firstname = document.getElementById("firstname").value;
-    const qizz = document.getElementById("qizz").value;
 
     fetch('/cheater', {
         method: 'POST',
