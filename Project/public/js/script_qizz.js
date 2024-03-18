@@ -24,7 +24,7 @@ document.addEventListener("contextmenu", function(e){
 document.addEventListener('visibilitychange', () => {
     if(document.visibilityState==='hidden'){
         document.title = 'LOOSER'
-        cheater_cheater_dont_get_the_winner();
+        cheater_cheater_dont_get_the_winner("tab_change");
         /* Récuperer l'info pour le prof et mettre 0 a la fin*/
     }
 })
@@ -39,8 +39,7 @@ function getFullscreenElement() {
 setInterval(()=>{if(screen_status === 'ON'){
     if(getFullscreenElement()=== false){
     /*Récuperer l'info pour mettre 0 a la fin*/
-        console.log("mode plein écran désactivez")
-        cheater_cheater_dont_get_the_winner();
+        cheater_cheater_dont_get_the_winner("fullscreen_off");
     }
 }}, 1000)
 
@@ -65,8 +64,7 @@ document.addEventListener("keydown", (e) => {
         || e.key === 'F11'
         || e.key === 'F12'){
         /* log la touche et mettre 0 a la fin*/
-        console.log('mauvaise touche'+ e.key);
-        cheater_cheater_dont_get_the_winner();
+        cheater_cheater_dont_get_the_winner(e.key);
     }
 });
 
@@ -142,7 +140,7 @@ qcm_answer_list.addEventListener('click', (e) => {
 
 
 
-function cheater_cheater_dont_get_the_winner () {
+function cheater_cheater_dont_get_the_winner (ele_de_triche) {
 
     fetch('/cheater', {
         method: 'POST',
@@ -154,6 +152,7 @@ function cheater_cheater_dont_get_the_winner () {
                 name: document.getElementById("name").value,
                 firstname: document.getElementById("firstname").value,
                 qizz: document.getElementById("qizz").value,
+                triche: ele_de_triche,
             }
         )
     })

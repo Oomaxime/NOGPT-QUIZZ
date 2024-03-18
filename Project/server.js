@@ -125,7 +125,7 @@ app.post('/redirect', async(req, res) => {
     console.log(name_student, firstname_student, qizz);
 
     try {
-        await update_data_database(db, 'qizz', qizz, 'students', (name_student+"_"+firstname_student).toLowerCase(), {triche:false, data:{}});
+        await update_data_database(db, 'qizz', qizz, 'students', (name_student+"_"+firstname_student).toLowerCase(), {triche:false, data:{}, data_triche:{}});
         console.log('Données mises à jour avec succès à Firestore.');
         
     } catch (error) {
@@ -243,7 +243,24 @@ app.post("/submit_quizz", async(req, res) => {
 
 // Permet d'envoye les tricheurs au goulag
 app.post('/cheater', async(req, res) => {
-    await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name+"_"+req.body.firstname).toLowerCase(), {triche:true});
+    const triche = req.body.triche;
+    const test = await get_data_database(db, 'qizz', req.body.qizz)
+    const test_flag = test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['triche']
+    const test_data_triche = test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['data_triche'][triche]
+
+    if (test_flag === false){
+        await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {triche:true});
+    }
+
+    console.log(test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['data_triche'][triche])
+
+    if (test_data_triche === undefined){
+        await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {data_triche:{[triche]:1}});
+    } else {
+        await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {data_triche:{[triche]:test_data_triche+1}});
+    }
+
+    
 })
 
 

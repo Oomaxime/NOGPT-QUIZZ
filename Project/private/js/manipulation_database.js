@@ -3,7 +3,6 @@ import { getFirestore, collection, doc, setDoc, addDoc, updateDoc, getDoc } from
 
 
 const get_data_database = async (db, collectionName, value) => {
-    console.log(collectionName, value);
     try {
         const docRef = doc(collection(db, collectionName), value); 
         const docSnapshot = await getDoc(docRef);
@@ -64,9 +63,6 @@ const update_data_student_database = async (db, collectionName, docId, nestedFie
 
         if (docSnapshot.exists()) {
             const data = docSnapshot.data();
-
-            console.log(data)
-            console.log(data[nestedFieldName][champ][key])
 
             data[nestedFieldName][champ][key] = newValue;
 

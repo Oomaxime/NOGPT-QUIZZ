@@ -20,7 +20,6 @@ const data_qizz = {
 
 function create_page(data, path) {
     const content_qizz = data['content']
-    console.log(data, data['content'])
     let body_html = 
     `
     `;
