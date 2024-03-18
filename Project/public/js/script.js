@@ -84,6 +84,7 @@ document.addEventListener("keydown", (e) => {
         || e.key === 'F12'){
         /* log la touche et mettre 0 a la fin*/
         console.log('mauvaise touche'+ e.key);
+        location.href = '../../goulag/front/index.html';
     }
 });
 
