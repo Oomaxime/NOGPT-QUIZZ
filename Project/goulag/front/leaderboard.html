@@ -9,19 +9,40 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Bokor&display=swap" rel="stylesheet">
     </head>
+    <style>
+        table {
+            border-collapse: separate; 
+            border-spacing: 20px 16px;;
+        }
+
+        th, td {
+            border: 1px solid rgb(163, 163, 163)000;
+            padding: 16px;
+            text-align: left;
+            font-size: 1.2em;
+        }
+
+        th {
+            background-color: #b318186e;
+            color: rgb(255, 255, 255);
+        }
+    </style>
     <body>
         <header>
             <img id=logo src="./assets/img/logo.png" alt="">
         </header>
         <main>
-                <div id="leaderboard">
-                    <h2>LEADERBOARD</h2>
-                    <p>1 - CLASS D : <span id="first">400</span></p>
-                    <p>2 - CLASS D : <span id="second">400</span></p>
-                    <p>3 - CLASS D : <span id="third">400</span></p>
-                </div>
-                <img id=undertale src="./assets/img/banana.gif" alt="Gif undertale">
-                <img id=undertale2 src="./assets/img/banana.gif" alt="Gif undertale">
+            <table id="leaderboard">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>CLASS D:</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <img id=undertale src="./assets/img/banana.gif" alt="Gif undertale">
+            <img id=undertale2 src="./assets/img/banana.gif" alt="Gif undertale">
         </main>
     </body>
 </html>

@@ -147,6 +147,7 @@ button{
 /* Leaderboard */
 
 #leaderboard{
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -171,14 +172,14 @@ button{
 }
 
 #undertale{
-    width: 350px;
+    width: 20%;
     position: absolute;
     left: 5%;
     /* transform: rotate(-20deg); */
 }
 
 #undertale2{
-    width: 350px;
+    width: 20%;
     position: absolute;
     right: 5%;
     /* transform: rotate(20deg); */
