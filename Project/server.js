@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { firebase } from './private/js/database.js';
-import { getFirestore, collection, getDoc, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDoc, getDocs } from 'firebase/firestore';
 
 import { get_data_database, add_data_database } from './private/js/manipulation_database.js';
 import { createJsonFile, read_File } from './private/js/json_manipulation.js'
