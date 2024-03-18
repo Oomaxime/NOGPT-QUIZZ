@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang=fr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TruthGame</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bokor&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- popup de connexion -->
+    <div class="modal flexcenter" id="login_modal">
+        <div id="login">
+            <h2>CONNEXION</h2>
+            <form id="form" method="post" action="/redirect">
+                <label for="name_input">NOM:</label><input type="text" name="name" id="name_input">
+                <label for="firstname_input">PRENOM:</label><input type="text" name="firstname" id="firstname_input">
+                <label for="qizz_input">QUIZZ:</label><input type="text" name="qizz" id="qizz_input">
+                <button id= "log_button" type="submit">VALIDEZ</button>
+            </form>
+
+        </div>
+    </div>
+
+    <header>
+        <img id=logo src="img/logo.png" alt="">
+    </header>
+    <main>
+
+    </main>
+<script src="js/script.js"></script>
+<script type="module" src="js/editor.bundle.js"></script>
+</body>
+</html>

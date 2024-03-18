@@ -1,0 +1,75 @@
+
+    <!doctype html>
+<html lang=fr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TruthGame</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bokor&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- popup de connexion -->
+    <div class="modal flexcenter" id="login_modal">
+        <div id="login">
+            <h2>CONNEXION</h2>
+
+            <form id="form" method="post" action="/submit">
+                <label for="name_input">NOM:</label><input type="text" name="name" id="name_input">
+                <label for="firstname_input">PRENOM:</label><input type="text" name="firstname" id="firstname_input">
+                <button id= "log_button" type="submit">VALIDEZ</button>
+            </form>
+
+            
+        </div>
+
+        <div id="rules">
+            <h2>CONTRAT</h2>
+            <p>Cher apprenant,<br> en signant ce contrat, tu t'engages à réaliser ce test par la seul force de tes connaissances, sans outils ou aide externe.<br>Il t'es donc dors et déjà <span>interdit</span> :<br>- de changer d'onglet<br>- de changer de bureau ou de fenêtre de logiciel<br> - d'utiliser les touches <strong>"ctrl"</strong>, <strong>"shift"</strong>, <strong>"tab"</strong>, <strong>"alt"</strong>, <strong>"altgr"</strong>,<strong>"windows"</strong>, <strong>"opt"</strong>, <strong>"cmd"</strong>, les touches <strong>fonction</strong> et enfin le <strong>clic droit</strong>.<br>Une fois le contrat signé, ton navigateur passera en <span>plein écran</span> et le test débutera. Pendant toute la durée de celui-ci, <span>il est interdit de quitter ce mode "plein écran"</span><br>Tout comportement ne respectant pas ces règles entrainera un <strong>zéro</strong> comme note d'évaluation.</p>
+
+            <button id= "rules_button" type="submit">SIGNER LE CONTRAT</button>
+
+        </div>
+    </div>
+
+    <header>
+        <img id=logo src="../public/img/logo.png" alt="">
+    </header>
+    <main>
+        
+    
+    <section class="qcm_section flexcenter" id="q1">
+
+        <h3 id="question_title">koi</h3>
+        <div class="qcm_answer_list">
+            <div>
+                
+    
+        <p class="qcm_answer" id="qcm_choice0">feur</p>
+        
+            </div>
+        </div>
+
+    </section>
+    
+    
+        
+    <!-- <section class="texted_answer_section" id="">
+
+        <h3 id="question_title">bonjour</h3>
+        <div id="editor"></div>
+        <button type="submit" class="answer_sending_button" id="getCodeButton">VALIDER</button>
+
+    </section> -->
+    
+    
+        
+    </main>
+<script src="js/script.js"></script>
+</body>
+</html>
+    

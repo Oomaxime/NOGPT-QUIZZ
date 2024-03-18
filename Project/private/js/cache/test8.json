@@ -1,0 +1,21 @@
+{
+  "nom": "test8",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "AS",
+      "type_question": "qcm",
+      "choices": [
+        {
+          "content": "A",
+          "is_true": false
+        },
+        {
+          "content": "A",
+          "is_true": true
+        }
+      ]
+    }
+  },
+  "students": {}
+}

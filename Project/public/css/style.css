@@ -129,7 +129,7 @@ h3{
 }
 
 #rules{
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -548,7 +548,14 @@ main{
     margin-left: 5%;
 }
 
-.main-info {
+#editor{
+    width: 100%;
+    margin: 30px auto;
+
+}
+
+.texted_answer_section{
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;

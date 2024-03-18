@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang=fr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TruthGame</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bokor&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img id=logo src="img/logo.png" alt="">
+    </header>
+    <main>
+        <form action="/generate_quiz" method="post">
+            <p>Create Page</p>
+            <input name="nom_du_qizz" type="text" required>
+            <button type="submit" id="create_page">Create</button>
+        </form>
+    </main>
+<script src="js/test_creation.js"></script>
+</body>
+</html>
