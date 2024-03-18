@@ -50,20 +50,17 @@ function sortScores(data) {
 // PARTIE NODEJS //
 
 const userId = "user123"; //examples
-const score = 100;
+const score = 100; //examples
 
 firebase.database().ref("scores/" + userId).set(score);
 
 
 firebase.database().ref("scores/").on("value", (snapshot) => {
   const scores = snapshot.val();
-  // `scores` is an object with user IDs as keys and scores as values
 
-  // Sort scores and update leaderboard
   const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   const leaderboard = sortedScores.map(([userId, score]) => ({ userId, score }));
 
-  // Update leaderboard UI
   updateLeaderboard(leaderboard);
 });
 
