@@ -1,0 +1,23 @@
+{
+    "type": "`${type-select}`",
+    "title_quizz": "`${admin_form-titre-nom}`",
+    "nbr_question" : "`${nbr_question_value}`",
+    "qcm`${i}`":{
+        "rep1" : "`${r1_value}`",
+        "checkbox1": "`${checkbox_value}`",
+        "rep2" : "`${r2_value}`",
+        "checkbox2": "`${checkbox_value}`",
+        "rep3" : "`${r3_value}`",
+        "checkbox3": "`${checkbox_value}`",
+        "rep4" : "`${r4_value}`",
+        "checkbox4": "`${checkbox_value}`",
+        "rep5" : "`${r5_value}`",
+        "checkbox5": "`${checkbox_value}`",
+        "rep6" : "`${r6_value}`",
+        "checkbox6": "`${checkbox_value}`"
+    },
+
+    "text":{
+        "rep" : "`${texte}`"
+    }
+}

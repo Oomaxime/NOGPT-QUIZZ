@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang=fr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TruthGame</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bokor&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </head>
+<body>
+
+    <!-- popup de connexion -->
+    <div class="modal flexcenter none" id="login_modal">
+        <div id="login">
+            <h2>CONNEXION</h2>
+            <form action="" method="post">
+            <label for="login_input">NOM DE COMPTE :</label><input type="text" name="name" id="login_input">
+            <label for="password_input">MOT DE PASSE :</label><input type="password" name="password" id="password_input">
+            </form>
+            <button id= "log_button" type="submit">VALIDEZ</button>
+        </div>
+    </div>
+
+    <header>
+        <img id=logo src="../public/img/logo.png" alt="">
+    </header>
+
+    <main class="page_admin">
+
+        <div class="home">
+
+        </div>
+
+        <form action="" id="form_nom_quizz" class="none">
+
+            <input type="text" id="nom_quizz" placeholder="nom du quizz">
+            <input type="button" value="valider" id="btn_nom_quizz_valider">
+
+        </form>
+
+        <form action="" id="config_questions">
+
+            <div class="config">
+
+                <div class="container">
+                    <label for="type_question"><i class="fa-solid fa-question"></i> Type de question</label>
+                    <select name="type_question" id="type_question">
+                        <option value="">-- choisissez le type de la question --</option>
+                        <option value="qcm">qcm</option>
+                        <option value="text">text</option>
+                    </select>
+                </div>
+                
+                <div class="container intitule_reponse">
+                    <label for="intitule_reponse"><i class="fa-solid fa-q"></i> intitulé de la question</label>
+                    <input type="text" id="intitule_reponse" placeholder="En cobol..." required>
+                </div>
+                
+                <div class="container nbr_question">
+                    <label for="nbr_question"><i class="fa-solid fa-question"></i> nombre de question</label>
+                    <select name="nbr_question" id="nbr_question">
+                        <option value="">-- choisissez le nombre de reponse --</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+
+                <input type="button" value="Question suivante" id="btn_question_suivante">
+                <input type="button" value="Valider le quizz" id="btn_valider_quizz">
+
+            </div>
+
+
+            <div class="reponses">
+                <!-- ! Fait en JS -->
+
+                <!-- <div class="attention">
+                    <p>/!\ ATTENTION /!\<br />cocher la/les bonne(s) reponse(s)</p>
+                </div> -->
+
+                <!-- <div class="reponse">
+                    <div class="space_between">
+                        <label for="">Réponse 1</label>
+                        <input type="checkbox" name="" id="">
+                    </div>
+                    <input type="text">
+                </div> -->
+
+                <!-- <textarea name="" id="reponse_text" placeholder="code..."></textarea> -->
+
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+<script src="../public/js/script.js"></script>
+<script src="../public/js/ajout.js"></script>
+</html>

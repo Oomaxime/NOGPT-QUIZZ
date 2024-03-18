@@ -1,26 +1,23 @@
 import express from 'express';
 import cors from 'cors';
-import { Server } from 'socket.io';
+import bodyParser from 'body-parser';
 import { firebase } from './private/js/database.js';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 import { get_data_database, add_data_database } from './private/js/manipulation_database.js';
-import { createJsonFile, read_File } from './private/js/json_manipulation.js'
+import { createJsonFile, read_File } from './private/js/json_manipulation.js';
 
-import http from 'http';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
-import path from 'path';
+import path from 'path';    
 
-// Détermination du répertoire de travail
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Repertoire de travail
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Initialisation de l'application Express
 const app = express();
 const port = 3000;
-
-//  Initialisation des sockets
-const io = socketIo(server);
 
 // Middleware
 app.use(cors());
@@ -30,57 +27,22 @@ app.use('/css', express.static(__dirname + 'public/css'));
 app.use('/js', express.static(__dirname + 'public/js'));
 app.use('/img', express.static(__dirname + 'public/i-mg'))
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(dirname, 'public')));
+app.use(cors());
 
-app.set('views', './view');
-app.set('view engine', 'ejs');
-
-
-
-app.get('', (req, res) => {
-    res.render("index")
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'view', 'index.html'));
 });
 
-// Initialisation de Firestore
-const db = getFirestore(firebase);
-
-
-// Démarrage du serveur HTTP
-app.listen(port, (err) => {
-    console.info(`listening to : ${port}`);
+app.get('/prof', (req, res) => {
+    res.sendFile(path.join(__dirname, 'view', 'profs.html'));
 });
 
-// Initialisation l'une liste temporaire
-let leaderboard = [];
-// Connexion à un serveur WebSocket
-io.on('connection', (socket) => {
-    console.log(socket.id);
 
-    socket.on('answerMcq', (data) => {
-        leaderboard.push({ username: data.username, score: data.score });
-        leaderboard.sort((a, b) => b.score - a.score);
-        io.emit('updateLeaderboard', leaderboard);
-      });
-
-    socket.on('disconnect', () => {
-    });
-});
-
-app.post('/connexion', (req, res) => {
-    if (!req.body) {
-        return res.status(400).send('Aucune donnée reçue');
-    }
-
+app.post('/submit', (req, res) => {
     const name = req.body.name;
     const firstname = req.body.firstname;
-
-    if (!name || !firstname) {
-        console.log('Nom:', name);
-        console.log('Prénom:', firstname);
-        return res.status(400).send('Champs manquants dans le formulaire');
-    }    
-
-    console.log('Nom:', name);
-    console.log('Prénom:', firstname);
 
     const data = {
         where: 'etudiants',
@@ -102,7 +64,8 @@ app.post('/connexion', (req, res) => {
             }
         },
         stats : {
-        }
+
+        } 
     }
 
     data['nom'] = name
@@ -110,7 +73,6 @@ app.post('/connexion', (req, res) => {
 
     add_data_database(db, data)
 
-    res.send(`Connexion réussie pour ${firstname} ${name}`);
 
 });
 
@@ -159,3 +121,6 @@ app.get('/users', async (req, res) => {
     //     }
     // }
 
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
