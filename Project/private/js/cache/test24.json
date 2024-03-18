@@ -1,0 +1,21 @@
+{
+  "nom": "test24",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "j'calle le petard entre mes dents",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "Bah nan bah nan",
+          "is_true": false
+        },
+        {
+          "content": "Bah oe bah oe",
+          "is_true": true
+        }
+      ]
+    }
+  },
+  "students": {}
+}

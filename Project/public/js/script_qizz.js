@@ -1,20 +1,7 @@
 /** LOGIN **/
 const modal = document.querySelector('.modal');
 const login = document.querySelector('#login');
-const log_button = document.querySelector('#log_button');
 const rules = document.querySelector('#rules');
-
-/** LOGIN VALIDATION **/
-log_button.addEventListener('click', function(e) {
-    const name = document.getElementById('name_input').value;
-    const firstname = document.getElementById('firstname_input').value;
-
-    if (name.trim() === '' || firstname.trim() === '') {
-        alert('Veuillez remplir tous les champs.');
-        e.preventDefault();
-    }
-
-});
 
 /**** Toogle full screen when agree rules ****/
 let screen_status= 'OFF'
@@ -37,10 +24,12 @@ document.addEventListener("contextmenu", function(e){
 document.addEventListener('visibilitychange', () => {
     if(document.visibilityState==='hidden'){
         document.title = 'LOOSER'
+        cheater_cheater_dont_get_the_winner();
         /* Récuperer l'info pour le prof et mettre 0 a la fin*/
     }
 })
 function getFullscreenElement() {
+    cheater_cheater_dont_get_the_winner();
     return !!document.fullscreenElement
         || !!document.webkitFullscreenElement
         || !!document.mozFullscreenElement
@@ -51,6 +40,7 @@ setInterval(()=>{if(screen_status === 'ON'){
     if(getFullscreenElement()=== false){
     /*Récuperer l'info pour mettre 0 a la fin*/
         console.log("mode plein écran désactivez")
+        cheater_cheater_dont_get_the_winner();
     }
 }}, 1000)
 
@@ -76,6 +66,7 @@ document.addEventListener("keydown", (e) => {
         || e.key === 'F12'){
         /* log la touche et mettre 0 a la fin*/
         console.log('mauvaise touche'+ e.key);
+        cheater_cheater_dont_get_the_winner();
     }
 });
 
@@ -84,43 +75,6 @@ const qcm_section = document.querySelector('.qcm_section');
 const answer_sending_button = document.querySelector('.answer_sending_button');
 const question_title = document.querySelector('#question_title');
 const main = document.querySelector('main');
-let question_index = 1
-answer_sending_button.addEventListener('click', () => {
-    if (question_index === 1) {
-        question_title.textContent = 'et moi la question 2 ?'
-        qcm_answer_list.innerHTML = '<div>\n'+
-            '<p class="qcm_answer" id="qcm_choice1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula</p>\n'+
-            '<p class="qcm_answer" id="qcm_choice2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula</p>\n'+
-            '</div>\n'+
-            '<div>\n'+
-            '<p class="qcm_answer" id="qcm_choice3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula</p>\n'+
-            '</div>';
-        question_index++;
-    } else if (question_index === 2) {
-        question_title.textContent = 'moi je suis la question 3 ?'
-        qcm_answer_list.innerHTML = '<div>\n'+
-            '<p class="qcm_answer" id="qcm_choice1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula</p>\n'+
-            '<p class="qcm_answer" id="qcm_choice2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula</p>\n'+
-            '</div>\n'+
-            '<div>\n'+
-            '<p class="qcm_answer" id="qcm_choice3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula</p>\n'+
-            '<p class="qcm_answer" id="qcm_choice4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula</p>\n'+
-            '</div>';
-        question_index++;
-    } else if (question_index === 3) {
-        qcm_section.style.display = 'none';
-        main.innerHTML += '<strong id="ending_words">FIN.</strong>\n'+
-            '<button id="close_button">FERMER LA SESSION</button>';
-
-        const close_button = document.querySelector('#close_button');
-        close_button.addEventListener('click', () => {
-            window.close();
-        })
-
-    }
-})
-
-
 
 
 
@@ -188,3 +142,34 @@ qcm_answer_list.addEventListener('click', (e) => {
 
 
 
+function cheater_cheater_dont_get_the_winner () {
+    const name = document.getElementById("name").value;
+    const firstname = document.getElementById("firstname").value;
+    const qizz = document.getElementById("qizz").value;
+
+    fetch('/cheater', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                name: document.getElementById("name").value,
+                firstname: document.getElementById("firstname").value,
+                qizz: document.getElementById("qizz").value,
+            }
+        )
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Une erreur s\'est produite lors de l\'envoi des données.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};

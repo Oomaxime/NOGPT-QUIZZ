@@ -2,12 +2,22 @@ import { getFirestore, collection, doc, setDoc, addDoc, updateDoc, getDoc } from
 
 
 
-const get_data_database = (snapshot) => {
-    let values = [];
-    snapshot.docs.forEach((doc) => {
-        values.push({ ...doc.data(), id: doc.id });
-    });
-    return values;
+const get_data_database = async (db, collectionName, value) => {
+    console.log(collectionName, value);
+    try {
+        const docRef = doc(collection(db, collectionName), value); 
+        const docSnapshot = await getDoc(docRef);
+
+        if (docSnapshot.exists()) {
+            return { ...docSnapshot.data(), id: docSnapshot.id };
+        } else {
+            console.log("Le document n'existe pas.");
+            return null;
+        }
+    } catch (error) {
+        console.error("Une erreur s'est produite lors de la lecture de données à Firestore :", error);
+        throw error; // Répercuter l'erreur pour la gestion à un niveau supérieur si nécessaire
+    }
 };
 
 
@@ -22,46 +32,57 @@ const add_data_database = async (db, collectionName, values) => {
 }
 
 
-
-
-
-const update_data_database = async (db, collectionName, docId, fieldName, newValue) => {
+const update_data_database = async (db, collectionName, docId, nestedFieldName, key, newValue) => {
     try {
-        const docRef = doc(collection(db, collectionName), docId);
+        const docRef = doc(db, collectionName, docId);
         const docSnapshot = await getDoc(docRef);
-        
-        if (docSnapshot.exists()) {
-            const existingData = docSnapshot.data();
 
-            console.log(existingData, "feur")
-            
-            // Check if the field exists and is an object
-            if (existingData[fieldName] && typeof existingData[fieldName] === 'object') {
-                const updatedData = { 
-                    ...existingData, 
-                    [fieldName]: { 
-                        ...existingData[fieldName], 
-                        ...newValue 
-                    } 
-                };
-                
-                await setDoc(docRef, updatedData);
-                console.log("Field updated successfully.");
+        if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+
+            if (data.hasOwnProperty(nestedFieldName) && typeof data[nestedFieldName] === 'object') {
+
+                data[nestedFieldName][key] = newValue;
+
+                await setDoc(docRef, data, { merge: true });
             } else {
-                console.error(`Field '${fieldName}' does not exist or is not an object.`);
+                console.error(`Le champ "${nestedFieldName}" n'est pas présent ou n'est pas de type objet.`);
             }
         } else {
-            console.error("Document not found:", docId);
+            console.error("Document non trouvé :", docId);
         }
     } catch (error) {
-        console.error("An error occurred while updating the field:", error);
+        console.error("Une erreur s'est produite lors de la mise à jour du champ spécifique :", error);
+    }
+}
+
+
+const update_data_student_database = async (db, collectionName, docId, nestedFieldName, champ, key, newValue) => {
+    try {
+        const docRef = doc(db, collectionName, docId);
+        const docSnapshot = await getDoc(docRef);
+
+        if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+
+            console.log(data)
+            console.log(data[nestedFieldName][champ][key])
+
+            data[nestedFieldName][champ][key] = newValue;
+
+            await setDoc(docRef, data, { merge: true });
+            
+        }
+    } catch (error) {
+        console.error("Une erreur s'est produite lors de la mise à jour du champ spécifique :", error);
     }
 }
 
 
 
 
-export {get_data_database, add_data_database, update_data_database};
+
+export {get_data_database, add_data_database, update_data_database, update_data_student_database};
 
 
 

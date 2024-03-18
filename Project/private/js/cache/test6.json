@@ -1,0 +1,21 @@
+{
+  "nom": "test6",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "asdqwdqw",
+      "type_question": "qcm",
+      "choices": [
+        {
+          "content": "wdqas",
+          "is_true": true
+        },
+        {
+          "content": "sdasdq",
+          "is_true": false
+        }
+      ]
+    }
+  },
+  "students": {}
+}

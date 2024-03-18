@@ -1,0 +1,21 @@
+{
+  "nom": "test12",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "asd",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "qw",
+          "is_true": false
+        },
+        {
+          "content": "qw",
+          "is_true": true
+        }
+      ]
+    }
+  },
+  "students": {}
+}
