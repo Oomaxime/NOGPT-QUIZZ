@@ -31073,6 +31073,7 @@
        ".cm-scroller": {overflow: "auto"}
    });
 
+
    let state= EditorState.create({
        extensions: [
            fixedHeightEditor,
@@ -31174,13 +31175,12 @@
            break
    }
 
-
-
    let view = new EditorView({
        state,
-       parent: document.querySelector('#editor'),
+       parent: document.querySelector('.editor'),
 
    });
+
 
    const getFocus = setInterval(() => {
        view.focus();
@@ -31210,7 +31210,7 @@
            headers: {
                'Content-Type': 'application/json'
            },
-           body: JSON.stringify({ code: view.state.doc.toString() })
+           body: JSON.stringify({code: view.state.doc.toString() })
        });
      /**fetch('/submit_code', {
            method: 'POST',

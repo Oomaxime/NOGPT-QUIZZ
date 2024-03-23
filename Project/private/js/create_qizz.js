@@ -1,23 +1,5 @@
 import { writeFile } from 'fs/promises';
 
-const data_qizz = {
-    name : "mon_quizz",
-    content : {
-        question_1 : {
-            title : "koi",
-            type : "qcm",
-            choices : [{content : "feur",
-            is_true : true}]
-                
-            },
-        },
-        question_2 : {
-            title : "bonjour",
-            type : "text",
-        },
-};
-
-
 function create_page(data, path) {
     const content_qizz = data['content']
     let body_html = 
@@ -28,6 +10,7 @@ function create_page(data, path) {
 
     for (const question in content_qizz){
         const title = content_qizz[question]['name'];
+        const lang_type = content_qizz[question]['language'];
         const content_question = content_qizz[question]['choices'];
         
         // Switch pour verifier le type de la question
@@ -36,7 +19,7 @@ function create_page(data, path) {
                 body_html += coche_creation(title, content_question, num_question);
                 break;
             case "text" :
-                body_html += text_creation(title, num_question);  
+                body_html += text_creation(title, num_question, lang_type);
                 break;
             default :
                 console.log("le type n'existe pas")
@@ -104,12 +87,12 @@ function create_page(data, path) {
 //                 <button id= "log_button" type="submit">VALIDEZ</button>
 //             </form> */}
 
-function text_creation(title, num_question) {
+function text_creation(title, num_question, lang_type) {
     let text = `
     <section class="texted_answer_section" id="num_${num_question}">
 
         <h3 id="question_title">${title}</h3>
-        <div id="editor"></div>
+        <div class="editor"></div>
         <button type="submit" class="answer_sending_button" id="getCodeButton">VALIDER</button>
 
     </section>
