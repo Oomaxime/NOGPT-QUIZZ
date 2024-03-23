@@ -1,0 +1,35 @@
+{
+  "nom": "jpp",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "guess my bling",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "bang bang",
+          "is_true": false
+        },
+        {
+          "content": "bang born",
+          "is_true": true
+        }
+      ]
+    },
+    "question_2": {
+      "name": "asdasdasdasdas",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "dasdasd",
+          "is_true": false
+        },
+        {
+          "content": "asdasd",
+          "is_true": true
+        }
+      ]
+    }
+  },
+  "students": {}
+}

@@ -37,11 +37,7 @@ main {
     padding-top: 62px;
 }
 
-.flexcenter{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 #logo{
     height: 128px;
     margin-left: 5%;
@@ -186,6 +182,7 @@ main{
 }
 
 #texted_answer_section{
+    display: none;
     text-align: center;
 }
 #texted_answer_section label{
@@ -235,28 +232,26 @@ main{
     outline: 1px solid var(--gold);
 
 }
+
 .qcm_section{
+    display: none;
     flex-direction: column;
 
 }
-
 .qcm_answer_form{
     flex-direction: column;
     margin-top: 30px;
 
 }
 .qcm_answer_list{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-}
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px; /* Espace entre les éléments */
 
-.qcm_answer_list div{
-    margin-bottom: 40px;
 }
 
 .qcm_label{
+    display: block;
     border: 1px solid white;
     border-radius: 22px;
     background-color: rgba(255, 255, 255, 0.05);
@@ -266,6 +261,7 @@ main{
     font-size: 18px;
     padding: 4px 12px 6px 12px;
     margin: 0 40px;
+    text-align: center;
 
 }
 
@@ -275,6 +271,15 @@ main{
 
 .qcm_label:active{
     outline: 1px solid var(--gold);
+}
+
+
+.qcm_label:nth-of-type(2n-1) {
+    grid-column: 1;
+}
+
+.qcm_label:nth-of-type(2n) {
+    grid-column: 2;
 }
 
 #ending_words{
@@ -553,6 +558,12 @@ main{
     width: 60%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexcenter{
+    display: flex;
     justify-content: center;
     align-items: center;
 }

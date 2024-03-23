@@ -1,0 +1,30 @@
+{
+  "nom": "proote",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "guess my furt",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "pffffffffffffff",
+          "is_true": false
+        },
+        {
+          "content": "ratatatatatatatata",
+          "is_true": false
+        },
+        {
+          "content": "pscht",
+          "is_true": true
+        }
+      ]
+    },
+    "question_2": {
+      "name": "j'calle le petard entre mes dents",
+      "type": "text",
+      "language": "texte"
+    }
+  },
+  "students": {}
+}

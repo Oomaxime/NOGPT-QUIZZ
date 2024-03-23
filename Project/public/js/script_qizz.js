@@ -3,6 +3,11 @@ const modal = document.querySelector('.modal');
 const login = document.querySelector('#login');
 const rules = document.querySelector('#rules');
 
+
+// num page
+let num_page = 0;
+let test = 0;
+
 /**** Toogle full screen when agree rules ****/
 let screen_status= 'OFF'
 const contract_button = document.querySelector('#rules_button');
@@ -10,6 +15,7 @@ contract_button.addEventListener('click', () => {
     document.documentElement.requestFullscreen().catch((e) => {
         console.log(e);
     });
+    next();
     rules.style.display = 'none';
     modal.style.display = 'none';
     screen_status = 'ON'
@@ -29,7 +35,6 @@ document.addEventListener('visibilitychange', () => {
     }
 })
 function getFullscreenElement() {
-    cheater_cheater_dont_get_the_winner();
     return !!document.fullscreenElement
         || !!document.webkitFullscreenElement
         || !!document.mozFullscreenElement
@@ -46,9 +51,7 @@ setInterval(()=>{if(screen_status === 'ON'){
 
 
 document.addEventListener("keydown", (e) => {
-    if (e.key === 'Enter'
-        || e.key === 'Shift'
-        || e.key === 'Control'
+    if (e.key === 'Control'
         || e.key === 'Alt'
         || e.key === 'Meta'
         || e.key === 'F1'
@@ -75,73 +78,80 @@ const question_title = document.querySelector('#question_title');
 const main = document.querySelector('main');
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    let checkboxes = document.querySelectorAll('.checkbox');
 
+    for (let i = 0; i < checkboxes.length; i++) {
+        let checkbox = checkboxes[i];
+        let label = document.querySelectorAll('.qcm_label')[i];
 
-/******* OUTILS DE SÉLECTION DE RÉPONSE QCM ********/
-
-const qcm_answer_list = document.querySelector('.qcm_answer_list');
-
-const qcm_choice1 = document.querySelector('#qcm_choice1');
-const qcm_choice2 = document.querySelector('#qcm_choice2');
-const qcm_choice3 = document.querySelector('#qcm_choice3');
-const qcm_choice4 = document.querySelector('#qcm_choice4');
-
-let qcm_choice1_statut = 'unselect';
-let qcm_choice2_statut = 'unselect';
-let qcm_choice3_statut = 'unselect';
-let qcm_choice4_statut = 'unselect';
-
-qcm_answer_list.addEventListener('click', (e) => {
-    switch (e.target) {
-        case qcm_choice1:
-            console.log('C1')
-            if (qcm_choice1_statut === 'selected') {
-                qcm_choice1.style.borderColor = 'white';
-                qcm_choice1_statut = 'unselect';
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Changer la couleur de la bordure du label si la checkbox est cochée
+                label.style.border = '1px solid var(--gold)'; // par exemple, vert pour "coché"
             } else {
-                qcm_choice1.style.borderColor = 'var(--gold)';
-                qcm_choice1_statut = 'selected';
+                // Remettre la couleur de la bordure par défaut si la checkbox n'est pas cochée
+                label.style.border = '1px solid white'; // par exemple, noir pour "non coché"
             }
-            break;
-        case qcm_choice2:
-            console.log('C2')
-            if (qcm_choice2_statut === 'selected') {
-                qcm_choice2.style.borderColor = 'white';
-                qcm_choice2_statut = 'unselect';
-            } else {
-                qcm_choice2.style.borderColor = 'var(--gold)';
-                qcm_choice2_statut = 'selected';
-            }
-            break;
-        case qcm_choice3:
-            console.log('C3')
-            if (qcm_choice3_statut === 'selected') {
-                qcm_choice3.style.borderColor = 'white';
-                qcm_choice3_statut = 'unselect';
-            } else {
-                qcm_choice3.style.borderColor = 'var(--gold)';
-                qcm_choice3_statut = 'selected';
-            }
-            break;
-        case qcm_choice4:
-            console.log('C4')
-            if (qcm_choice4_statut === 'selected') {
-                qcm_choice4.style.borderColor = 'white';
-                qcm_choice4_statut = 'unselect';
-            } else {
-                qcm_choice4.style.borderColor = 'var(--gold)';
-                qcm_choice4_statut = 'selected';
-            }
-            break;
-        default:
-            console.log('no valid target')
+        });
     }
-})
+});
+
+answer_sending_button.addEventListener("click", (e) => {
+    console.log("bouton")
+    e.preventDefault();
+    next();
+});
+
+
+function next(){
+    
+    try {
+        try {
+            const previous_question = document.querySelector(`#num_${num_page-1}`);
+            previous_question.classList.toggle('flexcenter');
+        } catch(err) {
+            console.log("min page reached");
+        }
+        console.log('ca passe dans le reste')
+        const current_question = document.querySelector(`#num_${num_page}`);
+        current_question.classList.toggle('flexcenter');
+        console.log(num_page, "before")
+        num_page++;
+        console.log(num_page, "after")
+
+    } catch(err) {
+        fetch('/end', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: true })
+    }
+}
+
+
+
+
+setInterval(()=>{
+    test++;
+    console.log(test)
+}, 1000);
+
+
+
+
+
+
+
+
+
+
 
 
 
 function cheater_cheater_dont_get_the_winner (ele_de_triche) {
-
+    console.log(ele_de_triche)
     fetch('/cheater', {
         method: 'POST',
         headers: {
@@ -163,7 +173,7 @@ function cheater_cheater_dont_get_the_winner (ele_de_triche) {
             return response.json();
         })
         .then(data => {
-            console.log(data);
+            console.log(ele_de_triche);
         })
         .catch(error => {
             console.log(error);

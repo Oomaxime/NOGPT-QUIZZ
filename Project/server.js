@@ -124,6 +124,22 @@ app.post('/redirect', async(req, res) => {
 
     console.log(name_student, firstname_student, qizz);
 
+    const students_name = await get_data_database(db,'qizz',qizz);
+    console.log(students_name['content']['students'])
+    try {
+        students_name['content']['students'].forEach(element => {
+            if (element === (name_student+"_"+firstname_student).toLowerCase()){
+                console.log((name_student+"_"+firstname_student).toLowerCase(), " a tente de se reconnecter au qizz : ", qizz);
+                res.redirect('/connexion')
+            }
+        });
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+    }
+
+
+
+
     try {
         await update_data_database(db, 'qizz', qizz, 'students', (name_student+"_"+firstname_student).toLowerCase(), {triche:false, data:{}, data_triche:{}});
         console.log('Données mises à jour avec succès à Firestore.');
@@ -237,13 +253,13 @@ app.post("/submit_quizz", async(req, res) => {
 
     console.log("cool")
 
-    res.redirect('/creation')
-
+    res.redirect("/creation");
 })
 
 // Permet d'envoye les tricheurs au goulag
 app.post('/cheater', async(req, res) => {
     const triche = req.body.triche;
+    console.log(triche, "feure")
     const test = await get_data_database(db, 'qizz', req.body.qizz)
     const test_flag = test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['triche']
     const test_data_triche = test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['data_triche'][triche]
@@ -252,7 +268,7 @@ app.post('/cheater', async(req, res) => {
         await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {triche:true});
     }
 
-    console.log(test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['data_triche'][triche])
+    console.log(test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['data_triche'][triche], "c moi connard")
 
     if (test_data_triche === undefined){
         await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {data_triche:{[triche]:1}});
@@ -263,8 +279,24 @@ app.post('/cheater', async(req, res) => {
     
 })
 
+app.post('/end', async(req, res) => {
+    if (req.body === true) {
+        res.redirect('https://fr.wikipedia.org/wiki/Cohérence_cardiaque')
+    } else {
+        console.log('c pas bien');
+    }
+    
+})
 
+app.post('/send_answer', async(req, res) => {
+    const formData = req.body;
+    console.log(formData);
+})
 
+app.post('/submit_code', async(req, res) => {
+    console.log(req.body);
+
+})
 
 
 app.listen(port, () => {

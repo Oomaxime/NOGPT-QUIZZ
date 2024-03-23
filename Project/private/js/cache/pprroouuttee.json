@@ -1,0 +1,40 @@
+{
+  "nom": "pprroouuttee",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "devine my proute",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "trltrltrltrltrltrl",
+          "is_true": true
+        },
+        {
+          "content": "brtbrtbrtbrt",
+          "is_true": false
+        }
+      ]
+    },
+    "question_2": {
+      "name": "j'calle le petard entre mes dents",
+      "type": "text",
+      "language": "texte"
+    },
+    "question_3": {
+      "name": "AS",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "ass",
+          "is_true": false
+        },
+        {
+          "content": "qss",
+          "is_true": true
+        }
+      ]
+    }
+  },
+  "students": {}
+}

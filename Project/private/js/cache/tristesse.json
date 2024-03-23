@@ -1,0 +1,35 @@
+{
+  "nom": "tristesse",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "tristesse",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "joie",
+          "is_true": false
+        },
+        {
+          "content": "pas joie",
+          "is_true": true
+        }
+      ]
+    },
+    "question_2": {
+      "name": "plus la tristesse",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "joie",
+          "is_true": true
+        },
+        {
+          "content": "pas joie",
+          "is_true": false
+        }
+      ]
+    }
+  },
+  "students": {}
+}

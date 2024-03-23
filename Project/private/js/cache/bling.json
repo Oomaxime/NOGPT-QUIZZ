@@ -1,0 +1,40 @@
+{
+  "nom": "bling",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "bang bang",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "asdasdasdasdasd",
+          "is_true": true
+        },
+        {
+          "content": "asdasd",
+          "is_true": false
+        }
+      ]
+    },
+    "question_2": {
+      "name": "warframe",
+      "type": "text",
+      "language": "texte"
+    },
+    "question_3": {
+      "name": "pourquoi battlebit est incroyable",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "parce que je suis louis",
+          "is_true": true
+        },
+        {
+          "content": "les autres",
+          "is_true": false
+        }
+      ]
+    }
+  },
+  "students": {}
+}

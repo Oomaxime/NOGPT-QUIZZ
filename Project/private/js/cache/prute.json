@@ -1,0 +1,25 @@
+{
+  "nom": "prute",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "guess my furt",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "pfffffffffffffffffffff",
+          "is_true": false
+        },
+        {
+          "content": "brbrbrbrbrbrbr",
+          "is_true": false
+        },
+        {
+          "content": "pscht",
+          "is_true": true
+        }
+      ]
+    }
+  },
+  "students": {}
+}

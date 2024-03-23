@@ -24,26 +24,29 @@ function create_page(data, path) {
     `
     `;
 
+    let num_question = 0;
+
     for (const question in content_qizz){
         const title = content_qizz[question]['name'];
         const content_question = content_qizz[question]['choices'];
-    
+        
         // Switch pour verifier le type de la question
         switch (content_qizz[question]['type']) {
             case "qcm" :
-                body_html += coche_creation(title, content_question);
+                body_html += coche_creation(title, content_question, num_question);
                 break;
             case "text" :
-                body_html += text_creation(title);  
+                body_html += text_creation(title, num_question);  
                 break;
             default :
                 console.log("le type n'existe pas")
                 // faire un exeption si il y a eu un pb sur le type ou qu'il a ete volontairement modifie.
-        }
+        };
         body_html += 
         `
     
         `;
+        num_question++
     }
     // Page standart html
     // body vide
@@ -85,6 +88,7 @@ function create_page(data, path) {
         ${body_html}
     </main>
 <script src="js/script_qizz.js"></script>
+<script src="js/editor.bundle.js"></script>
 </body>
 </html>
     `;
@@ -100,9 +104,9 @@ function create_page(data, path) {
 //                 <button id= "log_button" type="submit">VALIDEZ</button>
 //             </form> */}
 
-function text_creation(title) {
+function text_creation(title, num_question) {
     let text = `
-    <section class="texted_answer_section" id="">
+    <section class="texted_answer_section" id="num_${num_question}">
 
         <h3 id="question_title">${title}</h3>
         <div id="editor"></div>
@@ -119,7 +123,7 @@ function text_creation(title) {
 
 // Fonction creation d'une question de type coche prenant en parametre son intitule et son contenu (le contenu des reponses et leur nombre)
 // Elle créera une div dediée qui sera ensuite mis dans le coeur de l'html
-function coche_creation(title ,content) {
+function coche_creation(title ,content, num_question) {
     // i permettra d'avancer dans le nb des questions et questions stockera les questions
     let i = 0
     let questions = 
@@ -128,9 +132,11 @@ function coche_creation(title ,content) {
 
     // Boucle pour la creation des choix du qcm
     for (const ele of content) {
+        console.log(ele)
         let proposition = 
         `
-        <p class="qcm_answer" id="qcm_choice${i}">${ele['content']}</p>
+        <label class="qcm_label" for="rep${i}">${ele['content']}</label>
+        <input type="checkbox" name="rep${i}" id="rep${i}" class="checkbox" style="display:none">
         `;
 
         questions += proposition;
@@ -141,18 +147,19 @@ function coche_creation(title ,content) {
     // Creation du qcm par ajouts des valeurs
     let qcm = 
     `
-    <section class="qcm_section flexcenter" id="q1">
-
-        <h3 id="question_title">${title}</h3>
+    <section class="qcm_section" id="num_${num_question}">
+    <h2> ${title} </h2>
+    <form class="qcm_answer_form flexcenter" action="/send_answer" method="post">
         <div class="qcm_answer_list">
-            <div>
-                ${questions}
-            </div>
+
+            ${questions}
+
         </div>
-
+        <button class="answer_sending_button" type="submit">Validez</button>
+        </form>
     </section>
-    `;
-
+    `
+    ;
     return qcm
 }
 
