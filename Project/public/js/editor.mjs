@@ -22,6 +22,7 @@ const fixedHeightEditor = EditorView.theme({
     ".cm-scroller": {overflow: "auto"}
 })
 
+
 let state= EditorState.create({
     extensions: [
         fixedHeightEditor,
@@ -123,13 +124,12 @@ switch (langTag){
         break
 }
 
-
-
 let view = new EditorView({
     state,
-    parent: document.querySelector('#editor'),
+    parent: document.querySelector('.editor'),
 
 })
+
 
 const getFocus = setInterval(() => {
     view.focus();

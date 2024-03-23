@@ -1,0 +1,26 @@
+{
+  "nom": "parlant",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "asd",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "asd",
+          "is_true": false
+        },
+        {
+          "content": "asd",
+          "is_true": true
+        }
+      ]
+    },
+    "question_2": {
+      "name": "asdasd",
+      "type": "text",
+      "language": "json"
+    }
+  },
+  "students": {}
+}
