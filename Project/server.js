@@ -14,6 +14,7 @@ import { create_page } from './private/js/create_qizz.js'
 
 
 import fs from 'fs';
+import { log } from 'console';
 
 
 // Repertoire de travail
@@ -122,35 +123,58 @@ app.post('/redirect', async(req, res) => {
     const firstname_student = req.body.firstname;
     const qizz = req.body.qizz;
 
-    console.log(name_student, firstname_student, qizz);
+    const qizz_for_student = await get_data_database(db,'qizz',qizz);
 
-    const students_name = await get_data_database(db,'qizz',qizz);
-    console.log(students_name['content']['students'])
-    try {
-        students_name['content']['students'].forEach(element => {
-            if (element === (name_student+"_"+firstname_student).toLowerCase()){
-                console.log((name_student+"_"+firstname_student).toLowerCase(), " a tente de se reconnecter au qizz : ", qizz);
-                res.redirect('/connexion')
-            }
+    
+
+    async function Qizz_verif(qizz) {
+        const interdits = ["creation"]
+
+        interdits.forEach(e => {
+            if (e === qizz) {
+                return false;
+            } 
         });
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
     }
 
 
+    async function Qizz_in_database_verif(qizz_for_student) {
+        if (qizz_for_student === undefined) {
+            console.log(error.message);
+            return false;
+    }
 
+    }
 
-    try {
-        await update_data_database(db, 'qizz', qizz, 'students', (name_student+"_"+firstname_student).toLowerCase(), {triche:false, data:{}, data_triche:{}});
-        console.log('Données mises à jour avec succès à Firestore.');
-        
-    } catch (error) {
-        console.error("Une erreur s'est produite lors de l'ajout ou de la mise à jour des données à Firestore:", error);
+    async function Student_verif(qizz_for_student, name_student, firstname_student) {
+        if (qizz_for_student['students']) {
+            for (const element in qizz_for_student['students']){
+                if (element === (name_student+"_"+firstname_student).toLowerCase()){
+                    console.log((name_student+"_"+firstname_student).toLowerCase(), " a tente de se reconnecter au qizz : ", qizz);
+                    return false;
+                }}
+        } else {
+            return true;
+        }
+    }
+
+    async function Firestore_update(db, qizz, name_student, firstname_student) {
+        try {
+            await update_data_database(db, 'qizz', qizz, 'students', (name_student+"_"+firstname_student).toLowerCase(), {triche:false, data:{}, data_triche:{}});
+            console.log('Données mises à jour avec succès à Firestore.');
+            return true;
+            
+        } catch (error) {
+            console.log("Une erreur s'est produite lors de l'ajout ou de la mise à jour des données à Firestore:", error);
+            return false;
+        }
+    }
+
+    if (Qizz_verif(qizz) && Qizz_in_database_verif(qizz_for_student) && Student_verif(qizz_for_student, name_student, firstname_student) && Firestore_update(db, qizz, name_student, firstname_student)) {
+        res.redirect(`/working?data_received=${qizz}&name=${name_student}&firstname=${firstname_student}`);
+    } else {
         res.redirect('/connexion');
     }
-
-    res.redirect(`/working?data_received=${qizz}&name=${name_student}&firstname=${firstname_student}`);
-});
 
 
 // s'occupe d'envoyer les questions pour la creation du qizz
@@ -281,7 +305,7 @@ app.post('/cheater', async(req, res) => {
 
 app.post('/end', async(req, res) => {
     if (req.body === true) {
-        res.redirect('https://fr.wikipedia.org/wiki/Cohérence_cardiaque')
+        res.redirect('/connexion')
     } else {
         console.log('c pas bien');
     }

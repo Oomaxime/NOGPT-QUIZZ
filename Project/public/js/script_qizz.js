@@ -46,7 +46,7 @@ setInterval(()=>{if(screen_status === 'ON'){
     /*Récuperer l'info pour mettre 0 a la fin*/
         cheater_cheater_dont_get_the_winner("fullscreen_off");
     }
-}}, 1000)
+}}, 3000)
 
 
 
@@ -67,7 +67,6 @@ document.addEventListener("keydown", (e) => {
         || e.key === 'F11'
         || e.key === 'F12'){
         /* log la touche et mettre 0 a la fin*/
-        cheater_cheater_dont_get_the_winner(e.key);
     }
 });
 
@@ -150,32 +149,37 @@ setInterval(()=>{
 
 
 
-function cheater_cheater_dont_get_the_winner (ele_de_triche) {
-    console.log(ele_de_triche)
+function cheater_cheater_dont_get_the_winner(ele_de_triche) {
+    // Log the cheating element to the console for debugging
+    console.log(ele_de_triche);
+
+    // Send a POST request to the '/cheater' endpoint
     fetch('/cheater', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(
-            {
-                name: document.getElementById("name").value,
-                firstname: document.getElementById("firstname").value,
-                qizz: document.getElementById("qizz").value,
-                triche: ele_de_triche,
-            }
-        )
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            firstname: document.getElementById("firstname").value,
+            qizz: document.getElementById("qizz").value,
+            triche: ele_de_triche
+        })
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Une erreur s\'est produite lors de l\'envoi des données.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(ele_de_triche);
-        })
-        .catch(error => {
-            console.log(error);
-        });
+    .then(response => {
+        // Check if the response is OK
+        if (!response.ok) {
+            throw new Error('An error occurred while sending data.');
+        }
+        // Parse the JSON response
+        return response.json();
+    })
+    .then(data => {
+        // Handle the response data, if needed
+        console.log(data); // Logging the response data for debugging
+    })
+    .catch(error => {
+        // Catch and log any errors that occur during the fetch operation
+        console.error('Fetch error:', error);
+    });
 };
