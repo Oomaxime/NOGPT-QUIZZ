@@ -74,11 +74,34 @@ const update_data_student_database = async (db, collectionName, docId, nestedFie
     }
 }
 
+const create_cheater_data = async (db, name, firstname) => {
+    try {
+        const docRef = doc(db, 'qizz', 'goulag');
+        await setDoc(doc(docRef, `${name}_${firstname}`, { merge: true }), {
+            flag: true,
+            score: 0,
+        });
+    } catch (error) {
+        console.error("Une erreur s'est produite lors de la mise à jour du champ spécifique :", error);
+    }
+};
+
+async function getUserScore(userId) {
+    const db = getFirestore();
+    const userDocRef = doc(db, 'qizz','goulag', userId);
+    const userContent = await getDoc(userDocRef);
+  
+    if (userContent.exists()) {
+      const userData = userContent.data();
+      return userData.score || 0;
+    } 
+    else {
+        console.error("Données utilisateurs introuvable.");
+    }
+  }
 
 
-
-
-export {get_data_database, add_data_database, update_data_database, update_data_student_database};
+export {get_data_database, add_data_database, update_data_database, update_data_student_database, create_cheater_data, getUserScore};
 
 
 

@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import { firebase } from './private/js/database.js';
 import { getFirestore, collection, getDoc, getDocs } from 'firebase/firestore';
 
-import { get_data_database, add_data_database, update_data_database } from './private/js/manipulation_database.js';
+import { get_data_database, add_data_database, update_data_database,  create_cheater_data, getUserScore } from './private/js/manipulation_database.js';
 import { createJsonFile, read_File } from './private/js/json_manipulation.js'
 
 import { fileURLToPath } from 'url';
@@ -62,6 +62,8 @@ app.get('/creation', (req, res) => {
 })
 
 
+
+
 // Permet a l'user de se conencter a un qizz
 // Il devra rentrer :
 // - Nom
@@ -72,6 +74,9 @@ app.get('/connexion', (req, res) => {
     res.sendFile(path.join(__dirname, 'view', 'login.html'));
 })
 
+app.get('/goulag', (req, res) => {
+    res.sendFile(path.join(__dirname, 'view', 'gindex.html'));
+})
 
 
 // recupere dans un post :
@@ -106,6 +111,18 @@ app.get('/working', (req, res) => {
         res.redirect("/connexion");
     }
 });
+
+app.get('/user_score', async (req, res) => {
+    try {
+      const userId = req.query.userId;
+      const userScore = await getUserScore(userId);
+      res.json({ score: userScore });
+    } catch (error) {
+      console.error("Score de l'utilisateur introuvable", error);
+      res.status(500).json({ error: "Score de l'utilisateur introuvable" });
+    }
+  });
+  
 
 
 
@@ -283,6 +300,8 @@ app.post("/submit_quizz", async(req, res) => {
 
 // Permet d'envoye les tricheurs au goulag
 app.post('/cheater', async(req, res) => {
+    const name = req.body.name;
+    const firstname = req.body.firstname;
     const triche = req.body.triche;
     const test = await get_data_database(db, 'qizz', req.body.qizz)
     const test_flag = test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['triche']
@@ -297,7 +316,10 @@ app.post('/cheater', async(req, res) => {
     } else {
         await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {data_triche:{[triche]:test_data_triche+1}});
     }
-
+    if(triche){
+        await create_cheater_data(db, name, firstname);
+        res.redirect('/goulag');
+    }
     
 })
 

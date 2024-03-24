@@ -1,4 +1,5 @@
 // const { USER } = require('./script.js'); (Node JS)
+/*
 function generateUniqueId() {
   const randomNumber = Math.floor(Math.random() * 100);
   const uniqueId = '4' + randomNumber.toString().padStart(3, '0');
@@ -7,6 +8,7 @@ function generateUniqueId() {
 
 const usertest_id = document.getElementById("nbr_title");
 usertest_id.innerHTML = generateUniqueId();
+*/
 
 // Timer on the way
 function startTimer(duration, display, redirectUrl) {
@@ -61,6 +63,12 @@ disabled();
 
 
 // Partie quiz
+document.addEventListener("DOMContentLoaded", async function () {
+  const userId = "YOUR_USER_ID_HERE";
+  const userScoreResponse = await fetch(`/user_score?userId=${userId}`);
+  const userScoreData = await userScoreResponse.json();
+  document.getElementById("user_score").textContent = userScoreData.score;
+});
 
 const questions = [
   {
@@ -328,6 +336,7 @@ function checkAnswer(selectedAnswer) {
   {
     user_score -= 2;
   }
+  document.getElementById("user_score").textContent = user_score;
   displayQuestionAndAnswers();
 }
 
