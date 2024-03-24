@@ -125,8 +125,6 @@ app.post('/redirect', async(req, res) => {
 
     const qizz_for_student = await get_data_database(db,'qizz',qizz);
 
-    
-
     async function Qizz_verif(qizz) {
         const interdits = ["creation"]
 
@@ -135,47 +133,50 @@ app.post('/redirect', async(req, res) => {
                 return false;
             } 
         });
+
+        return true;
     }
 
 
     async function Qizz_in_database_verif(qizz_for_student) {
-        if (qizz_for_student === undefined) {
-            console.log(error.message);
+        if (qizz_for_student === null) {
             return false;
+        } else {
+            return true
     }
 
     }
 
     async function Student_verif(qizz_for_student, name_student, firstname_student) {
-        if (qizz_for_student['students']) {
+        if (await Qizz_in_database_verif(qizz_for_student) === true) {
             for (const element in qizz_for_student['students']){
                 if (element === (name_student+"_"+firstname_student).toLowerCase()){
                     console.log((name_student+"_"+firstname_student).toLowerCase(), " a tente de se reconnecter au qizz : ", qizz);
                     return false;
                 }}
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
     async function Firestore_update(db, qizz, name_student, firstname_student) {
         try {
             await update_data_database(db, 'qizz', qizz, 'students', (name_student+"_"+firstname_student).toLowerCase(), {triche:false, data:{}, data_triche:{}});
-            console.log('Données mises à jour avec succès à Firestore.');
             return true;
             
         } catch (error) {
-            console.log("Une erreur s'est produite lors de l'ajout ou de la mise à jour des données à Firestore:", error);
             return false;
         }
     }
 
-    if (Qizz_verif(qizz) && Qizz_in_database_verif(qizz_for_student) && Student_verif(qizz_for_student, name_student, firstname_student) && Firestore_update(db, qizz, name_student, firstname_student)) {
+
+    if (await Qizz_verif(qizz) && await Student_verif(qizz_for_student, name_student, firstname_student) && await Firestore_update(db, qizz, name_student, firstname_student)) {
         res.redirect(`/working?data_received=${qizz}&name=${name_student}&firstname=${firstname_student}`);
     } else {
         res.redirect('/connexion');
     }
-
+});
 
 // s'occupe d'envoyer les questions pour la creation du qizz
 // lis les donnees sur le json present dans le cache
@@ -283,7 +284,6 @@ app.post("/submit_quizz", async(req, res) => {
 // Permet d'envoye les tricheurs au goulag
 app.post('/cheater', async(req, res) => {
     const triche = req.body.triche;
-    console.log(triche, "feure")
     const test = await get_data_database(db, 'qizz', req.body.qizz)
     const test_flag = test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['triche']
     const test_data_triche = test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['data_triche'][triche]
@@ -291,8 +291,6 @@ app.post('/cheater', async(req, res) => {
     if (test_flag === false){
         await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {triche:true});
     }
-
-    console.log(test['students'][(req.body.name + "_" + req.body.firstname).toLowerCase()]['data_triche'][triche], "c moi connard")
 
     if (test_data_triche === undefined){
         await update_data_database(db, 'qizz', req.body.qizz, 'students', (req.body.name + "_" + req.body.firstname).toLowerCase(), {data_triche:{[triche]:1}});
@@ -304,7 +302,8 @@ app.post('/cheater', async(req, res) => {
 })
 
 app.post('/end', async(req, res) => {
-    if (req.body === true) {
+    if (req.body.true === true) {
+        console.log('c bien');
         res.redirect('/connexion')
     } else {
         console.log('c pas bien');
@@ -314,7 +313,20 @@ app.post('/end', async(req, res) => {
 
 app.post('/send_answer', async(req, res) => {
     const formData = req.body;
-    console.log(formData);
+    console.log(formData)
+    let dict_rep = {}
+    let question = ''
+    for (const key in formData) {
+        try {
+            if (key.startsWith("rep")) {
+                question = `question_${(parseInt(key[5])+1)}`
+                dict_rep[key] = formData[key]
+        }} catch(error) {
+            console.log("clef data")
+        };
+    };
+    await update_data_database(db, 'qizz', formData['qizz'], 'students', formData['name'], {data:{[question]:dict_rep}})
+    
 })
 
 app.post('/submit_code', async(req, res) => {

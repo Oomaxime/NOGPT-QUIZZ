@@ -72,61 +72,108 @@ document.addEventListener("keydown", (e) => {
 
 /** envois de la réponse et switch vers la question suivante **/
 const qcm_section = document.querySelector('.qcm_section');
-const answer_sending_button = document.querySelector('.answer_sending_button');
+const answer_sending_buttons = document.querySelectorAll('.answer_sending_button');
 const question_title = document.querySelector('#question_title');
 const main = document.querySelector('main');
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    let checkboxes = document.querySelectorAll('.checkbox');
+    let sections = document.querySelectorAll('.qcm_section');
 
-    for (let i = 0; i < checkboxes.length; i++) {
-        let checkbox = checkboxes[i];
-        let label = document.querySelectorAll('.qcm_label')[i];
+    sections.forEach(function(section, index) {
+        let checkboxes = section.querySelectorAll('.checkbox');
+        let forms = section.querySelectorAll('.qcm_answer_form');
+        let labels = section.querySelectorAll('.qcm_label');
 
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                // Changer la couleur de la bordure du label si la checkbox est cochée
-                label.style.border = '1px solid var(--gold)'; // par exemple, vert pour "coché"
-            } else {
-                // Remettre la couleur de la bordure par défaut si la checkbox n'est pas cochée
-                label.style.border = '1px solid white'; // par exemple, noir pour "non coché"
-            }
+        checkboxes.forEach(function(checkbox, checkboxIndex) {
+            let label = labels[checkboxIndex];
+
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // Changer la couleur de la bordure du label si la checkbox est cochée
+                    label.style.border = '1px solid var(--gold)'; // par exemple, vert pour "coché"
+                } else {
+                    // Remettre la couleur de la bordure par défaut si la checkbox n'est pas cochée
+                    label.style.border = '1px solid white'; // par exemple, noir pour "non coché"
+                }
+            });
         });
-    }
+
+        forms.forEach(function(form) {
+            form.addEventListener('submit', function (event) {
+                let nameValue = document.getElementById('name').value;
+                let firstnameValue = document.getElementById('firstname').value;
+                let qizzValue = document.getElementById('qizz').value;
+                let qizzInput = document.createElement('input');
+                let nameInput = document.createElement('input');
+                nameInput.type = 'hidden';
+                nameInput.name = 'name';
+                nameInput.value = (nameValue+'_'+firstnameValue).toLowerCase();
+                let submitButton = form.querySelector('.answer_sending_button');
+
+                qizzInput.type = 'hidden';
+                qizzInput.name = 'qizz';
+                qizzInput.value = qizzValue;
+
+                form.insertBefore(nameInput, submitButton);
+
+                form.insertBefore(qizzInput, submitButton);
+
+
+
+            });
+        });
+    });
 });
 
-answer_sending_button.addEventListener("click", (e) => {
-    console.log("bouton")
-    e.preventDefault();
-    next();
+answer_sending_buttons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        next()
+    });
 });
 
 
 function next(){
-    
     try {
-        try {
-            const previous_question = document.querySelector(`#num_${num_page-1}`);
-            previous_question.classList.toggle('flexcenter');
-        } catch(err) {
-            console.log("min page reached");
-        }
-        console.log('ca passe dans le reste')
         const current_question = document.querySelector(`#num_${num_page}`);
         current_question.classList.toggle('flexcenter');
-        console.log(num_page, "before")
-        num_page++;
-        console.log(num_page, "after")
-
     } catch(err) {
-        fetch('/end', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: true })
+        redirectToEnd()
     }
+
+    try {
+        const previous_question = document.querySelector(`#num_${num_page-1}`);
+        previous_question.classList.toggle('flexcenter');
+    } catch(err) {
+        console.log("min page reached");
+    }
+
+    num_page++;
+}
+
+// Fonction pour envoyer la requête POST à '/end' en cas de redirection
+function redirectToEnd() {
+    fetch('/end', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({true: true}) 
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('Redirect response:', data);
+
+        window.location.href = '/connexion';
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
 }
 
 

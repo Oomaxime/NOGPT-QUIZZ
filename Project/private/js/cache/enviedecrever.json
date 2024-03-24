@@ -1,0 +1,43 @@
+{
+  "nom": "enviedecrever",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "ceci est un test",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "sadqwdqwd",
+          "is_true": true
+        },
+        {
+          "content": "qsdqwd",
+          "is_true": false
+        }
+      ]
+    },
+    "question_2": {
+      "name": "j'calle le petard entre mes dents",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "asdasdqw",
+          "is_true": false
+        },
+        {
+          "content": "sdaa",
+          "is_true": false
+        },
+        {
+          "content": "asdasda",
+          "is_true": false
+        },
+        {
+          "content": "sqw122",
+          "is_true": false
+        }
+      ]
+    }
+  },
+  "students": {}
+}

@@ -1,35 +1,4 @@
-import { writeFile } from 'fs/promises';
 
-function create_page(data, path) {
-    const content_qizz = data['content']
-    let body_html = '';
-
-    let num_question = 0;
-
-    for (const question in content_qizz){
-        const title = content_qizz[question]['name'];
-        const lang_type = content_qizz[question]['language'];
-        const content_question = content_qizz[question]['choices'];
-        
-        // Switch pour verifier le type de la question
-        switch (content_qizz[question]['type']) {
-            case "qcm" :
-                body_html += coche_creation(title, content_question, num_question);
-                break;
-            case "text" :
-                body_html += text_creation(title, num_question, lang_type);
-                break;
-            default :
-                console.log("le type n'existe pas")
-                // faire un exeption si il y a eu un pb sur le type ou qu'il a ete volontairement modifie.
-        };
-        body_html += '';
-        num_question++
-    }
-
-    // Page standart html
-    let htmlContent =
-    `
     <!doctype html>
     <html lang="fr">
     <head>
@@ -61,56 +30,45 @@ function create_page(data, path) {
             <input type="hidden" id="firstname" name="firstname" value="firstname_student">
             <input type="hidden" id="qizz" name="qizz" value="qizz_student">
 
-            ${body_html}
+            
+    <section class="qcm_section" id="num_0">
+        <h2> tututututu </h2>
+        <form class="qcm_answer_form flexcenter" action="/send_answer" method="post">
+            <div class="qcm_answer_list">
+                
+        <label class="qcm_label" for="rep0_0">tututututu</label>
+        <input type="checkbox" name="rep0_0" id="rep0_0" class="checkbox" style="display:none">
+        
+        <label class="qcm_label" for="rep1_0">tututututu</label>
+        <input type="checkbox" name="rep1_0" id="rep1_0" class="checkbox" style="display:none">
+        
+            </div>
+            <button class="answer_sending_button" type="submit">Validez</button>
+        </form>
+    </section>
+    
+    <section class="qcm_section" id="num_1">
+        <h2> tutututututututututu </h2>
+        <form class="qcm_answer_form flexcenter" action="/send_answer" method="post">
+            <div class="qcm_answer_list">
+                
+        <label class="qcm_label" for="rep0_1">tututututu</label>
+        <input type="checkbox" name="rep0_1" id="rep0_1" class="checkbox" style="display:none">
+        
+        <label class="qcm_label" for="rep1_1">tututututu</label>
+        <input type="checkbox" name="rep1_1" id="rep1_1" class="checkbox" style="display:none">
+        
+        <label class="qcm_label" for="rep2_1">tututututu</label>
+        <input type="checkbox" name="rep2_1" id="rep2_1" class="checkbox" style="display:none">
+        
+            </div>
+            <button class="answer_sending_button" type="submit">Validez</button>
+        </form>
+    </section>
+    
         </main>
         <script src="js/script_qizz.js"></script>
         <script src="js/editor.bundle.js"></script>
     </body>
     </html>
-    `;
-
-    writeFile(path, htmlContent)
-}
-
-function text_creation(title, num_question, lang_type) {
-    let text = `
-    <section class="texted_answer_section" id="num_${num_question}">
-        <h3 id="question_title">${title}</h3>
-        <div class="editor"></div>
-        <button type="submit" class="answer_sending_button" id="getCodeButton">VALIDER</button>
-    </section>
-    `;
-
-    return text;
-}
-
-function coche_creation(title, content, num_question) {
-    let i = 0;
-    let questions = '';
-
-    for (const ele of content) {
-        let proposition = `
-        <label class="qcm_label" for="rep${i}_${num_question}">${ele['content']}</label>
-        <input type="checkbox" name="rep${i}_${num_question}" id="rep${i}_${num_question}" class="checkbox" style="display:none">
-        `;
-
-        questions += proposition;
-        i++;
-    };
     
-    let qcm = `
-    <section class="qcm_section" id="num_${num_question}">
-        <h2> ${title} </h2>
-        <form class="qcm_answer_form flexcenter" action="/send_answer" method="post">
-            <div class="qcm_answer_list">
-                ${questions}
-            </div>
-            <button class="answer_sending_button" type="submit">Validez</button>
-        </form>
-    </section>
-    `;
-
-    return qcm;
-}
-
-export { create_page };

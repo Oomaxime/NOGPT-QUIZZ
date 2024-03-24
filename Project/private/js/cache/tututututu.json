@@ -1,0 +1,39 @@
+{
+  "nom": "tututututu",
+  "creator_id": "",
+  "content": {
+    "question_1": {
+      "name": "tututututu",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "tututututu",
+          "is_true": false
+        },
+        {
+          "content": "tututututu",
+          "is_true": true
+        }
+      ]
+    },
+    "question_2": {
+      "name": "tutututututututututu",
+      "type": "qcm",
+      "choices": [
+        {
+          "content": "tututututu",
+          "is_true": false
+        },
+        {
+          "content": "tututututu",
+          "is_true": true
+        },
+        {
+          "content": "tututututu",
+          "is_true": false
+        }
+      ]
+    }
+  },
+  "students": {}
+}
