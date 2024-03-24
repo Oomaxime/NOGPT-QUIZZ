@@ -1,5 +1,5 @@
 // const { USER } = require('./script.js'); (Node JS)
-/*
+
 function generateUniqueId() {
   const randomNumber = Math.floor(Math.random() * 100);
   const uniqueId = '4' + randomNumber.toString().padStart(3, '0');
@@ -8,7 +8,7 @@ function generateUniqueId() {
 
 const usertest_id = document.getElementById("nbr_title");
 usertest_id.innerHTML = generateUniqueId();
-*/
+
 
 // Timer on the way
 function startTimer(duration, display, redirectUrl) {
@@ -63,13 +63,6 @@ disabled();
 
 
 // Partie quiz
-document.addEventListener("DOMContentLoaded", async function () {
-  const userId = "YOUR_USER_ID_HERE";
-  const userScoreResponse = await fetch(`/user_score?userId=${userId}`);
-  const userScoreData = await userScoreResponse.json();
-  document.getElementById("user_score").textContent = userScoreData.score;
-});
-
 const questions = [
   {
   "question": "Que signifie HTML ?",
@@ -308,7 +301,6 @@ const answer_1 = document.getElementById("qcm_choice1");
 const answer_2 = document.getElementById("qcm_choice2");
 const answer_3 = document.getElementById("qcm_choice3");
 const answer_4 = document.getElementById("qcm_choice4");
-let user_score = 0;
 
 function displayQuestionAndAnswers() {
   if (currentQuestionIndex < questions.length) {
@@ -327,14 +319,16 @@ function displayQuestionAndAnswers() {
   }
 }
 
+let user_score = 0;
+
 function checkAnswer(selectedAnswer) {
   const currentQuestion = questions[currentQuestionIndex - 1];
   if (selectedAnswer === (currentQuestion.correct_answer - 1)) {
-    user_score += 5;
+    user_score += 2;
   }
   else
   {
-    user_score -= 2;
+    user_score -= 4;
   }
   document.getElementById("user_score").textContent = user_score;
   displayQuestionAndAnswers();
@@ -350,6 +344,3 @@ function startQuizz() {
 }
 
 startQuizz();
-USER.score = user_score;
-
-console.log(USER.id + " / " + USER.score);
