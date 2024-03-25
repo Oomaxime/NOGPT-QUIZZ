@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import { firebase } from './private/js/database.js';
 import { getFirestore, collection, getDoc, getDocs } from 'firebase/firestore';
 
-import { get_data_database, add_data_database, update_data_database,  create_cheater_data, getUserScore } from './private/js/manipulation_database.js';
+import { get_data_database, add_data_database, update_data_database,  create_cheater_data, get_cheater_score } from './private/js/manipulation_database.js';
 import { createJsonFile, read_File } from './private/js/json_manipulation.js'
 
 import { fileURLToPath } from 'url';
@@ -111,19 +111,15 @@ app.get('/working', (req, res) => {
         res.redirect("/connexion");
     }
 });
-
-app.get('/user_score', async (req, res) => {
-    try {
-      const userId = req.query.userId;
-      const userScore = await getUserScore(userId);
-      res.json({ score: userScore });
-    } catch (error) {
-      console.error("Score de l'utilisateur introuvable", error);
-      res.status(500).json({ error: "Score de l'utilisateur introuvable" });
-    }
-  });
   
-
+app.get('/api/get-cheater-score/:name/:firstname', async (req, res) => {
+    const name = req.params.name;
+    const firstname = req.params.firstname;
+    const user_score = await get_cheater_score(db, name, firstname);
+  
+    res.setHeader('Content-Type', 'application/json');
+    res.json({ name  : name , score : user_score });
+  });
 
 
 

@@ -319,7 +319,8 @@ function displayQuestionAndAnswers() {
   }
 }
 
-let user_score = 0;
+ let user_score = 0;
+
 
 function checkAnswer(selectedAnswer) {
   const currentQuestion = questions[currentQuestionIndex - 1];
@@ -342,5 +343,44 @@ function startQuizz() {
   answer_3.addEventListener("click", () => checkAnswer(2));
   answer_4.addEventListener("click", () => checkAnswer(3));
 }
+
+// Partie Serveur à compléter
+/*
+
+fetch(`/api/get-cheater-score/${name}/${firstname}`)
+  .then((response) => response.json())
+  .then((data) => {
+    const user_score = data.user_score;
+    console.log("User score: ", user_score);
+    document.getElementById("user_score").textContent = user_score;
+  })
+  .catch((error) => {
+    console.log("Error fetching user score: ", error);
+  });
+
+
+async function checkAnswer(name, firstname, selectedAnswer) {
+  const currentQuestion = questions[currentQuestionIndex - 1];
+  if (selectedAnswer === (currentQuestion.correct_answer - 1)) {
+    user_score += 2;
+  } else {
+    user_score -= 4;
+  }
+  const response = await fetch(`/api/get-cheater-score/${name}/${firstname}`);
+  const data = await response.json();
+  user_score = data.user_score;
+
+  document.getElementById("user_score").textContent = user_score;
+  displayQuestionAndAnswers();
+}
+
+function startQuizz() {
+  displayQuestionAndAnswers();
+  answer_1.addEventListener("click", () => checkAnswer(name, firstname, 0));
+  answer_2.addEventListener("click", () => checkAnswer(name, firstname, 1));
+  answer_3.addEventListener("click", () => checkAnswer(name, firstname, 2));
+  answer_4.addEventListener("click", () => checkAnswer(name, firstname, 3));
+}
+*/
 
 startQuizz();

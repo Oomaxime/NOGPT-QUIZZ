@@ -86,22 +86,24 @@ const create_cheater_data = async (db, name, firstname) => {
     }
 };
 
-async function getUserScore(userId) {
-    const db = getFirestore();
-    const userDocRef = doc(db, 'qizz','goulag', userId);
-    const userContent = await getDoc(userDocRef);
+const get_cheater_score = async (db, name, firstname) => {
+    try {
+      const docRef = doc(db, 'qizz', 'goulag', `${name}_${firstname}`);
+      const docSnap = await getDoc(docRef);
   
-    if (userContent.exists()) {
-      const userData = userContent.data();
-      return userData.score || 0;
-    } 
-    else {
-        console.error("Données utilisateurs introuvable.");
+      if (docSnap.exists()) {
+        return docSnap.data().score;
+      } else {
+        console.log("Utilisateur inconnu.");
+        return 0;
+      }
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de la récupération du score :", error);
+      return 0;
     }
-  }
+  };
 
-
-export {get_data_database, add_data_database, update_data_database, update_data_student_database, create_cheater_data, getUserScore};
+export {get_data_database, add_data_database, update_data_database, update_data_student_database, create_cheater_data, get_cheater_score};
 
 
 
